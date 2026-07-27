@@ -130,17 +130,17 @@ export function LeadPipelineBoard({
   return (
     <div className="bg-cloud/65 p-3 sm:p-4">
       <div className="mb-3 flex flex-wrap items-center justify-between gap-2 px-1">
-        <p className="text-[9px] leading-5 text-slate">
+        <p className="text-xs leading-5 text-slate">
           اسحب الكارت بين المراحل، أو استخدم قائمة «نقل إلى» على الهاتف والكيبورد.
         </p>
-        <div className="flex items-center gap-1.5 text-[8px] font-medium text-slate">
+        <div className="flex items-center gap-1.5 text-[11px] font-medium text-slate">
           <span className="size-1.5 rounded-full bg-teal" />
           يتم حفظ المرحلة تلقائيًا
         </div>
       </div>
 
       <div
-        className="thin-scrollbar grid auto-cols-[minmax(285px,315px)] grid-flow-col gap-3 overflow-x-auto pb-3"
+        className="thin-scrollbar grid auto-cols-[minmax(320px,350px)] grid-flow-col gap-3 overflow-x-auto pb-3"
         aria-label="مسار العملاء المحتملين"
       >
         {columns.map((column) => {
@@ -168,21 +168,21 @@ export function LeadPipelineBoard({
               aria-label={`${column.status.label}: ${column.count} عميل`}
             >
               <header
-                className={`flex items-center justify-between border-b border-navy/[0.055] px-3.5 py-3 ${style.header}`}
+                className={`flex min-h-[62px] items-center justify-between gap-3 border-b border-navy/[0.055] px-4 py-3.5 ${style.header}`}
               >
-                <div className="flex min-w-0 items-center gap-2.5">
+                <div className="flex min-w-0 flex-1 items-center gap-2.5">
                   <span className={`size-2.5 shrink-0 rounded-full shadow-sm ${style.dot}`} />
                   <div className="min-w-0">
-                    <h2 className="truncate text-[11px] font-bold text-navy">
+                    <h2 className="whitespace-normal text-sm font-bold leading-5 text-navy">
                       {column.status.label}
                     </h2>
                     {isWon ? (
-                      <p className="mt-0.5 text-[7px] text-emerald-700">تُستكمل من ملف العميل</p>
+                      <p className="mt-0.5 text-[10px] text-emerald-700">تُستكمل من ملف العميل</p>
                     ) : null}
                   </div>
                 </div>
                 <span
-                  className={`grid min-w-7 place-items-center rounded-full px-2 py-1 text-[8px] font-bold ${style.badge}`}
+                  className={`grid min-w-8 shrink-0 place-items-center rounded-full px-2.5 py-1.5 text-[11px] font-bold ${style.badge}`}
                 >
                   {column.count}
                 </span>
@@ -211,14 +211,14 @@ export function LeadPipelineBoard({
                   >
                     <div>
                       <Inbox className="mx-auto text-slate/45" size={22} />
-                      <p className="mt-2 text-[8px] text-slate">لا يوجد عملاء في هذه المرحلة</p>
+                      <p className="mt-2 text-[11px] text-slate">لا يوجد عملاء في هذه المرحلة</p>
                     </div>
                   </div>
                 )}
               </div>
 
               {column.has_more ? (
-                <div className="border-t border-navy/[0.05] bg-white px-3 py-2 text-center text-[8px] text-slate">
+                <div className="border-t border-navy/[0.05] bg-white px-3 py-2 text-center text-[11px] text-slate">
                   عرض أول {column.leads.length} من {column.count}
                 </div>
               ) : null}
@@ -250,7 +250,7 @@ function PipelineLeadCard({
 
   return (
     <article
-      className={`group rounded-xl border border-navy/[0.07] bg-white p-3 shadow-[0_4px_14px_rgba(11,36,84,.04)] transition ${
+      className={`group rounded-xl border border-navy/[0.07] bg-white p-3.5 shadow-[0_4px_14px_rgba(11,36,84,.04)] transition ${
         isDragging ? "scale-[.98] opacity-40" : "hover:-translate-y-0.5 hover:border-teal/25 hover:shadow-[0_9px_24px_rgba(11,36,84,.08)]"
       } ${isMoving ? "pointer-events-none opacity-65" : ""}`}
     >
@@ -261,7 +261,7 @@ function PipelineLeadCard({
           disabled={isWon || isMoving}
           onDragStart={(event) => onDragStart(event, lead)}
           onDragEnd={onDragEnd}
-          className={`mt-0.5 grid size-7 shrink-0 place-items-center rounded-lg transition ${
+          className={`mt-0.5 grid size-8 shrink-0 place-items-center rounded-lg transition ${
             isWon
               ? "cursor-not-allowed bg-emerald-50 text-emerald-600"
               : "cursor-grab text-slate/55 hover:bg-cloud hover:text-navy active:cursor-grabbing"
@@ -270,23 +270,23 @@ function PipelineLeadCard({
           title={isWon ? "المرحلة مكتملة" : "اسحب لنقل العميل"}
         >
           {isMoving ? (
-            <LoaderCircle className="animate-spin" size={14} />
+            <LoaderCircle className="animate-spin" size={16} />
           ) : isWon ? (
-            <LockKeyhole size={13} />
+            <LockKeyhole size={15} />
           ) : (
-            <GripVertical size={15} />
+            <GripVertical size={17} />
           )}
         </button>
 
         <Link href={`/leads/${lead.id}`} className="min-w-0 flex-1">
           <div className="flex items-start justify-between gap-2">
             <div className="min-w-0">
-              <h3 className="truncate text-[10px] font-bold text-ink">{lead.full_name}</h3>
-              <p className="mt-1 truncate text-[8px] text-slate">
+              <h3 className="truncate text-sm font-bold leading-5 text-ink">{lead.full_name}</h3>
+              <p className="mt-1 truncate text-xs text-slate">
                 {lead.program?.name_ar ?? "البرنامج غير محدد"}
               </p>
             </div>
-            <span className="shrink-0 rounded-md bg-cloud px-1.5 py-1 text-[7px] font-medium text-slate">
+            <span className="shrink-0 rounded-md bg-cloud px-2 py-1 text-[10px] font-medium text-slate">
               {lead.source.label}
             </span>
           </div>
@@ -312,17 +312,17 @@ function PipelineLeadCard({
             }`}
           >
             <div className="flex items-center gap-1.5">
-              <CalendarClock size={12} />
-              <p className="min-w-0 flex-1 truncate text-[8px] font-semibold">
+              <CalendarClock className="shrink-0" size={14} />
+              <p className="min-w-0 flex-1 text-[11px] font-semibold leading-4">
                 {lead.next_follow_up.subject}
               </p>
-              <span className="shrink-0 text-[7px]">
+              <span className="shrink-0 text-[10px]">
                 {relativeTime(lead.next_follow_up.due_at)}
               </span>
             </div>
           </div>
         ) : (
-          <div className="mt-2.5 rounded-lg border border-dashed border-navy/[0.07] px-2.5 py-2 text-[8px] text-slate/65">
+          <div className="mt-2.5 rounded-lg border border-dashed border-navy/[0.07] px-2.5 py-2 text-[11px] text-slate/65">
             لا توجد متابعة قادمة
           </div>
         )}
@@ -330,10 +330,10 @@ function PipelineLeadCard({
 
       <div className="mt-3 flex items-center justify-between gap-2 border-t border-navy/[0.05] pt-2.5">
         <div className="flex min-w-0 items-center gap-1.5">
-          <span className="grid size-6 shrink-0 place-items-center rounded-full bg-navy text-[7px] font-bold text-white">
+          <span className="grid size-7 shrink-0 place-items-center rounded-full bg-navy text-[10px] font-bold text-white">
             {ownerInitial}
           </span>
-          <span className="truncate text-[8px] text-slate">
+          <span className="truncate text-[11px] text-slate">
             {lead.owner?.name ?? "غير معيّن"}
           </span>
         </div>
@@ -341,7 +341,7 @@ function PipelineLeadCard({
         {isWon ? (
           <Link
             href={`/leads/${lead.id}`}
-            className="inline-flex items-center gap-1 text-[8px] font-semibold text-emerald-700"
+            className="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-700"
           >
             فتح
             <ArrowUpLeft size={11} />
@@ -357,7 +357,7 @@ function PipelineLeadCard({
                   onMove(lead, event.target.value);
                 }
               }}
-              className="min-h-7 max-w-28 cursor-pointer appearance-none rounded-lg border border-navy/[0.07] bg-cloud py-1 pr-2 pl-6 text-[7px] font-semibold text-navy outline-none transition hover:border-teal/30 focus:border-teal"
+              className="min-h-9 w-36 cursor-pointer appearance-none rounded-lg border border-navy/[0.07] bg-cloud py-1.5 pr-2.5 pl-7 text-[11px] font-semibold text-navy outline-none transition hover:border-teal/30 focus:border-teal"
               aria-label={`نقل ${lead.full_name} إلى مرحلة أخرى`}
             >
               {movableStages.map(([value, label]) => (
@@ -389,9 +389,9 @@ function PipelineDetail({
   return (
     <div
       dir={dir}
-      className="flex min-w-0 items-center gap-1.5 rounded-lg bg-cloud/65 px-2 py-1.5 text-[7px] text-slate"
+      className="flex min-w-0 items-center gap-1.5 rounded-lg bg-cloud/65 px-2.5 py-2 text-[11px] text-slate"
     >
-      <Icon className="shrink-0 text-teal" size={11} />
+      <Icon className="shrink-0 text-teal" size={13} />
       <span className="truncate">{children}</span>
     </div>
   );
