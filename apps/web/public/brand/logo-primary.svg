@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 300" role="img" aria-labelledby="title desc">
+  <title id="title">EduStep English Academy primary logo</title>
+  <desc id="desc">EduStep wordmark beside an ascending step symbol.</desc>
+  <g transform="translate(22 22) scale(1)">
+    <rect x="0" y="0" width="256" height="256" rx="73" fill="#0B2454"/>
+    <path d="M47 177H94V134H141V91H188" fill="none" stroke="#19B6C6" stroke-width="28" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M196 45l6 14.4 14.4 6-14.4 6L196 86l-6-14.6-14.4-6 14.4-6L196 45z" fill="#FFB703"/>
+  </g>
+  <g font-family="Avenir Next, Manrope, Arial Rounded MT Bold, Arial, sans-serif">
+    <text x="324" y="145" font-size="106" font-weight="700" letter-spacing="-4">
+      <tspan fill="#0B2454">Edu</tspan><tspan fill="#0BA7B4">Step</tspan>
+    </text>
+    <text x="331" y="204" fill="#0B2454" font-size="29" font-weight="600" letter-spacing="9">ENGLISH ACADEMY</text>
+    <path d="M330 226h455" stroke="#FFB703" stroke-width="8" stroke-linecap="round"/>
+  </g>
+</svg>

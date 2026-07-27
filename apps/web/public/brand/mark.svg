@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="title desc">
+  <title id="title">EduStep brand mark</title>
+  <desc id="desc">A rounded navy tile containing an ascending turquoise step and a yellow achievement spark.</desc>
+  <rect x="16" y="16" width="224" height="224" rx="64" fill="#0B2454"/>
+  <path d="M57 174H97V137H137V100H178" fill="none" stroke="#19B6C6" stroke-width="25" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M184 57l5.3 12.7L202 75l-12.7 5.3L184 93l-5.3-12.7L166 75l12.7-5.3L184 57z" fill="#FFB703"/>
+</svg>

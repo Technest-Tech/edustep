@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title id="title">EduStep favicon</title>
+  <rect x="2" y="2" width="60" height="60" rx="17" fill="#0B2454"/>
+  <path d="M13 45h12V34h12V23h13" fill="none" stroke="#19B6C6" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
