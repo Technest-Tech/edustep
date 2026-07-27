@@ -1,0 +1,13 @@
+.git
+.DS_Store
+.env
+.env.*
+**/.env
+**/.env.*
+**/node_modules
+**/.next
+**/vendor
+**/storage/logs/*
+**/bootstrap/cache/*.php
+docs
+

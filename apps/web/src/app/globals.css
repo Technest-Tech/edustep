@@ -1,0 +1,96 @@
+@import "tailwindcss";
+
+:root {
+  --edustep-navy: #0b2454;
+  --edustep-navy-soft: #14356f;
+  --edustep-teal: #0ba7b4;
+  --edustep-teal-bright: #19b6c6;
+  --edustep-sun: #ffb703;
+  --edustep-ink: #152238;
+  --edustep-slate: #53627a;
+  --edustep-mist: #e9f8fa;
+  --edustep-cloud: #f7fafc;
+  --edustep-white: #ffffff;
+  --background: var(--edustep-cloud);
+  --foreground: var(--edustep-ink);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-navy: var(--edustep-navy);
+  --color-navy-soft: var(--edustep-navy-soft);
+  --color-teal: var(--edustep-teal);
+  --color-teal-bright: var(--edustep-teal-bright);
+  --color-sun: var(--edustep-sun);
+  --color-ink: var(--edustep-ink);
+  --color-slate: var(--edustep-slate);
+  --color-mist: var(--edustep-mist);
+  --color-cloud: var(--edustep-cloud);
+  --font-sans: var(--font-alexandria);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--background);
+}
+
+body {
+  min-width: 320px;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-alexandria), "Cairo", Tahoma, sans-serif;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--edustep-teal) 25%, white);
+  color: var(--edustep-navy);
+}
+
+:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--edustep-sun) 70%, white);
+  outline-offset: 2px;
+}
+
+.dashboard-grid {
+  background-image:
+    linear-gradient(rgba(11, 36, 84, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(11, 36, 84, 0.025) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+.thin-scrollbar {
+  scrollbar-color: rgba(83, 98, 122, 0.25) transparent;
+  scrollbar-width: thin;
+}
+
+.field-control {
+  width: 100%;
+  border: 1px solid rgba(11, 36, 84, 0.1);
+  border-radius: 0.875rem;
+  background: var(--edustep-cloud);
+  padding: 0.75rem 0.875rem;
+  color: var(--edustep-ink);
+  font-size: 0.625rem;
+  outline: none;
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    background 160ms ease;
+}
+
+.field-control:focus {
+  border-color: color-mix(in srgb, var(--edustep-teal) 55%, white);
+  background: white;
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--edustep-teal) 10%, transparent);
+}
