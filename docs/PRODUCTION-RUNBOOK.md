@@ -14,6 +14,8 @@
 - شهادة `edustepnow.com` مستقلة عن شهادة `acadmyq.com`.
 - PostgreSQL وRedis الخاصان بـEduStep داخل شبكة Docker الخاصة ولا يُكشفان
   على الـhost أو الإنترنت.
+- لكل خدمة حد RAM وCPU مستقل داخل `compose.production.yaml` لحماية النظام
+  الحالي من ضغط أو تسريب موارد في EduStep.
 - استخدم system user ومجلدًا وأسماء خدمات مستقلة، وأضف swap قبل تشغيل stack
   ثانٍ على السيرفر.
 
