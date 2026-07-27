@@ -28,7 +28,7 @@ return new class extends Migration
             $table->foreignUlid('student_id')->constrained()->cascadeOnDelete();
             $table->foreignUlid('enrollment_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignUlid('study_package_id')->constrained()->restrictOnDelete();
-            $table->foreignUlid('parent_subscription_id')->nullable()->constrained('student_subscriptions')->nullOnDelete();
+            $table->foreignUlid('parent_subscription_id')->nullable();
             $table->foreignUlid('created_by')->nullable()->constrained('users')->nullOnDelete();
             $table->string('status', 30)->index();
             $table->date('starts_on')->index();
@@ -45,6 +45,13 @@ return new class extends Migration
             $table->timestamps();
 
             $table->index(['student_id', 'status', 'ends_on']);
+        });
+
+        Schema::table('student_subscriptions', function (Blueprint $table) {
+            $table->foreign('parent_subscription_id')
+                ->references('id')
+                ->on('student_subscriptions')
+                ->nullOnDelete();
         });
 
         Schema::create('subscription_installments', function (Blueprint $table) {
