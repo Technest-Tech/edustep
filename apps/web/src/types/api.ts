@@ -285,6 +285,19 @@ export type Lead = {
   created_at: string;
 };
 
+export type LeadPipelineColumn = {
+  status: LabeledValue;
+  count: number;
+  has_more: boolean;
+  leads: Lead[];
+};
+
+export type LeadPipeline = {
+  columns: LeadPipelineColumn[];
+  total: number;
+  limit_per_stage: number;
+};
+
 export type Cohort = {
   id: string;
   code: string;

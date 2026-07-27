@@ -54,6 +54,48 @@ class LeadWorkflowTest extends TestCase
             ->assertJsonPath('data.0.phone', '01011112222');
     }
 
+    public function test_an_authenticated_staff_member_can_view_and_move_leads_in_the_pipeline(): void
+    {
+        $user = User::factory()->create();
+        $newLead = Lead::query()->create([
+            'owner_id' => $user->id,
+            'full_name' => 'عميل البايبلاين',
+            'phone' => '01012121212',
+            'source' => LeadSource::Website,
+            'status' => LeadStatus::New,
+        ]);
+        Lead::query()->create([
+            'owner_id' => $user->id,
+            'full_name' => 'عميل تم التواصل معه',
+            'phone' => '01034343434',
+            'source' => LeadSource::Referral,
+            'status' => LeadStatus::Contacted,
+        ]);
+
+        $this->actingAs($user)
+            ->getJson('/api/v1/leads/pipeline')
+            ->assertOk()
+            ->assertJsonCount(count(LeadStatus::cases()), 'data.columns')
+            ->assertJsonPath('data.total', 2)
+            ->assertJsonPath('data.columns.0.status.value', LeadStatus::New->value)
+            ->assertJsonPath('data.columns.0.count', 1)
+            ->assertJsonPath('data.columns.0.leads.0.id', $newLead->id)
+            ->assertJsonPath('data.columns.1.status.value', LeadStatus::Contacted->value)
+            ->assertJsonPath('data.columns.1.count', 1);
+
+        $this->actingAs($user)
+            ->patchJson("/api/v1/leads/{$newLead->id}", [
+                'status' => LeadStatus::Qualified->value,
+            ])
+            ->assertOk()
+            ->assertJsonPath('data.status.value', LeadStatus::Qualified->value);
+
+        $this->assertDatabaseHas('lead_activities', [
+            'lead_id' => $newLead->id,
+            'type' => 'status_change',
+        ]);
+    }
+
     public function test_a_follow_up_can_be_created_and_completed(): void
     {
         $user = User::factory()->create();

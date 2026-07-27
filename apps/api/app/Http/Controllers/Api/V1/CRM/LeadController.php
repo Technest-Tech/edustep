@@ -11,6 +11,8 @@ use App\Http\Resources\Api\V1\CRM\LeadListResource;
 use App\Http\Resources\Api\V1\CRM\LeadResource;
 use App\Models\Lead;
 use App\Modules\CRM\Actions\RecordLeadActivity;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Validation\ValidationException;
@@ -19,37 +21,48 @@ class LeadController extends Controller
 {
     public function index(Request $request): AnonymousResourceCollection
     {
-        $query = Lead::query()
-            ->with([
-                'interestedProgram',
-                'owner',
-                'followUps' => fn ($query) => $query
-                    ->where('status', FollowUpStatus::Pending->value)
-                    ->with('assignee')
-                    ->orderBy('due_at'),
-            ])
-            ->when($request->string('search')->toString(), function ($query, string $search): void {
-                $query->where(function ($query) use ($search): void {
-                    $query
-                        ->where('full_name', 'like', "%{$search}%")
-                        ->orWhere('phone', 'like', "%{$search}%")
-                        ->orWhere('email', 'like', "%{$search}%");
-                });
-            })
+        $query = $this->filteredQuery($request)
             ->when($request->string('status')->toString(), fn ($query, string $status) => $query->where('status', $status))
-            ->when($request->string('source')->toString(), fn ($query, string $source) => $query->where('source', $source))
-            ->when($request->string('program_id')->toString(), fn ($query, string $programId) => $query->where('interested_program_id', $programId))
-            ->when($request->string('owner_id')->toString(), fn ($query, string $ownerId) => $query->where('owner_id', $ownerId))
-            ->when($request->boolean('overdue'), function ($query): void {
-                $query->whereHas('followUps', fn ($query) => $query
-                    ->where('status', FollowUpStatus::Pending->value)
-                    ->where('due_at', '<', now()));
-            })
             ->latest();
 
         $perPage = min(max($request->integer('per_page', 15), 5), 100);
 
         return LeadListResource::collection($query->paginate($perPage)->withQueryString());
+    }
+
+    public function pipeline(Request $request): JsonResponse
+    {
+        $limitPerStage = min(max($request->integer('limit_per_stage', 50), 5), 100);
+        $baseQuery = $this->filteredQuery($request);
+
+        $columns = collect(LeadStatus::cases())->map(
+            function (LeadStatus $status) use ($baseQuery, $limitPerStage, $request): array {
+                $stageQuery = (clone $baseQuery)->where('status', $status->value);
+                $count = (clone $stageQuery)->count();
+                $leads = $stageQuery
+                    ->latest()
+                    ->limit($limitPerStage)
+                    ->get();
+
+                return [
+                    'status' => [
+                        'value' => $status->value,
+                        'label' => $status->label(),
+                    ],
+                    'count' => $count,
+                    'has_more' => $count > $leads->count(),
+                    'leads' => LeadListResource::collection($leads)->resolve($request),
+                ];
+            },
+        );
+
+        return response()->json([
+            'data' => [
+                'columns' => $columns,
+                'total' => $columns->sum('count'),
+                'limit_per_stage' => $limitPerStage,
+            ],
+        ]);
     }
 
     public function store(StoreLeadRequest $request, RecordLeadActivity $recordActivity): LeadResource
@@ -142,5 +155,37 @@ class LeadController extends Controller
             'student.enrollments.cohort.level',
             'student.enrollments.cohort.program',
         ]);
+    }
+
+    /**
+     * @return Builder<Lead>
+     */
+    private function filteredQuery(Request $request): Builder
+    {
+        return Lead::query()
+            ->with([
+                'interestedProgram',
+                'owner',
+                'followUps' => fn ($query) => $query
+                    ->where('status', FollowUpStatus::Pending->value)
+                    ->with('assignee')
+                    ->orderBy('due_at'),
+            ])
+            ->when($request->string('search')->toString(), function ($query, string $search): void {
+                $query->where(function ($query) use ($search): void {
+                    $query
+                        ->where('full_name', 'like', "%{$search}%")
+                        ->orWhere('phone', 'like', "%{$search}%")
+                        ->orWhere('email', 'like', "%{$search}%");
+                });
+            })
+            ->when($request->string('source')->toString(), fn ($query, string $source) => $query->where('source', $source))
+            ->when($request->string('program_id')->toString(), fn ($query, string $programId) => $query->where('interested_program_id', $programId))
+            ->when($request->string('owner_id')->toString(), fn ($query, string $ownerId) => $query->where('owner_id', $ownerId))
+            ->when($request->boolean('overdue'), function ($query): void {
+                $query->whereHas('followUps', fn ($query) => $query
+                    ->where('status', FollowUpStatus::Pending->value)
+                    ->where('due_at', '<', now()));
+            });
     }
 }

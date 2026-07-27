@@ -1,23 +1,26 @@
 "use client";
 
 import { AddLeadDialog } from "@/features/leads/add-lead-dialog";
+import { LeadPipelineBoard } from "@/features/leads/lead-pipeline-board";
 import { Button } from "@/components/ui/button";
 import { PageHeader } from "@/components/ui/page-header";
 import { StatusBadge } from "@/components/ui/status-badge";
-import { apiClient } from "@/lib/api/client";
+import { apiClient, ApiError } from "@/lib/api/client";
 import { relativeTime } from "@/lib/format";
-import type { ApiCollection, Lead } from "@/types/api";
-import { useQuery } from "@tanstack/react-query";
+import type { ApiCollection, ApiItem, Lead, LeadPipeline } from "@/types/api";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   ChevronLeft,
   ChevronRight,
   CircleAlert,
+  Columns3,
   Filter,
+  List,
   MessageCircleMore,
   Plus,
   Search,
-  SlidersHorizontal,
   UsersRound,
+  X,
 } from "lucide-react";
 import Link from "next/link";
 import { useDeferredValue, useState } from "react";
@@ -33,6 +36,8 @@ const stages = [
   ["lost", "غير مهتم"],
 ] as const;
 
+type ViewMode = "pipeline" | "list";
+
 export function LeadsContent({
   initialSearch = "",
   initialOverdue = false,
@@ -40,14 +45,18 @@ export function LeadsContent({
   initialSearch?: string;
   initialOverdue?: boolean;
 }) {
+  const queryClient = useQueryClient();
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [activeView, setActiveView] = useState<ViewMode>("pipeline");
   const [search, setSearch] = useState(initialSearch);
   const [stage, setStage] = useState("all");
   const [overdue, setOverdue] = useState(initialOverdue);
   const [page, setPage] = useState(1);
+  const [actionError, setActionError] = useState<string | null>(null);
   const deferredSearch = useDeferredValue(search);
-  const query = useQuery({
-    queryKey: ["leads", deferredSearch, stage, overdue, page],
+
+  const listQuery = useQuery({
+    queryKey: ["leads", "list", deferredSearch, stage, overdue, page],
     queryFn: () => {
       const params = new URLSearchParams({
         page: String(page),
@@ -59,11 +68,91 @@ export function LeadsContent({
 
       return apiClient<ApiCollection<Lead>>(`/api/v1/leads?${params}`);
     },
+    enabled: activeView === "list",
   });
 
-  const total = query.data?.meta?.total ?? 0;
-  const overdueInPage =
-    query.data?.data.filter((lead) => lead.next_follow_up?.is_overdue).length ?? 0;
+  const pipelineQueryKey = [
+    "leads",
+    "pipeline",
+    deferredSearch,
+    overdue,
+  ] as const;
+  const pipelineQuery = useQuery({
+    queryKey: pipelineQueryKey,
+    queryFn: () => {
+      const params = new URLSearchParams({ limit_per_stage: "50" });
+      if (deferredSearch) params.set("search", deferredSearch);
+      if (overdue) params.set("overdue", "1");
+
+      return apiClient<ApiItem<LeadPipeline>>(`/api/v1/leads/pipeline?${params}`);
+    },
+    enabled: activeView === "pipeline",
+  });
+
+  const moveMutation = useMutation({
+    mutationFn: ({ lead, status }: { lead: Lead; status: string }) =>
+      apiClient<ApiItem<Lead>>(`/api/v1/leads/${lead.id}`, {
+        method: "PATCH",
+        json: { status },
+      }),
+    onMutate: async ({ lead, status }) => {
+      setActionError(null);
+      await queryClient.cancelQueries({ queryKey: pipelineQueryKey });
+      const previous = queryClient.getQueryData<ApiItem<LeadPipeline>>(pipelineQueryKey);
+
+      if (previous) {
+        queryClient.setQueryData(
+          pipelineQueryKey,
+          optimisticallyMoveLead(previous, lead, status),
+        );
+      }
+
+      return { previous };
+    },
+    onError: (error, _variables, context) => {
+      if (context?.previous) {
+        queryClient.setQueryData(pipelineQueryKey, context.previous);
+      }
+      setActionError(errorMessage(error));
+    },
+    onSettled: async () => {
+      await Promise.all([
+        queryClient.invalidateQueries({ queryKey: ["leads"] }),
+        queryClient.invalidateQueries({ queryKey: ["dashboard"] }),
+      ]);
+    },
+  });
+
+  function moveLead(lead: Lead, status: string) {
+    if (moveMutation.isPending || lead.status.value === status) return;
+
+    if (status === "won") {
+      setActionError(
+        "مرحلة «تم التسجيل» تحتاج تحويل العميل إلى طالب من ملفه حتى يتم إنشاء التسجيل والفاتورة بصورة صحيحة.",
+      );
+      return;
+    }
+
+    if (lead.status.value === "won") {
+      setActionError("العميل المسجل مرحلة مكتملة ولا يمكن نقله من لوحة المسار.");
+      return;
+    }
+
+    moveMutation.mutate({ lead, status });
+  }
+
+  const pipelineLeads =
+    pipelineQuery.data?.data.columns.flatMap((column) => column.leads) ?? [];
+  const visibleLeads =
+    activeView === "pipeline" ? pipelineLeads : (listQuery.data?.data ?? []);
+  const total =
+    activeView === "pipeline"
+      ? (pipelineQuery.data?.data.total ?? 0)
+      : (listQuery.data?.meta?.total ?? 0);
+  const followUpsVisible = visibleLeads.filter((lead) => lead.next_follow_up).length;
+  const overdueVisible = visibleLeads.filter(
+    (lead) => lead.next_follow_up?.is_overdue,
+  ).length;
 
   return (
     <div className="space-y-6">
@@ -88,14 +177,14 @@ export function LeadsContent({
         />
         <MiniMetric
           icon={MessageCircleMore}
-          label="تحتاج متابعة في الصفحة"
-          value={query.data?.data.filter((lead) => lead.next_follow_up).length ?? 0}
+          label="تحتاج متابعة ظاهرة"
+          value={followUpsVisible}
           tone="bg-violet-50 text-violet-700"
         />
         <MiniMetric
           icon={CircleAlert}
-          label="متابعات متأخرة"
-          value={overdueInPage}
+          label="متابعات متأخرة ظاهرة"
+          value={overdueVisible}
           tone="bg-rose-50 text-rose-600"
         />
       </section>
@@ -116,7 +205,47 @@ export function LeadsContent({
                 className="min-w-0 flex-1 bg-transparent text-[11px] text-ink outline-none"
               />
             </label>
-            <div className="flex flex-wrap gap-2">
+
+            <div className="flex flex-wrap items-center gap-2">
+              <div
+                role="group"
+                aria-label="اختيار طريقة عرض العملاء"
+                className="flex rounded-xl border border-navy/[0.08] bg-cloud/70 p-1"
+              >
+                <button
+                  type="button"
+                  aria-pressed={activeView === "pipeline"}
+                  onClick={() => {
+                    setActiveView("pipeline");
+                    setActionError(null);
+                  }}
+                  className={`inline-flex min-h-9 items-center gap-1.5 rounded-lg px-3 text-[9px] font-semibold transition ${
+                    activeView === "pipeline"
+                      ? "bg-navy text-white shadow-sm"
+                      : "text-slate hover:bg-white hover:text-navy"
+                  }`}
+                >
+                  <Columns3 size={14} />
+                  مسار
+                </button>
+                <button
+                  type="button"
+                  aria-pressed={activeView === "list"}
+                  onClick={() => {
+                    setActiveView("list");
+                    setActionError(null);
+                  }}
+                  className={`inline-flex min-h-9 items-center gap-1.5 rounded-lg px-3 text-[9px] font-semibold transition ${
+                    activeView === "list"
+                      ? "bg-navy text-white shadow-sm"
+                      : "text-slate hover:bg-white hover:text-navy"
+                  }`}
+                >
+                  <List size={14} />
+                  قائمة
+                </button>
+              </div>
+
               <Button
                 variant={overdue ? "danger" : "secondary"}
                 onClick={() => {
@@ -127,47 +256,78 @@ export function LeadsContent({
                 <CircleAlert size={15} />
                 المتأخرة فقط
               </Button>
-              <Button variant="secondary">
-                <SlidersHorizontal size={15} />
-                فلاتر متقدمة
-              </Button>
             </div>
           </div>
 
-          <div className="thin-scrollbar mt-4 flex gap-2 overflow-x-auto pb-1">
-            {stages.map(([value, label]) => (
-              <button
-                key={value}
-                type="button"
-                onClick={() => {
-                  setStage(value);
-                  setPage(1);
-                }}
-                className={`shrink-0 rounded-full px-3 py-2 text-[9px] font-semibold transition ${
-                  stage === value
-                    ? "bg-navy text-white shadow-sm"
-                    : "border border-navy/[0.07] bg-white text-slate hover:bg-cloud"
-                }`}
-              >
-                {label}
-              </button>
-            ))}
-          </div>
+          {activeView === "list" ? (
+            <div className="thin-scrollbar mt-4 flex gap-2 overflow-x-auto pb-1">
+              {stages.map(([value, label]) => (
+                <button
+                  key={value}
+                  type="button"
+                  onClick={() => {
+                    setStage(value);
+                    setPage(1);
+                  }}
+                  className={`shrink-0 rounded-full px-3 py-2 text-[9px] font-semibold transition ${
+                    stage === value
+                      ? "bg-navy text-white shadow-sm"
+                      : "border border-navy/[0.07] bg-white text-slate hover:bg-cloud"
+                  }`}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+          ) : (
+            <div className="mt-4 flex flex-wrap items-center justify-between gap-2 rounded-xl border border-teal/10 bg-mist/45 px-3.5 py-2.5">
+              <p className="text-[8px] leading-5 text-slate">
+                عرض المسار هو العرض الافتراضي؛ كل عمود يمثل مرحلة من رحلة التسجيل.
+              </p>
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-white px-2.5 py-1.5 text-[8px] font-semibold text-teal shadow-sm">
+                <span className="size-1.5 rounded-full bg-teal" />
+                تحديث حي
+              </span>
+            </div>
+          )}
         </div>
 
-        {query.isLoading ? (
-          <TableSkeleton />
-        ) : query.isError ? (
-          <div className="grid min-h-72 place-items-center p-8 text-center">
-            <div>
-              <CircleAlert className="mx-auto text-rose-500" size={28} />
-              <p className="mt-3 text-xs font-semibold text-navy">تعذر تحميل العملاء</p>
-              <Button className="mt-4" variant="secondary" onClick={() => query.refetch()}>
-                إعادة المحاولة
-              </Button>
+        {actionError ? (
+          <div className="flex items-start justify-between gap-3 border-b border-rose-100 bg-rose-50 px-4 py-3 text-rose-700 sm:px-5">
+            <div className="flex items-start gap-2">
+              <CircleAlert className="mt-0.5 shrink-0" size={15} />
+              <p className="text-[9px] leading-5">{actionError}</p>
             </div>
+            <button
+              type="button"
+              onClick={() => setActionError(null)}
+              className="grid size-7 shrink-0 place-items-center rounded-lg transition hover:bg-rose-100"
+              aria-label="إغلاق التنبيه"
+            >
+              <X size={13} />
+            </button>
           </div>
-        ) : query.data?.data.length ? (
+        ) : null}
+
+        {activeView === "pipeline" ? (
+          pipelineQuery.isLoading ? (
+            <PipelineSkeleton />
+          ) : pipelineQuery.isError || !pipelineQuery.data ? (
+            <QueryError onRetry={() => pipelineQuery.refetch()} />
+          ) : (
+            <LeadPipelineBoard
+              columns={pipelineQuery.data.data.columns}
+              movingLeadId={
+                moveMutation.isPending ? (moveMutation.variables?.lead.id ?? null) : null
+              }
+              onMove={moveLead}
+            />
+          )
+        ) : listQuery.isLoading ? (
+          <TableSkeleton />
+        ) : listQuery.isError ? (
+          <QueryError onRetry={() => listQuery.refetch()} />
+        ) : listQuery.data?.data.length ? (
           <>
             <div className="hidden overflow-x-auto md:block">
               <table className="w-full min-w-[980px] border-collapse">
@@ -182,14 +342,14 @@ export function LeadsContent({
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-navy/[0.05]">
-                  {query.data.data.map((lead) => (
+                  {listQuery.data.data.map((lead) => (
                     <LeadRow key={lead.id} lead={lead} />
                   ))}
                 </tbody>
               </table>
             </div>
             <div className="divide-y divide-navy/[0.05] md:hidden">
-              {query.data.data.map((lead) => (
+              {listQuery.data.data.map((lead) => (
                 <LeadCard key={lead.id} lead={lead} />
               ))}
             </div>
@@ -204,10 +364,13 @@ export function LeadsContent({
           </div>
         )}
 
-        {query.data?.meta && query.data.meta.last_page > 1 ? (
+        {activeView === "list" &&
+        listQuery.data?.meta &&
+        listQuery.data.meta.last_page > 1 ? (
           <div className="flex items-center justify-between border-t border-navy/[0.055] px-5 py-4">
             <p className="text-[9px] text-slate">
-              عرض {query.data.meta.from}–{query.data.meta.to} من {query.data.meta.total}
+              عرض {listQuery.data.meta.from}–{listQuery.data.meta.to} من{" "}
+              {listQuery.data.meta.total}
             </p>
             <div className="flex gap-2">
               <Button
@@ -222,7 +385,7 @@ export function LeadsContent({
               <Button
                 size="icon"
                 variant="secondary"
-                disabled={page >= query.data.meta.last_page}
+                disabled={page >= listQuery.data.meta.last_page}
                 onClick={() => setPage((value) => value + 1)}
                 aria-label="الصفحة التالية"
               >
@@ -364,4 +527,104 @@ function TableSkeleton() {
       ))}
     </div>
   );
+}
+
+function PipelineSkeleton() {
+  return (
+    <div className="thin-scrollbar grid animate-pulse auto-cols-[minmax(285px,315px)] grid-flow-col gap-3 overflow-x-auto bg-cloud/65 p-4">
+      {[1, 2, 3, 4].map((column) => (
+        <div
+          key={column}
+          className="min-h-[440px] overflow-hidden rounded-2xl border border-navy/[0.06] bg-white"
+        >
+          <div className="flex items-center justify-between border-b border-navy/[0.05] p-4">
+            <div className="h-3 w-24 rounded bg-cloud" />
+            <div className="size-7 rounded-full bg-cloud" />
+          </div>
+          <div className="space-y-3 p-3">
+            {[1, 2, 3].map((card) => (
+              <div key={card} className="rounded-xl border border-navy/[0.05] p-3">
+                <div className="h-3 w-32 rounded bg-cloud" />
+                <div className="mt-3 h-8 rounded-lg bg-cloud/80" />
+                <div className="mt-3 h-8 rounded-lg bg-cloud/80" />
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function QueryError({ onRetry }: { onRetry: () => void }) {
+  return (
+    <div className="grid min-h-72 place-items-center p-8 text-center">
+      <div>
+        <CircleAlert className="mx-auto text-rose-500" size={28} />
+        <p className="mt-3 text-xs font-semibold text-navy">تعذر تحميل العملاء</p>
+        <Button className="mt-4" variant="secondary" onClick={onRetry}>
+          إعادة المحاولة
+        </Button>
+      </div>
+    </div>
+  );
+}
+
+function optimisticallyMoveLead(
+  current: ApiItem<LeadPipeline>,
+  lead: Lead,
+  targetStatus: string,
+): ApiItem<LeadPipeline> {
+  const targetColumn = current.data.columns.find(
+    (column) => column.status.value === targetStatus,
+  );
+
+  if (!targetColumn || lead.status.value === targetStatus) return current;
+
+  const movedLead: Lead = {
+    ...lead,
+    status: {
+      value: targetStatus,
+      label: targetColumn.status.label,
+    },
+  };
+
+  return {
+    ...current,
+    data: {
+      ...current.data,
+      columns: current.data.columns.map((column) => {
+        let count = column.count;
+        let leads = column.leads;
+
+        if (column.status.value === lead.status.value) {
+          count = Math.max(0, count - 1);
+          leads = leads.filter((item) => item.id !== lead.id);
+        }
+
+        if (column.status.value === targetStatus) {
+          count += 1;
+          leads = [
+            movedLead,
+            ...leads.filter((item) => item.id !== lead.id),
+          ].slice(0, current.data.limit_per_stage);
+        }
+
+        return {
+          ...column,
+          count,
+          leads,
+          has_more: count > leads.length,
+        };
+      }),
+    },
+  };
+}
+
+function errorMessage(error: unknown) {
+  if (error instanceof ApiError) {
+    return error.errors.status?.[0] ?? error.message;
+  }
+
+  return "تعذر تحديث مرحلة العميل. حاول مرة أخرى.";
 }

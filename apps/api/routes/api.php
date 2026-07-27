@@ -221,6 +221,7 @@ Route::prefix('v1')->name('api.v1.')->group(function (): void {
             Route::middleware('role:owner,staff,admissions,academic_manager')->group(function (): void {
                 Route::get('/leads', [LeadController::class, 'index'])->name('leads.index');
                 Route::post('/leads', [LeadController::class, 'store'])->name('leads.store');
+                Route::get('/leads/pipeline', [LeadController::class, 'pipeline'])->name('leads.pipeline');
                 Route::get('/leads/{lead}', [LeadController::class, 'show'])->name('leads.show');
                 Route::patch('/leads/{lead}', [LeadController::class, 'update'])->name('leads.update');
 
