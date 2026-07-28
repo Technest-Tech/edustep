@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import {
   BarChart3,
   BookOpenCheck,
+  BookOpenText,
   BadgeDollarSign,
   ChartNoAxesCombined,
   CalendarRange,
@@ -133,6 +134,7 @@ const staffNavigation: NavigationItem[] = [
     icon: Settings2,
     roles: ["owner"],
   },
+  { label: "دليل التشغيل", href: "/docs", icon: BookOpenText },
   { label: "أمان الحساب", href: "/security", icon: ShieldCheck },
 ];
 
@@ -142,6 +144,7 @@ const teacherNavigation: NavigationItem[] = [
   { label: "التقدم والتقارير", href: "/progress", icon: ChartNoAxesCombined },
   { label: "جدولي الأسبوعي", href: "/calendar", icon: CalendarRange },
   { label: "مستحقاتي", href: "/teacher/earnings", icon: WalletCards },
+  { label: "دليل التشغيل", href: "/docs", icon: BookOpenText },
   { label: "أمان الحساب", href: "/security", icon: ShieldCheck },
 ];
 
@@ -177,6 +180,7 @@ const pageTitles: Record<string, string> = {
   "/service-requests": "طلبات أولياء الأمور",
   "/teacher/today": "يومي وحصصي",
   "/teacher/earnings": "مستحقاتي",
+  "/docs": "دليل التشغيل",
   "/family/home": "متابعة الأبناء",
 };
 

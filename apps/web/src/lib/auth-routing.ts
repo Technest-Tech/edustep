@@ -13,6 +13,10 @@ export function canAccessPath(role: string, pathname: string) {
     return true;
   }
 
+  if (pathname.startsWith("/docs")) {
+    return role !== "guardian";
+  }
+
   if (role === "guardian") {
     return pathname.startsWith("/family");
   }
