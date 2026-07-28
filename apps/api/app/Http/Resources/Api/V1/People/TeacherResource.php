@@ -13,6 +13,9 @@ class TeacherResource extends JsonResource
     public function toArray(Request $request): array
     {
         $profile = $this->teacherProfile;
+        $rateRule = $this->relationLoaded('teacherRateRules')
+            ? $this->teacherRateRules->first()
+            : null;
         $sessions = $this->relationLoaded('teachingSessions')
             ? $this->teachingSessions
             : collect();
@@ -28,10 +31,15 @@ class TeacherResource extends JsonResource
             'name' => $this->name,
             'email' => $this->email,
             'status' => $this->status,
-            'phone' => $profile?->phone,
+            'phone' => $profile?->phone ?? $this->phone,
             'employment_type' => $profile?->employment_type,
             'specialization' => $profile?->specialization,
             'hourly_rate' => $profile?->hourly_rate,
+            'current_rate' => $rateRule ? [
+                'type' => $rateRule->rate_type->value,
+                'amount' => $rateRule->amount,
+                'effective_from' => $rateRule->effective_from?->toDateString(),
+            ] : null,
             'availability' => $profile?->availability,
             'bio' => $profile?->bio,
             'active_cohorts_count' => $this->teaching_cohorts_count ?? 0,

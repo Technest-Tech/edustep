@@ -3,6 +3,10 @@
 import { Button } from "@/components/ui/button";
 import { PageHeader } from "@/components/ui/page-header";
 import { StatusBadge } from "@/components/ui/status-badge";
+import {
+  TeacherCohortAssignmentDialog,
+  TeacherEditorDialog,
+} from "@/features/teachers/teacher-management-dialogs";
 import { apiClient } from "@/lib/api/client";
 import { formatCurrency, formatDateTime } from "@/lib/format";
 import type { ApiCollection, ApiItem, Teacher } from "@/types/api";
@@ -17,16 +21,20 @@ import {
   Coins,
   GraduationCap,
   Mail,
+  PencilLine,
   Phone,
+  Plus,
   RefreshCw,
+  Search,
   TrendingUp,
   UserRoundCheck,
+  UserRoundCog,
   UsersRound,
   WalletCards,
   X,
 } from "lucide-react";
 import { Dialog } from "radix-ui";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 const dayLabels: Record<string, string> = {
   saturday: "السبت",
@@ -40,13 +48,30 @@ const dayLabels: Record<string, string> = {
 
 export function TeachersContent() {
   const [selectedTeacher, setSelectedTeacher] = useState<Teacher | null>(null);
+  const [editingTeacher, setEditingTeacher] = useState<Teacher | null>(null);
+  const [editorOpen, setEditorOpen] = useState(false);
+  const [assignmentTeacher, setAssignmentTeacher] = useState<Teacher | null>(null);
+  const [search, setSearch] = useState("");
+  const [status, setStatus] = useState<"all" | "active" | "suspended">("all");
   const query = useQuery({
     queryKey: ["teachers"],
     queryFn: () => apiClient<ApiCollection<Teacher>>("/api/v1/teachers"),
   });
-  const teachers = query.data?.data ?? [];
+  const teachers = useMemo(() => query.data?.data ?? [], [query.data?.data]);
   const students = teachers.reduce((sum, teacher) => sum + teacher.active_students_count, 0);
   const cohorts = teachers.reduce((sum, teacher) => sum + teacher.active_cohorts_count, 0);
+  const filteredTeachers = useMemo(() => {
+    const normalizedSearch = search.trim().toLocaleLowerCase("ar");
+    return teachers.filter((teacher) => {
+      const matchesStatus = status === "all" || teacher.status === status;
+      const matchesSearch =
+        !normalizedSearch ||
+        `${teacher.name} ${teacher.email} ${teacher.phone ?? ""} ${teacher.specialization ?? ""}`
+          .toLocaleLowerCase("ar")
+          .includes(normalizedSearch);
+      return matchesStatus && matchesSearch;
+    });
+  }, [search, status, teachers]);
 
   return (
     <div className="space-y-6">
@@ -55,10 +80,25 @@ export function TeachersContent() {
         title="المعلمون"
         description="متابعة العبء التدريسي، الجروبات الحالية، التخصص، والتوفر الأسبوعي لكل معلم."
         actions={
-          <Button variant="secondary" onClick={() => query.refetch()}>
-            <RefreshCw size={15} className={query.isFetching ? "animate-spin" : ""} />
-            تحديث البيانات
-          </Button>
+          <div className="flex flex-wrap gap-2">
+            <Button
+              variant="secondary"
+              onClick={() => query.refetch()}
+              disabled={query.isFetching}
+            >
+              <RefreshCw size={15} className={query.isFetching ? "animate-spin" : ""} />
+              تحديث البيانات
+            </Button>
+            <Button
+              onClick={() => {
+                setEditingTeacher(null);
+                setEditorOpen(true);
+              }}
+            >
+              <Plus size={16} />
+              إضافة معلم
+            </Button>
+          </div>
         }
       />
 
@@ -83,6 +123,44 @@ export function TeachersContent() {
         />
       </section>
 
+      <section className="flex flex-col gap-3 rounded-2xl border border-navy/[0.065] bg-white p-3 shadow-[0_8px_26px_rgba(11,36,84,.03)] sm:flex-row sm:items-center">
+        <label className="relative flex-1">
+          <span className="sr-only">البحث في المعلمين</span>
+          <Search
+            className="pointer-events-none absolute top-1/2 right-3.5 -translate-y-1/2 text-slate"
+            size={16}
+          />
+          <input
+            value={search}
+            onChange={(event) => setSearch(event.target.value)}
+            placeholder="ابحث بالاسم أو الهاتف أو البريد أو التخصص..."
+            className="min-h-11 w-full rounded-xl border border-navy/[0.08] bg-cloud/60 pr-10 pl-3.5 text-[11px] outline-none transition focus:border-teal"
+          />
+        </label>
+        <div className="flex rounded-xl bg-cloud p-1" aria-label="فلترة حالة المعلمين">
+          {[
+            ["all", "الكل"],
+            ["active", "النشطون"],
+            ["suspended", "الموقوفون"],
+          ].map(([value, label]) => (
+            <button
+              key={value}
+              type="button"
+              onClick={() => setStatus(value as typeof status)}
+              aria-pressed={status === value}
+              className={`rounded-lg px-3 py-2 text-[10px] font-semibold transition ${
+                status === value ? "bg-navy text-white shadow-sm" : "text-slate hover:text-navy"
+              }`}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
+        <span className="px-2 text-[10px] text-slate">
+          {filteredTeachers.length} من {teachers.length}
+        </span>
+      </section>
+
       {query.isLoading ? (
         <div className="grid animate-pulse gap-4 lg:grid-cols-2">
           {Array.from({ length: 4 }).map((_, index) => (
@@ -99,13 +177,18 @@ export function TeachersContent() {
             </Button>
           </div>
         </div>
-      ) : teachers.length ? (
+      ) : filteredTeachers.length ? (
         <section className="grid gap-4 lg:grid-cols-2">
-          {teachers.map((teacher) => (
+          {filteredTeachers.map((teacher) => (
             <TeacherCard
               key={teacher.id}
               teacher={teacher}
               onSelect={() => setSelectedTeacher(teacher)}
+              onEdit={() => {
+                setEditingTeacher(teacher);
+                setEditorOpen(true);
+              }}
+              onAssign={() => setAssignmentTeacher(teacher)}
             />
           ))}
         </section>
@@ -113,7 +196,14 @@ export function TeachersContent() {
         <div className="grid min-h-72 place-items-center rounded-2xl border border-navy/[0.065] bg-white p-8 text-center">
           <div>
             <UsersRound className="mx-auto text-teal" size={30} />
-            <p className="mt-3 text-xs font-semibold text-navy">لم يضف معلمون بعد</p>
+            <p className="mt-3 text-xs font-semibold text-navy">
+              {teachers.length ? "لا توجد نتائج مطابقة" : "لم يضف معلمون بعد"}
+            </p>
+            <p className="mt-2 text-[10px] text-slate">
+              {teachers.length
+                ? "جرّب تغيير البحث أو حالة الحساب."
+                : "ابدأ بإضافة أول معلم وإنشاء حساب دخوله."}
+            </p>
           </div>
         </div>
       )}
@@ -125,6 +215,33 @@ export function TeachersContent() {
           if (!open) setSelectedTeacher(null);
         }}
       />
+
+      {editorOpen ? (
+        <TeacherEditorDialog
+          key={editingTeacher?.id ?? "new-teacher"}
+          open={editorOpen}
+          teacher={editingTeacher}
+          onOpenChange={setEditorOpen}
+          onSaved={(teacher) => {
+            if (selectedTeacher?.id === teacher.id) setSelectedTeacher(teacher);
+          }}
+        />
+      ) : null}
+
+      {assignmentTeacher ? (
+        <TeacherCohortAssignmentDialog
+          key={assignmentTeacher.id}
+          open
+          teacher={assignmentTeacher}
+          onOpenChange={(open) => {
+            if (!open) setAssignmentTeacher(null);
+          }}
+          onSaved={(teacher) => {
+            if (selectedTeacher?.id === teacher.id) setSelectedTeacher(teacher);
+            setAssignmentTeacher(null);
+          }}
+        />
+      ) : null}
     </div>
   );
 }
@@ -132,9 +249,13 @@ export function TeachersContent() {
 function TeacherCard({
   teacher,
   onSelect,
+  onEdit,
+  onAssign,
 }: {
   teacher: Teacher;
   onSelect: () => void;
+  onEdit: () => void;
+  onAssign: () => void;
 }) {
   return (
     <article className="overflow-hidden rounded-2xl border border-navy/[0.065] bg-white shadow-[0_8px_28px_rgba(11,36,84,.035)]">
@@ -175,9 +296,11 @@ function TeacherCard({
           </div>
           <div>
             <p className="text-[11px] font-bold text-navy">
-              {teacher.hourly_rate ? formatCurrency(teacher.hourly_rate) : "—"}
+              {teacher.current_rate ? formatCurrency(teacher.current_rate.amount) : "—"}
             </p>
-            <p className="mt-2 text-[8px] text-slate">للساعة</p>
+            <p className="mt-2 text-[8px] text-slate">
+              {teacher.current_rate?.type === "fixed_session" ? "للحصة" : "للساعة"}
+            </p>
           </div>
         </div>
 
@@ -230,10 +353,20 @@ function TeacherCard({
           </div>
         </div>
 
-        <Button className="mt-5 w-full" variant="secondary" onClick={onSelect}>
-          <UserRoundCheck size={15} />
-          فتح ملف المعلم
-        </Button>
+        <div className="mt-5 grid grid-cols-3 gap-2">
+          <Button variant="secondary" size="sm" onClick={onSelect}>
+            <UserRoundCheck size={14} />
+            الملف
+          </Button>
+          <Button variant="secondary" size="sm" onClick={onEdit}>
+            <PencilLine size={14} />
+            تعديل
+          </Button>
+          <Button variant="secondary" size="sm" onClick={onAssign}>
+            <UserRoundCog size={14} />
+            الجروبات
+          </Button>
+        </div>
       </div>
     </article>
   );

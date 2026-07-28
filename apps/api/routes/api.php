@@ -148,9 +148,18 @@ Route::prefix('v1')->name('api.v1.')->group(function (): void {
             Route::get('/teachers', [TeacherController::class, 'index'])
                 ->middleware('role:owner,academic_manager')
                 ->name('teachers.index');
+            Route::post('/teachers', [TeacherController::class, 'store'])
+                ->middleware('role:owner,academic_manager')
+                ->name('teachers.store');
             Route::get('/teachers/{teacher}', [TeacherController::class, 'show'])
                 ->middleware('role:owner,academic_manager')
                 ->name('teachers.show');
+            Route::patch('/teachers/{teacher}', [TeacherController::class, 'update'])
+                ->middleware('role:owner,academic_manager')
+                ->name('teachers.update');
+            Route::put('/teachers/{teacher}/cohorts', [TeacherController::class, 'syncCohorts'])
+                ->middleware('role:owner,academic_manager')
+                ->name('teachers.cohorts.sync');
             Route::get('/academy-closures', [AcademyClosureController::class, 'index'])
                 ->middleware('role:owner,academic_manager')
                 ->name('academy-closures.index');

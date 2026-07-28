@@ -464,6 +464,11 @@ export type Teacher = {
   employment_type: string | null;
   specialization: string | null;
   hourly_rate: string | null;
+  current_rate: {
+    type: "fixed_session" | "hourly";
+    amount: string;
+    effective_from: string;
+  } | null;
   availability: string[] | null;
   bio: string | null;
   active_cohorts_count: number;

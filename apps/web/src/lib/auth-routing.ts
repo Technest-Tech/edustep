@@ -6,6 +6,9 @@ export function homeForRole(role: string) {
 }
 
 export function canAccessPath(role: string, pathname: string) {
+  const isTeacherPortalPath =
+    pathname === "/teacher" || pathname.startsWith("/teacher/");
+
   if (pathname.startsWith("/security")) {
     return true;
   }
@@ -16,14 +19,14 @@ export function canAccessPath(role: string, pathname: string) {
 
   if (role === "teacher") {
     return (
-      pathname.startsWith("/teacher") ||
+      isTeacherPortalPath ||
       pathname.startsWith("/calendar") ||
       pathname.startsWith("/groups") ||
       pathname.startsWith("/progress")
     );
   }
 
-  if (pathname.startsWith("/family") || pathname.startsWith("/teacher")) {
+  if (pathname.startsWith("/family") || isTeacherPortalPath) {
     return false;
   }
 
