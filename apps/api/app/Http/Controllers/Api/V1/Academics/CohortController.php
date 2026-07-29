@@ -7,6 +7,9 @@ use App\Http\Requests\Api\V1\Academics\StoreCohortRequest;
 use App\Http\Resources\Api\V1\Academics\CohortDetailResource;
 use App\Http\Resources\Api\V1\Academics\CohortResource;
 use App\Models\Cohort;
+use App\Models\Level;
+use App\Models\StudyPackage;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
@@ -15,7 +18,7 @@ class CohortController extends Controller
     public function index(Request $request): AnonymousResourceCollection
     {
         $query = Cohort::query()
-            ->with(['program', 'level', 'teacher'])
+            ->with(['program', 'level', 'studyPackage', 'teacher'])
             ->withCount([
                 'enrollments' => fn ($query) => $query->where('status', 'active'),
                 'seatReservations' => fn ($query) => $query
@@ -37,11 +40,35 @@ class CohortController extends Controller
 
     public function store(StoreCohortRequest $request): CohortResource
     {
-        $cohort = Cohort::query()->create($request->validated());
+        $data = $request->validated();
+        $level = Level::query()->findOrFail($data['level_id']);
+        $package = isset($data['study_package_id'])
+            ? StudyPackage::query()->findOrFail($data['study_package_id'])
+            : StudyPackage::query()
+                ->where('level_id', $level->id)
+                ->where('is_active', true)
+                ->orderByRaw('case when source_version = ? then 0 else 1 end', ['intensive-v1.1'])
+                ->first();
+
+        $data['study_package_id'] = $package?->id;
+        $data['capacity'] = $data['capacity'] ?? $level->maximum_group_size ?? 12;
+        $data['fee'] = $data['fee'] ?? $package?->price ?? $level->launch_price ?? 0;
+
+        if (! empty($data['starts_on']) && empty($data['ends_on'])) {
+            $durationWeeks = $package?->duration_weeks ?? $level->duration_weeks;
+            if ($durationWeeks) {
+                $data['ends_on'] = Carbon::parse($data['starts_on'])
+                    ->addWeeks($durationWeeks)
+                    ->subDay()
+                    ->toDateString();
+            }
+        }
+
+        $cohort = Cohort::query()->create($data);
 
         return new CohortResource(
             $cohort
-                ->load(['program', 'level', 'teacher'])
+                ->load(['program', 'level', 'studyPackage', 'teacher'])
                 ->loadCount([
                     'enrollments' => fn ($query) => $query->where('status', 'active'),
                     'seatReservations' => fn ($query) => $query
@@ -63,6 +90,7 @@ class CohortController extends Controller
         $cohort->load([
             'program',
             'level',
+            'studyPackage',
             'teacher',
             'classSessions' => fn ($query) => $query
                 ->with(['teacher', 'attendanceRecords.student'])

@@ -113,8 +113,54 @@ export type Program = {
   name_ar: string;
   name_en: string | null;
   description?: string | null;
+  age_min: number | null;
+  age_max: number | null;
+  catalog_version: string | null;
+  sessions_per_week: number | null;
+  default_duration_weeks: number | null;
+  default_sessions_count: number | null;
+  session_duration_minutes: number | null;
+  home_practice_minutes_min: number | null;
+  home_practice_minutes_max: number | null;
+  minimum_group_size: number | null;
+  maximum_group_size: number | null;
+  launch_price: string | null;
+  standard_price: string | null;
+  one_to_one_price: string | null;
+  full_payment_discount_percent: string | null;
+  promotion_score_percent: string | null;
+  promotion_attendance_percent: string | null;
   is_active?: boolean;
   levels?: Level[];
+};
+
+export type CurriculumUnit = {
+  id: string;
+  unit_number: number;
+  theme: string;
+  can_do_outcome: string;
+  target_language: string | null;
+  lexis: string | null;
+  pronunciation_focus: string | null;
+  performance_task: string | null;
+  unit_check: string | null;
+};
+
+export type LevelPackage = {
+  id: string;
+  code: string;
+  name: string;
+  sessions_count: number;
+  duration_weeks: number;
+  price: string;
+  standard_price: string | null;
+  full_payment_discount_percent: string;
+  full_payment_price: string;
+  default_installments: number;
+  default_installment_amount: string;
+  second_installment_session: number | null;
+  second_installment_due_days_before: number | null;
+  source_version: string | null;
 };
 
 export type Level = {
@@ -122,8 +168,52 @@ export type Level = {
   code: string;
   name_ar: string;
   name_en: string | null;
+  cefr_reference: string | null;
+  entry_rule: string | null;
+  outcome: string | null;
+  sessions_count: number | null;
+  duration_weeks: number | null;
+  sessions_per_week: number | null;
+  session_duration_minutes: number | null;
+  guided_hours: string | null;
+  launch_price: string | null;
+  standard_price: string | null;
+  one_to_one_price: string | null;
+  minimum_group_size: number | null;
+  maximum_group_size: number | null;
+  default_installments: number | null;
+  is_optional: boolean;
+  catalog_version: string | null;
   sort_order: number;
   is_active: boolean;
+  curriculum?: {
+    id: string;
+    code: string;
+    audience: string;
+    source_level: string;
+    cefr_reference: string | null;
+    source_version: string;
+    units: CurriculumUnit[];
+  } | null;
+  default_package?: LevelPackage | null;
+};
+
+export type AcademicCatalogData = {
+  version: string;
+  policy: {
+    duration_weeks: number;
+    sessions_count: number;
+    sessions_per_week: number;
+    teaching_blocks_count: number;
+    source_curriculum_units_count: number;
+    full_payment_discount_percent: number;
+    default_installments: number;
+    second_installment_session: number;
+    second_installment_due_days_before: number;
+    promotion_score_percent: number;
+    promotion_attendance_percent: number;
+  };
+  programs: Program[];
 };
 
 export type FollowUp = {
@@ -317,7 +407,27 @@ export type Cohort = {
   meeting_url: string | null;
   room_name: string | null;
   program: Pick<Program, "id" | "code" | "name_ar">;
-  level: Pick<Level, "id" | "code" | "name_ar">;
+  level: Pick<
+    Level,
+    | "id"
+    | "code"
+    | "name_ar"
+    | "cefr_reference"
+    | "sessions_count"
+    | "duration_weeks"
+    | "sessions_per_week"
+    | "session_duration_minutes"
+    | "minimum_group_size"
+    | "maximum_group_size"
+  >;
+  study_package: {
+    id: string;
+    code: string;
+    name: string;
+    sessions_count: number;
+    duration_weeks: number;
+    price: string;
+  } | null;
   teacher: { id: string; name: string } | null;
 };
 
@@ -372,6 +482,8 @@ export type AttendanceRecord = {
 
 export type ClassSession = {
   id: string;
+  session_number: number | null;
+  cycle_phase: "engage_input" | "notice_practise" | "use_create" | "review_check" | null;
   title: string;
   status: "scheduled" | "in_progress" | "completed" | "cancelled";
   starts_at: string;
@@ -969,7 +1081,14 @@ export type StudyPackage = {
   sessions_count: number;
   duration_weeks: number;
   price: string;
+  standard_price: string | null;
+  full_payment_discount_percent: string;
+  full_payment_price: string;
   default_installments: number;
+  default_installment_amount: string;
+  second_installment_session: number | null;
+  second_installment_due_days_before: number | null;
+  source_version: string | null;
   is_active: boolean;
   description: string | null;
   program: Pick<Program, "id" | "code" | "name_ar">;
@@ -1050,6 +1169,8 @@ export type ScheduleGenerationResult = {
     skipped_duplicates: number;
     skipped_closures: number;
     conflicts: number;
+    target_sessions: number | null;
+    remaining_sessions: number | null;
   };
   closures: { date: string; name: string }[];
   conflicts: { starts_at: string; message: string }[];

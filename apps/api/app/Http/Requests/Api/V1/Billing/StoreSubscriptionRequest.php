@@ -26,6 +26,7 @@ class StoreSubscriptionRequest extends FormRequest
             ],
             'study_package_id' => ['required', 'ulid', 'exists:study_packages,id'],
             'starts_on' => ['required', 'date'],
+            'payment_plan' => ['nullable', Rule::in(['full', 'installments', 'custom'])],
             'installment_count' => ['nullable', 'integer', 'min:1', 'max:12'],
             'discount_amount' => ['nullable', 'numeric', 'min:0', 'max:1000000'],
             'notes' => ['nullable', 'string', 'max:3000'],

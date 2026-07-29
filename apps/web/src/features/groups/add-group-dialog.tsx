@@ -86,6 +86,10 @@ export function AddGroupDialog({
     () => programsQuery.data?.data.find((program) => program.id === form.programId),
     [form.programId, programsQuery.data],
   );
+  const selectedLevel = useMemo(
+    () => selectedProgram?.levels?.find((level) => level.id === form.levelId),
+    [form.levelId, selectedProgram],
+  );
   const mutation = useMutation({
     mutationFn: () =>
       apiClient<ApiItem<Cohort>>("/api/v1/cohorts", {
@@ -93,6 +97,7 @@ export function AddGroupDialog({
         json: {
           program_id: form.programId,
           level_id: form.levelId,
+          study_package_id: selectedLevel?.default_package?.id ?? null,
           teacher_id: form.teacherId || null,
           code: form.code.toUpperCase(),
           name: form.name,
@@ -188,6 +193,7 @@ export function AddGroupDialog({
                     onChange={(event) => {
                       update("programId", event.target.value);
                       update("levelId", "");
+                      update("fee", "");
                     }}
                     required
                   >
@@ -202,7 +208,17 @@ export function AddGroupDialog({
                 <GroupField label="المستوى">
                   <select
                     value={form.levelId}
-                    onChange={(event) => update("levelId", event.target.value)}
+                    onChange={(event) => {
+                      const value = event.target.value;
+                      const level = selectedProgram?.levels?.find((item) => item.id === value);
+                      update("levelId", value);
+                      update("capacity", String(level?.maximum_group_size ?? 12));
+                      update("fee", level?.launch_price ?? "");
+
+                      if (form.startsOn && level?.duration_weeks) {
+                        update("endsOn", suggestedEndDate(form.startsOn, level.duration_weeks));
+                      }
+                    }}
                     disabled={!selectedProgram}
                     required
                   >
@@ -290,7 +306,13 @@ export function AddGroupDialog({
                   <input
                     type="date"
                     value={form.startsOn}
-                    onChange={(event) => update("startsOn", event.target.value)}
+                    onChange={(event) => {
+                      const value = event.target.value;
+                      update("startsOn", value);
+                      if (value && selectedLevel?.duration_weeks) {
+                        update("endsOn", suggestedEndDate(value, selectedLevel.duration_weeks));
+                      }
+                    }}
                   />
                 </GroupField>
                 <GroupField label="تاريخ النهاية">
@@ -301,6 +323,20 @@ export function AddGroupDialog({
                   />
                 </GroupField>
               </div>
+              {selectedLevel ? (
+                <div className="mt-4 grid gap-2 rounded-2xl border border-teal/15 bg-mist/55 p-3 sm:grid-cols-4">
+                  <LevelDefault label="مدة المستوى" value={`${selectedLevel.duration_weeks} أسابيع`} />
+                  <LevelDefault label="الحصص" value={`${selectedLevel.sessions_count} حصة`} />
+                  <LevelDefault
+                    label="مدة الحصة"
+                    value={`${selectedLevel.session_duration_minutes} دقيقة`}
+                  />
+                  <LevelDefault
+                    label="السعر المعتمد"
+                    value={`${Number(selectedLevel.launch_price).toLocaleString("ar-EG")} ج.م`}
+                  />
+                </div>
+              ) : null}
             </section>
 
             <section className="rounded-2xl border border-navy/[0.065] p-4">
@@ -392,4 +428,20 @@ function GroupField({ label, children }: { label: string; children: ReactElement
       </span>
     </label>
   );
+}
+
+function LevelDefault({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="rounded-xl bg-white p-3">
+      <p className="text-[9px] text-slate">{label}</p>
+      <p className="mt-1 text-[11px] font-bold text-navy">{value}</p>
+    </div>
+  );
+}
+
+function suggestedEndDate(startsOn: string, weeks: number) {
+  const date = new Date(`${startsOn}T12:00:00`);
+  date.setDate(date.getDate() + weeks * 7 - 1);
+
+  return date.toISOString().slice(0, 10);
 }

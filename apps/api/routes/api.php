@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\V1\Academics\AcademicCatalogController;
 use App\Http\Controllers\Api\V1\Academics\AcademyClosureController;
 use App\Http\Controllers\Api\V1\Academics\AttendanceController;
 use App\Http\Controllers\Api\V1\Academics\CalendarController;
@@ -124,6 +125,9 @@ Route::prefix('v1')->name('api.v1.')->group(function (): void {
             Route::get('/programs', [ProgramController::class, 'index'])
                 ->middleware('role:owner,staff,admissions,academic_manager,teacher')
                 ->name('programs.index');
+            Route::get('/academic-catalog', AcademicCatalogController::class)
+                ->middleware('role:owner,staff,admissions,academic_manager,teacher')
+                ->name('academic-catalog.index');
             Route::get('/cohorts', [CohortController::class, 'index'])
                 ->middleware('role:owner,staff,admissions,academic_manager,teacher')
                 ->name('cohorts.index');

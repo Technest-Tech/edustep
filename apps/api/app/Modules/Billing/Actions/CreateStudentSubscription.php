@@ -35,6 +35,7 @@ class CreateStudentSubscription
             $student = Student::query()->findOrFail($studentId);
             $enrollment = Enrollment::query()->with('cohort')->findOrFail($enrollmentId);
             $package = StudyPackage::query()
+                ->with('level')
                 ->where('is_active', true)
                 ->findOrFail($attributes['study_package_id'] ?? $parent?->study_package_id);
 
@@ -78,8 +79,11 @@ class CreateStudentSubscription
                 $attributes['starts_on'] ?? $parent?->ends_on->copy()->addDay() ?? today(),
             )->startOfDay();
             $endsOn = $startsOn->copy()->addWeeks($package->duration_weeks)->subDay();
-            $discountAmount = (float) ($attributes['discount_amount'] ?? 0);
             $priceAmount = (float) $package->price;
+            $paymentPlan = $attributes['payment_plan'] ?? 'custom';
+            $discountAmount = $paymentPlan === 'full'
+                ? round($priceAmount * ((float) $package->full_payment_discount_percent / 100), 2)
+                : (float) ($attributes['discount_amount'] ?? 0);
 
             if ($discountAmount > $priceAmount) {
                 throw ValidationException::withMessages([
@@ -88,7 +92,11 @@ class CreateStudentSubscription
             }
 
             $netAmount = round($priceAmount - $discountAmount, 2);
-            $installmentCount = (int) ($attributes['installment_count'] ?? $package->default_installments);
+            $installmentCount = match ($paymentPlan) {
+                'full' => 1,
+                'installments' => (int) $package->default_installments,
+                default => (int) ($attributes['installment_count'] ?? $package->default_installments),
+            };
             $status = $startsOn->isFuture()
                 ? SubscriptionStatus::Scheduled
                 : ($endsOn->lte(today()->addDays(14)) ? SubscriptionStatus::Expiring : SubscriptionStatus::Active);
@@ -111,7 +119,12 @@ class CreateStudentSubscription
             ]);
 
             foreach ($this->splitAmount($netAmount, $installmentCount) as $index => $amount) {
-                $dueOn = $startsOn->copy()->addMonthsNoOverflow($index);
+                $dueOn = $this->installmentDueOn(
+                    $package,
+                    $startsOn,
+                    $index,
+                    $installmentCount,
+                );
                 $isPaid = $amount === 0.0;
                 $invoice = Invoice::query()->create([
                     'student_id' => $student->id,
@@ -166,5 +179,35 @@ class CreateStudentSubscription
         return collect(range(0, $parts - 1))
             ->map(fn (int $index) => ($baseCents + ($index < $remainder ? 1 : 0)) / 100)
             ->all();
+    }
+
+    private function installmentDueOn(
+        StudyPackage $package,
+        Carbon $startsOn,
+        int $index,
+        int $installmentCount,
+    ): Carbon {
+        if ($index === 0) {
+            return today();
+        }
+
+        if (
+            $installmentCount === 2
+            && $index === 1
+            && $package->second_installment_session
+        ) {
+            $sessionsPerWeek = max(1, (int) ($package->level?->sessions_per_week ?? 2));
+            $weeksBeforeSession = intdiv(
+                max(0, (int) $package->second_installment_session - 1),
+                $sessionsPerWeek,
+            );
+
+            return $startsOn
+                ->copy()
+                ->addWeeks($weeksBeforeSession)
+                ->subDays((int) ($package->second_installment_due_days_before ?? 0));
+        }
+
+        return $startsOn->copy()->addMonthsNoOverflow($index);
     }
 }

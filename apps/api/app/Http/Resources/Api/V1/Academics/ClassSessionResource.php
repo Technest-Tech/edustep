@@ -18,6 +18,8 @@ class ClassSessionResource extends JsonResource
 
         return [
             'id' => $this->id,
+            'session_number' => $this->session_number,
+            'cycle_phase' => $this->cycle_phase,
             'title' => $this->title,
             'status' => $this->status->value,
             'starts_at' => $this->starts_at?->toIso8601String(),

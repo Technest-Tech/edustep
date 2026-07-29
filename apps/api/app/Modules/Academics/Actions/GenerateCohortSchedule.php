@@ -22,6 +22,8 @@ class GenerateCohortSchedule
      */
     public function execute(Cohort $cohort, array $attributes): array
     {
+        $cohort->loadMissing(['level', 'studyPackage']);
+
         if (! $cohort->teacher_id) {
             throw ValidationException::withMessages([
                 'cohort' => ['يجب تعيين معلم للجروب قبل توليد الحصص.'],
@@ -55,7 +57,27 @@ class GenerateCohortSchedule
         $scheduleByDay = collect($cohort->schedule)
             ->filter(fn ($slot) => isset($dayNumbers[strtolower($slot['day'] ?? '')], $slot['time']))
             ->groupBy(fn ($slot) => $dayNumbers[strtolower($slot['day'])]);
-        $nextNumber = $cohort->classSessions()->count() + 1;
+        $existingSessions = $cohort->classSessions()->count();
+        $nextNumber = max(
+            $existingSessions + 1,
+            ((int) $cohort->classSessions()->max('session_number')) + 1,
+        );
+        $targetSessions = (int) (
+            $cohort->studyPackage?->sessions_count
+            ?? $cohort->level?->sessions_count
+            ?? 0
+        );
+        $durationMinutes = (int) (
+            $attributes['duration_minutes']
+            ?? $cohort->level?->session_duration_minutes
+            ?? 90
+        );
+        $cyclePhases = [
+            'engage_input',
+            'notice_practise',
+            'use_create',
+            'review_check',
+        ];
         $created = collect();
         $skippedDuplicates = 0;
         $skippedClosures = collect();
@@ -65,6 +87,10 @@ class GenerateCohortSchedule
             $slots = $scheduleByDay->get($date->dayOfWeekIso, collect());
 
             foreach ($slots as $slot) {
+                if ($targetSessions > 0 && ($existingSessions + $created->count()) >= $targetSessions) {
+                    break 2;
+                }
+
                 $closure = AcademyClosure::query()
                     ->whereDate('starts_on', '<=', $date)
                     ->whereDate('ends_on', '>=', $date)
@@ -87,7 +113,7 @@ class GenerateCohortSchedule
                     $date->toDateString().' '.$slot['time'],
                     $cohort->timezone,
                 )->utc();
-                $endsAt = $startsAt->copy()->addMinutes((int) $attributes['duration_minutes']);
+                $endsAt = $startsAt->copy()->addMinutes($durationMinutes);
 
                 if (ClassSession::query()
                     ->where('cohort_id', $cohort->id)
@@ -117,6 +143,8 @@ class GenerateCohortSchedule
                 $title = trim(($attributes['title_prefix'] ?? 'الحصة').' '.$nextNumber);
                 $session = $cohort->classSessions()->create([
                     'teacher_id' => $cohort->teacher_id,
+                    'session_number' => $nextNumber,
+                    'cycle_phase' => $cyclePhases[($nextNumber - 1) % count($cyclePhases)],
                     'title' => $title,
                     'status' => ClassSessionStatus::Scheduled,
                     'starts_at' => $startsAt,
@@ -137,6 +165,10 @@ class GenerateCohortSchedule
                 'skipped_duplicates' => $skippedDuplicates,
                 'skipped_closures' => $skippedClosures->count(),
                 'conflicts' => $conflicts->count(),
+                'target_sessions' => $targetSessions ?: null,
+                'remaining_sessions' => $targetSessions
+                    ? max(0, $targetSessions - $existingSessions - $created->count())
+                    : null,
             ],
             'closures' => $skippedClosures->unique(fn ($item) => $item['date'].'-'.$item['name'])->values(),
             'conflicts' => $conflicts,

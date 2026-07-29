@@ -14,6 +14,8 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 #[Fillable([
     'cohort_id',
     'teacher_id',
+    'session_number',
+    'cycle_phase',
     'title',
     'status',
     'starts_at',

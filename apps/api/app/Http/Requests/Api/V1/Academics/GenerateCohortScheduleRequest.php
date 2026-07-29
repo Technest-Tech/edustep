@@ -19,7 +19,7 @@ class GenerateCohortScheduleRequest extends FormRequest
         return [
             'from' => ['required', 'date'],
             'to' => ['required', 'date', 'after_or_equal:from'],
-            'duration_minutes' => ['required', 'integer', 'min:30', 'max:240'],
+            'duration_minutes' => ['nullable', 'integer', 'min:30', 'max:240'],
             'title_prefix' => ['nullable', 'string', 'max:120'],
             'lesson_focus' => ['nullable', 'string', 'max:2000'],
         ];

@@ -55,6 +55,13 @@ const sessionStatusLabels: Record<string, string> = {
   cancelled: "ملغاة",
 };
 
+const cyclePhaseLabels: Record<string, string> = {
+  engage_input: "تهيئة ومدخلات",
+  notice_practise: "ملاحظة وتدريب",
+  use_create: "استخدام وإنتاج",
+  review_check: "مراجعة وفحص",
+};
+
 const attendanceLabels: Record<string, string> = {
   present: "حاضر",
   absent: "غائب",
@@ -317,6 +324,16 @@ function SessionsPanel({
                   <h3 className="truncate text-[11px] font-semibold text-ink">
                     {session.title}
                   </h3>
+                  {session.session_number ? (
+                    <span className="rounded-md bg-mist px-2 py-1 text-[8px] font-bold text-teal">
+                      الحصة {session.session_number}
+                    </span>
+                  ) : null}
+                  {session.cycle_phase ? (
+                    <span className="rounded-md bg-violet-50 px-2 py-1 text-[8px] font-semibold text-violet-700">
+                      {cyclePhaseLabels[session.cycle_phase] ?? session.cycle_phase}
+                    </span>
+                  ) : null}
                   <StatusBadge
                     value={session.status}
                     label={sessionStatusLabels[session.status] ?? session.status}
@@ -603,7 +620,9 @@ function CreateSessionDialog({
   const queryClient = useQueryClient();
   const [title, setTitle] = useState("");
   const [startsAt, setStartsAt] = useState("");
-  const [duration, setDuration] = useState("90");
+  const [duration, setDuration] = useState(
+    String(cohort.level.session_duration_minutes ?? 90),
+  );
   const [focus, setFocus] = useState("");
   const [error, setError] = useState<string | null>(null);
   const mutation = useMutation({
@@ -668,6 +687,7 @@ function CreateSessionDialog({
           <DialogField label="المدة بالدقائق">
             <select value={duration} onChange={(event) => setDuration(event.target.value)}>
               <option value="60">60 دقيقة</option>
+              <option value="75">75 دقيقة</option>
               <option value="90">90 دقيقة</option>
               <option value="120">120 دقيقة</option>
             </select>
@@ -979,7 +999,9 @@ function GenerateScheduleDialog({
 
     return cohort.ends_on && cohort.ends_on < suggested ? cohort.ends_on : suggested;
   });
-  const [duration, setDuration] = useState("90");
+  const [duration, setDuration] = useState(
+    String(cohort.level.session_duration_minutes ?? 90),
+  );
   const [titlePrefix, setTitlePrefix] = useState("الحصة");
   const [lessonFocus, setLessonFocus] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -1066,6 +1088,7 @@ function GenerateScheduleDialog({
           <DialogField label="مدة الحصة">
             <select value={duration} onChange={(event) => setDuration(event.target.value)}>
               <option value="60">60 دقيقة</option>
+              <option value="75">75 دقيقة</option>
               <option value="90">90 دقيقة</option>
               <option value="120">120 دقيقة</option>
             </select>
@@ -1092,6 +1115,14 @@ function GenerateScheduleDialog({
             <p className="text-[10px] font-bold text-emerald-900">
               تم إنشاء {result.summary.created} حصص
             </p>
+            {result.summary.target_sessions ? (
+              <p className="mt-1 text-[8px] text-emerald-800">
+                خطة المستوى {result.summary.target_sessions} حصة
+                {result.summary.remaining_sessions
+                  ? ` · متبقي ${result.summary.remaining_sessions} حصة`
+                  : " · اكتمل جدول المستوى"}
+              </p>
+            ) : null}
             <div className="mt-3 grid grid-cols-3 gap-2 text-center">
               <ResultStat label="مكررة" value={result.summary.skipped_duplicates} />
               <ResultStat label="إجازات" value={result.summary.skipped_closures} />

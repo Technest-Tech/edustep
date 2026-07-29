@@ -14,7 +14,17 @@ class ProgramController extends Controller
         return ProgramResource::collection(
             Program::query()
                 ->where('is_active', true)
-                ->with(['levels' => fn ($query) => $query->where('is_active', true)])
+                ->with([
+                    'levels' => fn ($query) => $query
+                        ->where('is_active', true)
+                        ->with([
+                            'studyPackages' => fn ($query) => $query
+                                ->where('is_active', true)
+                                ->orderBy('price'),
+                        ]),
+                ])
+                ->orderByRaw('case when catalog_version = ? then 0 else 1 end', ['intensive-v1.1'])
+                ->orderBy('age_min')
                 ->orderBy('name_ar')
                 ->get(),
         );

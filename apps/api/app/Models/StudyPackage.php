@@ -17,7 +17,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
     'sessions_count',
     'duration_weeks',
     'price',
+    'standard_price',
+    'full_payment_discount_percent',
     'default_installments',
+    'second_installment_session',
+    'second_installment_due_days_before',
+    'source_version',
     'is_active',
     'description',
 ])]
@@ -29,6 +34,8 @@ class StudyPackage extends Model
     {
         return [
             'price' => 'decimal:2',
+            'standard_price' => 'decimal:2',
+            'full_payment_discount_percent' => 'decimal:2',
             'is_active' => 'boolean',
         ];
     }

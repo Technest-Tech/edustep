@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 #[Fillable([
     'program_id',
     'level_id',
+    'study_package_id',
     'teacher_id',
     'code',
     'name',
@@ -51,6 +52,11 @@ class Cohort extends Model
     public function level(): BelongsTo
     {
         return $this->belongsTo(Level::class);
+    }
+
+    public function studyPackage(): BelongsTo
+    {
+        return $this->belongsTo(StudyPackage::class);
     }
 
     public function teacher(): BelongsTo

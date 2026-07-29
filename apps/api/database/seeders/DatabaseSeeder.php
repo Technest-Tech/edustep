@@ -817,6 +817,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $this->call([
+            AcademicCatalogSeeder::class,
             AdmissionPipelineSeeder::class,
             ManagementSeeder::class,
         ]);

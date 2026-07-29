@@ -299,12 +299,23 @@ function PackageCard({ studyPackage }: { studyPackage: StudyPackage }) {
       </div>
       <div className="mt-4 flex items-end justify-between">
         <div>
-          <p className="text-[8px] text-slate">سعر الباقة</p>
+          <p className="text-[8px] text-slate">سعر الإطلاق</p>
           <p className="mt-1 text-base font-bold text-navy">
             {formatCurrency(studyPackage.price)}
           </p>
+          {studyPackage.standard_price ? (
+            <p className="mt-1 text-[8px] text-slate line-through">
+              الأساسي {formatCurrency(studyPackage.standard_price)}
+            </p>
+          ) : null}
         </div>
-        <p className="text-[8px] text-slate">{studyPackage.subscriptions_count} اشتراكات</p>
+        <div className="text-left">
+          <p className="text-[8px] text-slate">الدفع الكامل</p>
+          <p className="mt-1 text-[10px] font-bold text-emerald-700">
+            {formatCurrency(studyPackage.full_payment_price)}
+          </p>
+          <p className="mt-1 text-[8px] text-slate">{studyPackage.subscriptions_count} اشتراكات</p>
+        </div>
       </div>
     </article>
   );
@@ -443,6 +454,9 @@ function NewSubscriptionDialog({
   const [enrollmentId, setEnrollmentId] = useState("");
   const [packageId, setPackageId] = useState("");
   const [startsOn, setStartsOn] = useState(todayValue());
+  const [paymentPlan, setPaymentPlan] = useState<"installments" | "full" | "custom">(
+    "installments",
+  );
   const [installmentCount, setInstallmentCount] = useState("1");
   const [discount, setDiscount] = useState("0");
   const [error, setError] = useState<string | null>(null);
@@ -472,8 +486,9 @@ function NewSubscriptionDialog({
           enrollment_id: enrollmentId,
           study_package_id: packageId,
           starts_on: startsOn,
+          payment_plan: paymentPlan,
           installment_count: Number(installmentCount),
-          discount_amount: Number(discount || 0),
+          discount_amount: paymentPlan === "custom" ? Number(discount || 0) : 0,
         },
       }),
     onSuccess: async () => {
@@ -494,6 +509,8 @@ function NewSubscriptionDialog({
     setPackageId(value);
     const item = packages.find((candidate) => candidate.id === value);
     setInstallmentCount(String(item?.default_installments ?? 1));
+    setPaymentPlan("installments");
+    setDiscount("0");
   }
 
   function reset() {
@@ -501,6 +518,7 @@ function NewSubscriptionDialog({
     setEnrollmentId("");
     setPackageId("");
     setStartsOn(todayValue());
+    setPaymentPlan("installments");
     setInstallmentCount("1");
     setDiscount("0");
     setError(null);
@@ -572,13 +590,17 @@ function NewSubscriptionDialog({
           </select>
         </Field>
         {selectedPackage ? (
-          <div className="grid grid-cols-3 gap-2 rounded-2xl bg-cloud p-3">
+          <div className="grid grid-cols-2 gap-2 rounded-2xl bg-cloud p-3 sm:grid-cols-4">
             <PackageStat label="الحصص" value={selectedPackage.sessions_count} />
             <PackageStat label="الأسابيع" value={selectedPackage.duration_weeks} />
-            <PackageStat label="السعر" value={formatCurrency(selectedPackage.price)} />
+            <PackageStat label="سعر الإطلاق" value={formatCurrency(selectedPackage.price)} />
+            <PackageStat
+              label="الدفع الكامل"
+              value={formatCurrency(selectedPackage.full_payment_price)}
+            />
           </div>
         ) : null}
-        <div className="grid gap-4 sm:grid-cols-3">
+        <div className="grid gap-4 sm:grid-cols-2">
           <Field label="تاريخ البداية">
             <input
               type="date"
@@ -588,29 +610,69 @@ function NewSubscriptionDialog({
               className="field-control"
             />
           </Field>
-          <Field label="عدد الأقساط">
+          <Field label="طريقة الدفع">
             <select
-              value={installmentCount}
-              onChange={(event) => setInstallmentCount(event.target.value)}
+              value={paymentPlan}
+              onChange={(event) => {
+                const plan = event.target.value as "installments" | "full" | "custom";
+                setPaymentPlan(plan);
+                if (plan === "full") {
+                  setInstallmentCount("1");
+                } else if (plan === "installments") {
+                  setInstallmentCount(String(selectedPackage?.default_installments ?? 2));
+                }
+              }}
               className="field-control"
             >
-              {[1, 2, 3, 4, 6].map((count) => (
-                <option key={count} value={count}>
-                  {count}
-                </option>
-              ))}
+              <option value="installments">دفعتان حسب سياسة الأكاديمية</option>
+              <option value="full">دفع كامل بخصم 5%</option>
+              <option value="custom">خطة خاصة بموافقة الإدارة</option>
             </select>
           </Field>
-          <Field label="الخصم">
-            <input
-              type="number"
-              min="0"
-              value={discount}
-              onChange={(event) => setDiscount(event.target.value)}
-              className="field-control"
-            />
-          </Field>
         </div>
+        {selectedPackage && paymentPlan !== "custom" ? (
+          <div className="rounded-2xl border border-teal/15 bg-mist/55 p-4 text-[10px] leading-6 text-navy">
+            {paymentPlan === "full" ? (
+              <>
+                سيُنشأ قسط واحد بقيمة{" "}
+                <strong>{formatCurrency(selectedPackage.full_payment_price)}</strong> بعد تطبيق خصم{" "}
+                {selectedPackage.full_payment_discount_percent}% تلقائيًا.
+              </>
+            ) : (
+              <>
+                سيُنشئ النظام {selectedPackage.default_installments} دفعات بقيمة تقريبية{" "}
+                <strong>{formatCurrency(selectedPackage.default_installment_amount)}</strong> للدفعة،
+                وتستحق الثانية قبل الحصة {selectedPackage.second_installment_session ?? 9}.
+              </>
+            )}
+          </div>
+        ) : null}
+        {paymentPlan === "custom" ? (
+          <div className="grid gap-4 sm:grid-cols-2">
+            <Field label="عدد الأقساط">
+              <select
+                value={installmentCount}
+                onChange={(event) => setInstallmentCount(event.target.value)}
+                className="field-control"
+              >
+                {[1, 2, 3, 4, 6].map((count) => (
+                  <option key={count} value={count}>
+                    {count}
+                  </option>
+                ))}
+              </select>
+            </Field>
+            <Field label="خصم خاص">
+              <input
+                type="number"
+                min="0"
+                value={discount}
+                onChange={(event) => setDiscount(event.target.value)}
+                className="field-control"
+              />
+            </Field>
+          </div>
+        ) : null}
         <DialogActions
           submitting={mutation.isPending}
           submitLabel="إنشاء الاشتراك والفواتير"
@@ -633,11 +695,21 @@ function RenewDialog({
   onClose: () => void;
 }) {
   const queryClient = useQueryClient();
-  const [packageId, setPackageId] = useState(subscription.package.id);
+  const initialPackage =
+    packages.find(
+      (item) => item.id === subscription.package.id && item.is_active,
+    ) ?? packages.find((item) => item.is_active);
+  const [packageId, setPackageId] = useState(initialPackage?.id ?? "");
   const [startsOn, setStartsOn] = useState(nextDay(subscription.ends_on));
-  const [installmentCount, setInstallmentCount] = useState("1");
+  const [paymentPlan, setPaymentPlan] = useState<
+    "installments" | "full" | "custom"
+  >("installments");
+  const [installmentCount, setInstallmentCount] = useState(
+    String(initialPackage?.default_installments ?? 2),
+  );
   const [discount, setDiscount] = useState("0");
   const [error, setError] = useState<string | null>(null);
+  const selectedPackage = packages.find((item) => item.id === packageId);
   const mutation = useMutation({
     mutationFn: () =>
       apiClient(`/api/v1/billing/subscriptions/${subscription.id}/renew`, {
@@ -645,8 +717,9 @@ function RenewDialog({
         json: {
           study_package_id: packageId,
           starts_on: startsOn,
+          payment_plan: paymentPlan,
           installment_count: Number(installmentCount),
-          discount_amount: Number(discount || 0),
+          discount_amount: paymentPlan === "custom" ? Number(discount || 0) : 0,
         },
       }),
     onSuccess: async () => {
@@ -673,8 +746,16 @@ function RenewDialog({
         <DialogError value={error} />
         <Field label="باقة التجديد">
           <select
+            required
             value={packageId}
-            onChange={(event) => setPackageId(event.target.value)}
+            onChange={(event) => {
+              const value = event.target.value;
+              const item = packages.find((candidate) => candidate.id === value);
+              setPackageId(value);
+              setPaymentPlan("installments");
+              setInstallmentCount(String(item?.default_installments ?? 2));
+              setDiscount("0");
+            }}
             className="field-control"
           >
             {packages.filter((item) => item.is_active).map((item) => (
@@ -684,7 +765,21 @@ function RenewDialog({
             ))}
           </select>
         </Field>
-        <div className="grid gap-4 sm:grid-cols-3">
+        {selectedPackage ? (
+          <div className="grid grid-cols-2 gap-2 rounded-2xl bg-cloud p-3 sm:grid-cols-4">
+            <PackageStat label="الحصص" value={selectedPackage.sessions_count} />
+            <PackageStat label="الأسابيع" value={selectedPackage.duration_weeks} />
+            <PackageStat
+              label="سعر الإطلاق"
+              value={formatCurrency(selectedPackage.price)}
+            />
+            <PackageStat
+              label="الدفع الكامل"
+              value={formatCurrency(selectedPackage.full_payment_price)}
+            />
+          </div>
+        ) : null}
+        <div className="grid gap-4 sm:grid-cols-2">
           <Field label="بداية التجديد">
             <input
               type="date"
@@ -693,29 +788,76 @@ function RenewDialog({
               className="field-control"
             />
           </Field>
-          <Field label="الأقساط">
+          <Field label="طريقة الدفع">
             <select
-              value={installmentCount}
-              onChange={(event) => setInstallmentCount(event.target.value)}
+              value={paymentPlan}
+              onChange={(event) => {
+                const plan = event.target.value as
+                  | "installments"
+                  | "full"
+                  | "custom";
+                setPaymentPlan(plan);
+                if (plan === "full") {
+                  setInstallmentCount("1");
+                } else if (plan === "installments") {
+                  setInstallmentCount(
+                    String(selectedPackage?.default_installments ?? 2),
+                  );
+                }
+              }}
               className="field-control"
             >
-              {[1, 2, 3, 4, 6].map((count) => (
-                <option key={count} value={count}>
-                  {count}
-                </option>
-              ))}
+              <option value="installments">دفعتان حسب سياسة الأكاديمية</option>
+              <option value="full">دفع كامل بخصم 5%</option>
+              <option value="custom">خطة خاصة بموافقة الإدارة</option>
             </select>
           </Field>
-          <Field label="خصم التجديد">
-            <input
-              type="number"
-              min="0"
-              value={discount}
-              onChange={(event) => setDiscount(event.target.value)}
-              className="field-control"
-            />
-          </Field>
         </div>
+        {selectedPackage && paymentPlan !== "custom" ? (
+          <div className="rounded-2xl border border-teal/15 bg-mist/55 p-4 text-[10px] leading-6 text-navy">
+            {paymentPlan === "full" ? (
+              <>
+                سيُنشأ قسط واحد بقيمة{" "}
+                <strong>{formatCurrency(selectedPackage.full_payment_price)}</strong>{" "}
+                بعد تطبيق خصم {selectedPackage.full_payment_discount_percent}% تلقائيًا.
+              </>
+            ) : (
+              <>
+                سيُنشئ النظام {selectedPackage.default_installments} دفعات بقيمة تقريبية{" "}
+                <strong>
+                  {formatCurrency(selectedPackage.default_installment_amount)}
+                </strong>{" "}
+                للدفعة، وتستحق الثانية قبل الحصة{" "}
+                {selectedPackage.second_installment_session ?? 9}.
+              </>
+            )}
+          </div>
+        ) : (
+          <div className="grid gap-4 sm:grid-cols-2">
+            <Field label="عدد الأقساط">
+              <select
+                value={installmentCount}
+                onChange={(event) => setInstallmentCount(event.target.value)}
+                className="field-control"
+              >
+                {[1, 2, 3, 4, 6].map((count) => (
+                  <option key={count} value={count}>
+                    {count}
+                  </option>
+                ))}
+              </select>
+            </Field>
+            <Field label="خصم خاص">
+              <input
+                type="number"
+                min="0"
+                value={discount}
+                onChange={(event) => setDiscount(event.target.value)}
+                className="field-control"
+              />
+            </Field>
+          </div>
+        )}
         <DialogActions
           submitting={mutation.isPending}
           submitLabel="تأكيد التجديد"

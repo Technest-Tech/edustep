@@ -25,6 +25,14 @@ class StoreCohortRequest extends FormRequest
                 'ulid',
                 Rule::exists('levels', 'id')->where('program_id', $this->string('program_id')->toString()),
             ],
+            'study_package_id' => [
+                'nullable',
+                'ulid',
+                Rule::exists('study_packages', 'id')
+                    ->where('program_id', $this->string('program_id')->toString())
+                    ->where('level_id', $this->string('level_id')->toString())
+                    ->where('is_active', true),
+            ],
             'teacher_id' => [
                 'nullable',
                 'ulid',
@@ -34,8 +42,8 @@ class StoreCohortRequest extends FormRequest
             'name' => ['required', 'string', 'max:255'],
             'status' => ['required', Rule::enum(CohortStatus::class)],
             'delivery_mode' => ['required', Rule::in(['online', 'onsite', 'hybrid'])],
-            'capacity' => ['required', 'integer', 'min:1', 'max:100'],
-            'fee' => ['required', 'numeric', 'min:0', 'max:1000000'],
+            'capacity' => ['nullable', 'integer', 'min:1', 'max:100'],
+            'fee' => ['nullable', 'numeric', 'min:0', 'max:1000000'],
             'starts_on' => ['nullable', 'date'],
             'ends_on' => ['nullable', 'date', 'after_or_equal:starts_on'],
             'schedule' => ['nullable', 'array', 'max:7'],
