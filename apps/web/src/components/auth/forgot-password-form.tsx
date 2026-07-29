@@ -42,10 +42,10 @@ export function ForgotPasswordForm() {
     return (
       <div className="mt-7 rounded-2xl border border-emerald-100 bg-emerald-50 p-5">
         <BadgeCheck className="text-emerald-600" size={24} />
-        <p className="mt-3 text-[11px] font-bold text-emerald-900">
+        <p className="mt-3 text-[13px] font-bold text-emerald-900">
           راجع بريدك الإلكتروني
         </p>
-        <p className="mt-2 text-[9px] leading-6 text-emerald-800">
+        <p className="mt-2 text-[12px] leading-6 text-emerald-800">
           إذا كان البريد مرتبطًا بحساب، ستصلك رسالة بها رابط مؤقت. افحص مجلد
           الرسائل غير المرغوبة أيضًا.
         </p>
@@ -56,12 +56,12 @@ export function ForgotPasswordForm() {
   return (
     <form method="post" onSubmit={submit} className="mt-7 space-y-5">
       {error ? (
-        <p role="alert" className="rounded-xl bg-rose-50 p-3 text-[9px] text-rose-700">
+        <p role="alert" className="rounded-xl bg-rose-50 p-3 text-[12px] text-rose-700">
           {error}
         </p>
       ) : null}
       <div>
-        <label htmlFor="recovery-email" className="mb-2 block text-[10px] font-semibold text-navy">
+        <label htmlFor="recovery-email" className="mb-2 block text-[12px] font-semibold text-navy">
           البريد الإلكتروني للحساب
         </label>
         <div className="flex min-h-12 items-center gap-3 rounded-[14px] border border-navy/[0.1] bg-cloud/60 px-4 focus-within:border-teal/60 focus-within:ring-4 focus-within:ring-teal/10">

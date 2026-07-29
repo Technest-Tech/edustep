@@ -201,18 +201,18 @@ export function AdmissionsContent() {
           ].map(([step, title, description], index) => (
             <div key={step} className="relative bg-navy px-5 py-4">
               <div className="flex items-center justify-between">
-                <span className="font-mono text-[9px] text-teal">{step}</span>
+                <span className="font-mono text-[12px] text-teal">{step}</span>
                 {index < 3 ? <ArrowUpLeft className="text-white/20" size={14} /> : null}
               </div>
-              <p className="mt-2 text-[11px] font-semibold">{title}</p>
-              <p className="mt-1 text-[8px] text-white/45">{description}</p>
+              <p className="mt-2 text-[13px] font-semibold">{title}</p>
+              <p className="mt-1 text-[11px] text-white/45">{description}</p>
             </div>
           ))}
         </div>
       </section>
 
       {actionError ? (
-        <div role="alert" className="flex items-center gap-2 rounded-xl border border-rose-100 bg-rose-50 px-4 py-3 text-[10px] text-rose-700">
+        <div role="alert" className="flex items-center gap-2 rounded-xl border border-rose-100 bg-rose-50 px-4 py-3 text-[12px] text-rose-700">
           <CircleAlert size={15} />
           {actionError}
         </div>
@@ -240,7 +240,7 @@ export function AdmissionsContent() {
             <input
               value={search}
               onChange={(event) => setSearch(event.target.value)}
-              className="min-w-0 flex-1 bg-transparent text-[10px] text-ink outline-none"
+              className="min-w-0 flex-1 bg-transparent text-[12px] text-ink outline-none"
               placeholder="اسم العميل، الهاتف، أو الجروب..."
             />
           </label>
@@ -308,12 +308,12 @@ function OffersPanel({
         <article key={offer.id} className="grid gap-4 px-5 py-4 transition hover:bg-cloud/45 xl:grid-cols-[1.1fr_1fr_150px_140px] xl:items-center">
           <PersonCell lead={offer.lead} reference={offer.offer_number} />
           <div>
-            <p className="text-[10px] font-semibold text-ink">{offer.cohort?.name ?? "—"}</p>
-            <p className="mt-1 text-[8px] text-slate">
+            <p className="text-[12px] font-semibold text-ink">{offer.cohort?.name ?? "—"}</p>
+            <p className="mt-1 text-[11px] text-slate">
               صالح حتى {formatDate(offer.valid_until)} · {formatCurrency(offer.net_amount)}
             </p>
             {offer.seat_reservation?.status === "held" ? (
-              <p className="mt-1.5 text-[8px] font-semibold text-amber-700">
+              <p className="mt-1.5 text-[11px] font-semibold text-amber-700">
                 المقعد محجوز {relativeTime(offer.seat_reservation.reserved_until ?? offer.valid_until)}
               </p>
             ) : null}
@@ -355,9 +355,9 @@ function TrialsPanel({
         <article key={trial.id} className="grid gap-4 px-5 py-4 transition hover:bg-cloud/45 xl:grid-cols-[1.1fr_1fr_150px_170px] xl:items-center">
           <PersonCell lead={trial.lead} reference={`${trial.duration_minutes} دقيقة`} />
           <div>
-            <p className="text-[10px] font-semibold text-ink">{trial.cohort?.name ?? "—"}</p>
-            <p className="mt-1 text-[8px] text-slate">{formatDateTime(trial.scheduled_at)}</p>
-            <p className="mt-1 text-[8px] text-slate">{trial.room_name ?? (trial.meeting_url ? "أونلاين" : "المكان غير محدد")}</p>
+            <p className="text-[12px] font-semibold text-ink">{trial.cohort?.name ?? "—"}</p>
+            <p className="mt-1 text-[11px] text-slate">{formatDateTime(trial.scheduled_at)}</p>
+            <p className="mt-1 text-[11px] text-slate">{trial.room_name ?? (trial.meeting_url ? "أونلاين" : "المكان غير محدد")}</p>
           </div>
           <StatusBadge value={trial.status} label={trialLabels[trial.status]} />
           <div className="flex items-center justify-end gap-2">
@@ -367,7 +367,7 @@ function TrialsPanel({
                 value=""
                 disabled={pending}
                 onChange={(event) => event.target.value && onStatus(trial.id, event.target.value)}
-                className="min-h-8 rounded-lg border border-navy/[0.09] bg-white px-2 text-[9px] text-navy outline-none"
+                className="min-h-8 rounded-lg border border-navy/[0.09] bg-white px-2 text-[12px] text-navy outline-none"
               >
                 <option value="">تحديث الحالة</option>
                 {trial.status === "scheduled" ? <option value="confirmed">تأكيد الحضور</option> : null}
@@ -399,9 +399,9 @@ function WaitlistPanel({
         <article key={entry.id} className="grid gap-4 px-5 py-4 transition hover:bg-cloud/45 xl:grid-cols-[1.1fr_1fr_150px_170px] xl:items-center">
           <PersonCell lead={entry.lead} reference={`الأولوية ${entry.priority}`} />
           <div>
-            <p className="text-[10px] font-semibold text-ink">{entry.cohort?.name ?? "—"}</p>
-            <p className="mt-1 text-[8px] text-slate">منذ {formatDateTime(entry.joined_at)}</p>
-            {entry.notes ? <p className="mt-1 line-clamp-1 text-[8px] text-slate">{entry.notes}</p> : null}
+            <p className="text-[12px] font-semibold text-ink">{entry.cohort?.name ?? "—"}</p>
+            <p className="mt-1 text-[11px] text-slate">منذ {formatDateTime(entry.joined_at)}</p>
+            {entry.notes ? <p className="mt-1 line-clamp-1 text-[11px] text-slate">{entry.notes}</p> : null}
           </div>
           <StatusBadge value={entry.status} label={waitlistLabels[entry.status]} />
           <div className="flex justify-end gap-2">
@@ -434,8 +434,8 @@ function HoldsPanel({
         <article key={reservation.id} className="grid gap-4 px-5 py-4 transition hover:bg-cloud/45 xl:grid-cols-[1.1fr_1fr_150px_170px] xl:items-center">
           <PersonCell lead={reservation.lead} reference={reservation.offer_id ? "مرتبط بعرض" : "حجز مباشر"} />
           <div>
-            <p className="text-[10px] font-semibold text-ink">{reservation.cohort?.name ?? "—"}</p>
-            <p className="mt-1 flex items-center gap-1 text-[8px] text-slate">
+            <p className="text-[12px] font-semibold text-ink">{reservation.cohort?.name ?? "—"}</p>
+            <p className="mt-1 flex items-center gap-1 text-[11px] text-slate">
               <Clock3 size={11} />
               {reservation.status === "held"
                 ? `ينتهي ${relativeTime(reservation.reserved_until)}`
@@ -463,7 +463,7 @@ function ListLayout({ children, empty }: { children: React.ReactNode[]; empty: s
       <div className="grid min-h-56 place-items-center p-8 text-center">
         <div>
           <Sparkles className="mx-auto text-teal" size={26} />
-          <p className="mt-3 text-[10px] font-semibold text-navy">{empty}</p>
+          <p className="mt-3 text-[12px] font-semibold text-navy">{empty}</p>
         </div>
       </div>
     );
@@ -481,12 +481,12 @@ function PersonCell({
 }) {
   return (
     <div className="flex items-center gap-3">
-      <div className="grid size-10 shrink-0 place-items-center rounded-xl bg-mist text-[11px] font-bold text-navy">
+      <div className="grid size-10 shrink-0 place-items-center rounded-xl bg-mist text-[13px] font-bold text-navy">
         {lead?.full_name.charAt(0) ?? "؟"}
       </div>
       <div className="min-w-0">
-        <p className="truncate text-[10px] font-semibold text-ink">{lead?.full_name ?? "عميل غير متاح"}</p>
-        <p className="mt-1 text-[8px] text-slate">{lead?.phone ?? "—"} · {reference}</p>
+        <p className="truncate text-[12px] font-semibold text-ink">{lead?.full_name ?? "عميل غير متاح"}</p>
+        <p className="mt-1 text-[11px] text-slate">{lead?.phone ?? "—"} · {reference}</p>
       </div>
     </div>
   );
@@ -494,7 +494,7 @@ function PersonCell({
 
 function LeadLink({ id }: { id?: string }) {
   return id ? (
-    <Link href={`/leads/${id}`} className="inline-flex min-h-8 items-center rounded-lg px-2 text-[9px] font-semibold text-slate transition hover:bg-cloud hover:text-navy">
+    <Link href={`/leads/${id}`} className="inline-flex min-h-8 items-center rounded-lg px-2 text-[12px] font-semibold text-slate transition hover:bg-cloud hover:text-navy">
       فتح الملف
     </Link>
   ) : null;
@@ -515,12 +515,12 @@ function ViewButton({
     <button
       type="button"
       onClick={onClick}
-      className={`inline-flex min-h-9 items-center gap-2 rounded-lg px-3 text-[9px] font-semibold transition ${
+      className={`inline-flex min-h-9 items-center gap-2 rounded-lg px-3 text-[12px] font-semibold transition ${
         active ? "bg-white text-navy shadow-sm" : "text-slate hover:text-navy"
       }`}
     >
       {children}
-      <span className={`rounded-full px-1.5 py-0.5 text-[7px] ${active ? "bg-mist text-teal" : "bg-white text-slate"}`}>
+      <span className={`rounded-full px-1.5 py-0.5 text-[11px] ${active ? "bg-mist text-teal" : "bg-white text-slate"}`}>
         {count}
       </span>
     </button>
@@ -545,9 +545,9 @@ function MetricCard({
       <div className={`grid size-9 place-items-center rounded-xl ${tone}`}>
         <Icon size={17} />
       </div>
-      <p className="mt-4 text-[9px] font-medium text-slate">{label}</p>
+      <p className="mt-4 text-[12px] font-medium text-slate">{label}</p>
       <p className="mt-1 text-xl font-bold text-navy">{value}</p>
-      <p className="mt-1 text-[8px] text-slate/75">{hint}</p>
+      <p className="mt-1 text-[11px] text-slate/75">{hint}</p>
     </article>
   );
 }

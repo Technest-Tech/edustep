@@ -144,7 +144,7 @@ export function LeadDetail({ leadId }: { leadId: string }) {
     <div className="space-y-6">
       <Link
         href="/leads"
-        className="inline-flex items-center gap-1 text-[10px] font-semibold text-slate transition hover:text-navy"
+        className="inline-flex items-center gap-1 text-[12px] font-semibold text-slate transition hover:text-navy"
       >
         <ArrowRight size={14} />
         العودة إلى العملاء
@@ -193,19 +193,19 @@ export function LeadDetail({ leadId }: { leadId: string }) {
           <section className="rounded-2xl border border-navy/[0.065] bg-white p-5 shadow-[0_8px_30px_rgba(11,36,84,.035)]">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
               <div>
-                <p className="text-[9px] font-medium text-slate">مرحلة العميل الحالية</p>
+                <p className="text-[12px] font-medium text-slate">مرحلة العميل الحالية</p>
                 <div className="mt-2">
                   <StatusBadge value={lead.status.value} label={lead.status.label} />
                 </div>
               </div>
               {lead.status.value !== "won" ? (
                 <label className="flex items-center gap-2">
-                  <span className="text-[9px] text-slate">تغيير المرحلة</span>
+                  <span className="text-[12px] text-slate">تغيير المرحلة</span>
                   <select
                     value={lead.status.value}
                     disabled={statusMutation.isPending}
                     onChange={(event) => statusMutation.mutate(event.target.value)}
-                    className="min-h-10 rounded-xl border border-navy/[0.08] bg-cloud px-3 text-[10px] text-navy outline-none"
+                    className="min-h-10 rounded-xl border border-navy/[0.08] bg-cloud px-3 text-[12px] text-navy outline-none"
                   >
                     {statuses.map(([value, label]) => (
                       <option key={value} value={value}>
@@ -215,7 +215,7 @@ export function LeadDetail({ leadId }: { leadId: string }) {
                   </select>
                 </label>
               ) : (
-                <p className="text-[10px] font-semibold text-emerald-700">
+                <p className="text-[12px] font-semibold text-emerald-700">
                   الطالب: {lead.student?.student_code}
                 </p>
               )}
@@ -226,7 +226,7 @@ export function LeadDetail({ leadId }: { leadId: string }) {
             <div className="flex items-center justify-between border-b border-navy/[0.055] px-5 py-4">
               <div>
                 <h2 className="text-sm font-bold text-navy">سجل التواصل والنشاط</h2>
-                <p className="mt-1 text-[9px] text-slate">تاريخ كامل لكل خطوة مع العميل</p>
+                <p className="mt-1 text-[12px] text-slate">تاريخ كامل لكل خطوة مع العميل</p>
               </div>
               <Button size="sm" variant="secondary" onClick={() => setActiveDialog("note")}>
                 <NotebookPen size={14} />
@@ -250,19 +250,19 @@ export function LeadDetail({ leadId }: { leadId: string }) {
                       </div>
                       <div className="min-w-0 flex-1 rounded-xl border border-navy/[0.05] bg-cloud/45 p-3.5">
                         <div className="flex flex-wrap items-start justify-between gap-2">
-                          <h3 className="text-[10px] font-semibold text-ink">
+                          <h3 className="text-[12px] font-semibold text-ink">
                             {activity.title}
                           </h3>
-                          <span className="text-[8px] text-slate">
+                          <span className="text-[11px] text-slate">
                             {formatDateTime(activity.occurred_at)}
                           </span>
                         </div>
                         {activity.details ? (
-                          <p className="mt-2 text-[9px] leading-5 text-slate">
+                          <p className="mt-2 text-[12px] leading-5 text-slate">
                             {activity.details}
                           </p>
                         ) : null}
-                        <p className="mt-2 text-[8px] text-slate/65">
+                        <p className="mt-2 text-[11px] text-slate/65">
                           {activity.creator?.name ?? "النظام"}
                         </p>
                       </div>
@@ -270,7 +270,7 @@ export function LeadDetail({ leadId }: { leadId: string }) {
                   ))}
                 </div>
               ) : (
-                <p className="py-10 text-center text-[10px] text-slate">
+                <p className="py-10 text-center text-[12px] text-slate">
                   لا يوجد نشاط مسجل بعد.
                 </p>
               )}
@@ -283,7 +283,7 @@ export function LeadDetail({ leadId }: { leadId: string }) {
             <div className="bg-navy px-5 py-4 text-white">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-[8px] font-semibold text-teal">ADMISSION JOURNEY</p>
+                  <p className="text-[11px] font-semibold text-teal">ADMISSION JOURNEY</p>
                   <h2 className="mt-1 text-sm font-bold">رحلة القبول</h2>
                 </div>
                 <TicketCheck className="text-sun" size={19} />
@@ -337,7 +337,7 @@ export function LeadDetail({ leadId }: { leadId: string }) {
                 <button
                   type="button"
                   onClick={() => setActiveDialog("convert")}
-                  className="w-full text-center text-[8px] font-semibold text-slate transition hover:text-navy"
+                  className="w-full text-center text-[11px] font-semibold text-slate transition hover:text-navy"
                 >
                   تسجيل مباشر بدون عرض
                 </button>
@@ -357,7 +357,7 @@ export function LeadDetail({ leadId }: { leadId: string }) {
             <div className="flex items-center justify-between">
               <div>
                 <h2 className="text-sm font-bold text-navy">المتابعات</h2>
-                <p className="mt-1 text-[9px] text-slate">
+                <p className="mt-1 text-[12px] text-slate">
                   {pendingFollowUps.length} مهام مفتوحة
                 </p>
               </div>
@@ -383,11 +383,11 @@ export function LeadDetail({ leadId }: { leadId: string }) {
                         className={followUp.is_overdue ? "text-rose-500" : "text-teal"}
                       />
                       <div className="min-w-0 flex-1">
-                        <p className="text-[10px] font-semibold text-ink">
+                        <p className="text-[12px] font-semibold text-ink">
                           {followUp.subject}
                         </p>
                         <p
-                          className={`mt-1 text-[8px] ${
+                          className={`mt-1 text-[11px] ${
                             followUp.is_overdue ? "text-rose-600" : "text-slate"
                           }`}
                         >
@@ -408,7 +408,7 @@ export function LeadDetail({ leadId }: { leadId: string }) {
               ) : (
                 <div className="rounded-xl bg-emerald-50 px-4 py-5 text-center">
                   <Check className="mx-auto text-emerald-600" size={20} />
-                  <p className="mt-2 text-[9px] font-semibold text-emerald-700">
+                  <p className="mt-2 text-[12px] font-semibold text-emerald-700">
                     لا توجد متابعات مفتوحة
                   </p>
                 </div>
@@ -433,16 +433,16 @@ export function LeadDetail({ leadId }: { leadId: string }) {
                       : "مجدول"
                   }
                 />
-                <p className="mt-3 text-[10px] font-semibold text-navy">
+                <p className="mt-3 text-[12px] font-semibold text-navy">
                   {formatDateTime(lead.placement_assessment.scheduled_at)}
                 </p>
-                <p className="mt-1 text-[8px] text-slate">
+                <p className="mt-1 text-[11px] text-slate">
                   المستوى المقترح:{" "}
                   {lead.placement_assessment.recommended_level?.name_ar ?? "لم يحدد"}
                 </p>
               </div>
             ) : (
-              <p className="mt-4 rounded-xl bg-cloud px-4 py-5 text-center text-[9px] text-slate">
+              <p className="mt-4 rounded-xl bg-cloud px-4 py-5 text-center text-[12px] text-slate">
                 لم يتم تحديد اختبار مستوى بعد.
               </p>
             )}
@@ -466,8 +466,8 @@ export function LeadDetail({ leadId }: { leadId: string }) {
             </dl>
             {lead.notes ? (
               <div className="mt-4 rounded-xl border border-navy/[0.055] bg-cloud/60 p-3">
-                <p className="text-[8px] font-semibold text-slate">ملاحظات</p>
-                <p className="mt-1 text-[9px] leading-5 text-ink">{lead.notes}</p>
+                <p className="text-[11px] font-semibold text-slate">ملاحظات</p>
+                <p className="mt-1 text-[12px] leading-5 text-ink">{lead.notes}</p>
               </div>
             ) : null}
           </section>
@@ -556,7 +556,7 @@ function ActionDialog({
           <div className="flex items-start justify-between gap-4">
             <div>
               <Dialog.Title className="text-lg font-bold text-navy">{title}</Dialog.Title>
-              <Dialog.Description className="mt-1 text-[9px] leading-5 text-slate">
+              <Dialog.Description className="mt-1 text-[12px] leading-5 text-slate">
                 {description}
               </Dialog.Description>
             </div>
@@ -880,7 +880,7 @@ function OfferDialog({
           </FormField>
         </div>
         {selectedCohort ? (
-          <div className="flex items-center justify-between rounded-xl bg-mist/60 p-3 text-[10px]">
+          <div className="flex items-center justify-between rounded-xl bg-mist/60 p-3 text-[12px]">
             <span className="text-slate">صافي العرض</span>
             <span className="font-bold text-navy">
               {Math.max(0, Number(price || 0) - Number(discount || 0)).toLocaleString("ar-EG")} ج.م
@@ -891,11 +891,11 @@ function OfferDialog({
           <textarea rows={3} value={notes} onChange={(event) => setNotes(event.target.value)} />
         </FormField>
         <div className="grid gap-2 sm:grid-cols-2">
-          <label className="flex items-center gap-3 rounded-xl border border-navy/[0.07] bg-cloud/60 p-3 text-[9px] font-semibold text-navy">
+          <label className="flex items-center gap-3 rounded-xl border border-navy/[0.07] bg-cloud/60 p-3 text-[12px] font-semibold text-navy">
             <input type="checkbox" checked={holdSeat} onChange={(event) => setHoldSeat(event.target.checked)} />
             حجز المقعد بالمدة الافتراضية
           </label>
-          <label className="flex items-center gap-3 rounded-xl border border-navy/[0.07] bg-cloud/60 p-3 text-[9px] font-semibold text-navy">
+          <label className="flex items-center gap-3 rounded-xl border border-navy/[0.07] bg-cloud/60 p-3 text-[12px] font-semibold text-navy">
             <input type="checkbox" checked={sendNow} onChange={(event) => setSendNow(event.target.checked)} />
             اعتماد وإرسال الآن
           </label>
@@ -1123,7 +1123,7 @@ function ConvertDialog({
         }}
       >
         <div className="rounded-xl bg-mist/60 p-4">
-          <p className="text-[9px] text-slate">الطالب</p>
+          <p className="text-[12px] text-slate">الطالب</p>
           <p className="mt-1 text-xs font-bold text-navy">{lead.full_name}</p>
         </div>
         <FormField label="الجروب">
@@ -1148,7 +1148,7 @@ function ConvertDialog({
           <input type="number" min="0" value={discount} onChange={(event) => setDiscount(event.target.value)} />
         </FormField>
         {selectedCohort ? (
-          <div className="flex items-center justify-between rounded-xl border border-navy/[0.06] bg-cloud p-3 text-[10px]">
+          <div className="flex items-center justify-between rounded-xl border border-navy/[0.06] bg-cloud p-3 text-[12px]">
             <span className="text-slate">صافي الرسوم</span>
             <span className="font-bold text-navy">
               {Math.max(0, Number(selectedCohort.fee) - Number(discount || 0)).toLocaleString("ar-EG")} ج.م
@@ -1173,7 +1173,7 @@ function DialogActions({
   return (
     <>
       {error ? (
-        <p role="alert" className="rounded-xl bg-rose-50 px-3 py-2 text-[9px] text-rose-700">
+        <p role="alert" className="rounded-xl bg-rose-50 px-3 py-2 text-[12px] text-rose-700">
           {error}
         </p>
       ) : null}
@@ -1192,8 +1192,8 @@ function DialogActions({
 function FormField({ label, children }: { label: string; children: ReactElement }) {
   return (
     <label>
-      <span className="mb-2 block text-[10px] font-semibold text-navy">{label}</span>
-      <span className="[&>input]:min-h-11 [&>input]:w-full [&>input]:rounded-xl [&>input]:border [&>input]:border-navy/[0.09] [&>input]:bg-cloud/70 [&>input]:px-3.5 [&>input]:text-[11px] [&>input]:outline-none [&>select]:min-h-11 [&>select]:w-full [&>select]:rounded-xl [&>select]:border [&>select]:border-navy/[0.09] [&>select]:bg-cloud/70 [&>select]:px-3.5 [&>select]:text-[11px] [&>select]:outline-none [&>textarea]:w-full [&>textarea]:resize-none [&>textarea]:rounded-xl [&>textarea]:border [&>textarea]:border-navy/[0.09] [&>textarea]:bg-cloud/70 [&>textarea]:p-3.5 [&>textarea]:text-[11px] [&>textarea]:outline-none">
+      <span className="mb-2 block text-[12px] font-semibold text-navy">{label}</span>
+      <span className="[&>input]:min-h-11 [&>input]:w-full [&>input]:rounded-xl [&>input]:border [&>input]:border-navy/[0.09] [&>input]:bg-cloud/70 [&>input]:px-3.5 [&>input]:text-[13px] [&>input]:outline-none [&>select]:min-h-11 [&>select]:w-full [&>select]:rounded-xl [&>select]:border [&>select]:border-navy/[0.09] [&>select]:bg-cloud/70 [&>select]:px-3.5 [&>select]:text-[13px] [&>select]:outline-none [&>textarea]:w-full [&>textarea]:resize-none [&>textarea]:rounded-xl [&>textarea]:border [&>textarea]:border-navy/[0.09] [&>textarea]:bg-cloud/70 [&>textarea]:p-3.5 [&>textarea]:text-[13px] [&>textarea]:outline-none">
         {children}
       </span>
     </label>
@@ -1205,8 +1205,8 @@ function InfoRow({ icon, label, value }: { icon: ReactNode; label: string; value
     <div className="flex items-center gap-3">
       <div className="grid size-8 place-items-center rounded-lg bg-cloud text-slate">{icon}</div>
       <div className="min-w-0">
-        <dt className="text-[8px] text-slate">{label}</dt>
-        <dd className="mt-0.5 truncate text-[9px] font-medium text-ink">{value}</dd>
+        <dt className="text-[11px] text-slate">{label}</dt>
+        <dd className="mt-0.5 truncate text-[12px] font-medium text-ink">{value}</dd>
       </div>
     </div>
   );
@@ -1231,8 +1231,8 @@ function JourneyRow({
         }`}
       />
       <div className="min-w-0">
-        <p className="text-[8px] font-semibold text-slate">{label}</p>
-        <p className="mt-1 text-[9px] leading-5 text-ink">{value}</p>
+        <p className="text-[11px] font-semibold text-slate">{label}</p>
+        <p className="mt-1 text-[12px] leading-5 text-ink">{value}</p>
       </div>
     </div>
   );

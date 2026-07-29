@@ -114,7 +114,7 @@ export function ServiceRequestsContent() {
               value={search}
               onChange={(event) => setSearch(event.target.value)}
               placeholder="رقم الطلب، الموضوع، ولي الأمر أو الطالب..."
-              className="min-w-0 flex-1 bg-transparent text-[11px] text-ink outline-none"
+              className="min-w-0 flex-1 bg-transparent text-[13px] text-ink outline-none"
             />
           </label>
           <div className="flex items-center gap-2 overflow-x-auto">
@@ -130,7 +130,7 @@ export function ServiceRequestsContent() {
                 key={value}
                 type="button"
                 onClick={() => setStatus(value)}
-                className={`shrink-0 rounded-full px-3 py-2 text-[9px] font-semibold ${
+                className={`shrink-0 rounded-full px-3 py-2 text-[12px] font-semibold ${
                   status === value ? "bg-navy text-white" : "bg-cloud text-slate"
                 }`}
               >
@@ -161,27 +161,27 @@ export function ServiceRequestsContent() {
                     </span>
                     <div className="min-w-0">
                       <div className="flex flex-wrap items-center gap-2">
-                        <p className="font-mono text-[8px] font-bold text-teal">{request.request_number}</p>
-                        <span className="rounded-full bg-cloud px-2 py-1 text-[8px] text-slate">{categoryLabels[request.category]}</span>
-                        <span className={`rounded-full px-2 py-1 text-[8px] font-bold ${
+                        <p className="font-mono text-[11px] font-bold text-teal">{request.request_number}</p>
+                        <span className="rounded-full bg-cloud px-2 py-1 text-[11px] text-slate">{categoryLabels[request.category]}</span>
+                        <span className={`rounded-full px-2 py-1 text-[11px] font-bold ${
                           request.priority === "normal" ? "bg-slate-50 text-slate" : "bg-rose-50 text-rose-700"
                         }`}>{priorityLabels[request.priority]}</span>
                       </div>
-                      <h2 className="mt-2 text-[11px] font-bold text-navy">{request.subject}</h2>
-                      <p className="mt-1 line-clamp-2 text-[9px] leading-5 text-slate">{request.description}</p>
+                      <h2 className="mt-2 text-[13px] font-bold text-navy">{request.subject}</h2>
+                      <p className="mt-1 line-clamp-2 text-[12px] leading-5 text-slate">{request.description}</p>
                     </div>
                   </div>
 
                   <div className="grid shrink-0 gap-3 sm:grid-cols-3 xl:w-[470px]">
                     <div>
-                      <p className="text-[8px] text-slate">ولي الأمر والطالب</p>
-                      <p className="mt-1 truncate text-[9px] font-semibold text-navy">{request.guardian?.name ?? "—"}</p>
-                      <p className="mt-1 truncate text-[8px] text-slate">{request.student?.full_name ?? "طلب عام"}</p>
+                      <p className="text-[11px] text-slate">ولي الأمر والطالب</p>
+                      <p className="mt-1 truncate text-[12px] font-semibold text-navy">{request.guardian?.name ?? "—"}</p>
+                      <p className="mt-1 truncate text-[11px] text-slate">{request.student?.full_name ?? "طلب عام"}</p>
                     </div>
                     <div>
-                      <p className="text-[8px] text-slate">المسؤول</p>
-                      <p className="mt-1 truncate text-[9px] font-semibold text-navy">{request.assignee?.name ?? "غير مسند"}</p>
-                      <p className="mt-1 text-[8px] text-slate">{formatDateTime(request.created_at)}</p>
+                      <p className="text-[11px] text-slate">المسؤول</p>
+                      <p className="mt-1 truncate text-[12px] font-semibold text-navy">{request.assignee?.name ?? "غير مسند"}</p>
+                      <p className="mt-1 text-[11px] text-slate">{formatDateTime(request.created_at)}</p>
                     </div>
                     <div className="flex items-center justify-between gap-2 sm:justify-end">
                       <StatusBadge value={request.status} label={statusLabels[request.status]} />
@@ -203,8 +203,8 @@ export function ServiceRequestsContent() {
                 </div>
                 {request.resolution ? (
                   <div className="mt-4 rounded-xl bg-emerald-50 px-4 py-3">
-                    <p className="flex items-center gap-2 text-[8px] font-bold text-emerald-700"><BadgeCheck size={13} />الحل المسجل</p>
-                    <p className="mt-1 text-[9px] leading-5 text-emerald-900/70">{request.resolution}</p>
+                    <p className="flex items-center gap-2 text-[11px] font-bold text-emerald-700"><BadgeCheck size={13} />الحل المسجل</p>
+                    <p className="mt-1 text-[12px] leading-5 text-emerald-900/70">{request.resolution}</p>
                   </div>
                 ) : null}
               </article>
@@ -266,16 +266,16 @@ function ResolveRequestDialog({
           <div className="flex items-start justify-between gap-4">
             <div>
               <Dialog.Title className="text-lg font-bold text-navy">تفاصيل طلب الخدمة</Dialog.Title>
-              <Dialog.Description className="mt-1 text-[9px] text-slate">{request.request_number} · {request.subject}</Dialog.Description>
+              <Dialog.Description className="mt-1 text-[12px] text-slate">{request.request_number} · {request.subject}</Dialog.Description>
             </div>
             <Dialog.Close asChild><Button size="icon" variant="secondary" aria-label="إغلاق"><X size={16} /></Button></Dialog.Close>
           </div>
           <div className="mt-5 rounded-2xl bg-cloud p-4">
-            <p className="text-[9px] leading-6 text-slate">{request.description}</p>
+            <p className="text-[12px] leading-6 text-slate">{request.description}</p>
           </div>
           {request.status === "in_progress" || request.status === "open" ? (
             <form className="mt-5" onSubmit={(event: FormEvent) => { event.preventDefault(); mutation.mutate(); }}>
-              <label className="text-[9px] font-semibold text-navy">
+              <label className="text-[12px] font-semibold text-navy">
                 الحل والإجراء الذي تم
                 <textarea
                   required
@@ -283,7 +283,7 @@ function ResolveRequestDialog({
                   value={resolution}
                   onChange={(event) => setResolution(event.target.value)}
                   placeholder="سجّل ما تم الاتفاق عليه أو تنفيذه..."
-                  className="mt-2 w-full rounded-xl border border-navy/10 p-3 text-[10px] outline-none focus:border-teal/50"
+                  className="mt-2 w-full rounded-xl border border-navy/10 p-3 text-[12px] outline-none focus:border-teal/50"
                 />
               </label>
               <div className="mt-4 flex justify-end gap-2">
@@ -293,8 +293,8 @@ function ResolveRequestDialog({
             </form>
           ) : (
             <div className="mt-5 rounded-2xl bg-emerald-50 p-4">
-              <p className="text-[8px] font-bold text-emerald-700">الحل المسجل</p>
-              <p className="mt-2 text-[9px] leading-6 text-emerald-900/70">{request.resolution}</p>
+              <p className="text-[11px] font-bold text-emerald-700">الحل المسجل</p>
+              <p className="mt-2 text-[12px] leading-6 text-emerald-900/70">{request.resolution}</p>
             </div>
           )}
         </Dialog.Content>
@@ -306,7 +306,7 @@ function ResolveRequestDialog({
 function RequestMetric({ icon: Icon, label, value, tone }: { icon: typeof LifeBuoy; label: string; value: number; tone: string }) {
   return (
     <article className="rounded-2xl border border-navy/[0.06] bg-white p-4 shadow-[0_8px_28px_rgba(11,36,84,.035)]">
-      <div className="flex items-center gap-3"><span className={`grid size-10 place-items-center rounded-2xl ${tone}`}><Icon size={18} /></span><div><p className="text-xl font-bold text-navy">{value}</p><p className="mt-0.5 text-[8px] text-slate">{label}</p></div></div>
+      <div className="flex items-center gap-3"><span className={`grid size-10 place-items-center rounded-2xl ${tone}`}><Icon size={18} /></span><div><p className="text-xl font-bold text-navy">{value}</p><p className="mt-0.5 text-[11px] text-slate">{label}</p></div></div>
     </article>
   );
 }

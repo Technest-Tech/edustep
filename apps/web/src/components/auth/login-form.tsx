@@ -105,10 +105,10 @@ export function LoginForm() {
               <ShieldCheck size={19} />
             </div>
             <div>
-              <p className="text-[11px] font-bold text-navy">
+              <p className="text-[13px] font-bold text-navy">
                 تحقق بخطوتين
               </p>
-              <p className="mt-1 text-[9px] leading-5 text-slate">
+              <p className="mt-1 text-[12px] leading-5 text-slate">
                 اكتب الرمز الحالي من تطبيق المصادقة، أو استخدم أحد رموز
                 الاسترداد المحفوظة.
               </p>
@@ -119,7 +119,7 @@ export function LoginForm() {
         {serverError ? (
           <div
             role="alert"
-            className="rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-[11px] leading-5 text-rose-700"
+            className="rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-[13px] leading-5 text-rose-700"
           >
             {serverError}
           </div>
@@ -128,7 +128,7 @@ export function LoginForm() {
         <div>
           <label
             htmlFor="two-factor-code"
-            className="mb-2 block text-[11px] font-semibold text-navy"
+            className="mb-2 block text-[13px] font-semibold text-navy"
           >
             رمز التحقق أو الاسترداد
           </label>
@@ -163,7 +163,7 @@ export function LoginForm() {
             setTwoFactorCode("");
             setServerError(null);
           }}
-          className="w-full text-center text-[9px] font-semibold text-teal"
+          className="w-full text-center text-[12px] font-semibold text-teal"
         >
           العودة لبيانات الدخول
         </button>
@@ -180,7 +180,7 @@ export function LoginForm() {
       {serverError ? (
         <div
           role="alert"
-          className="rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-[11px] leading-5 text-rose-700"
+          className="rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-[13px] leading-5 text-rose-700"
         >
           {serverError}
         </div>
@@ -189,7 +189,7 @@ export function LoginForm() {
       <div>
         <label
           htmlFor="email"
-          className="mb-2 block text-[11px] font-semibold text-navy"
+          className="mb-2 block text-[13px] font-semibold text-navy"
         >
           البريد الإلكتروني
         </label>
@@ -204,7 +204,7 @@ export function LoginForm() {
           />
         </div>
         {errors.email ? (
-          <p className="mt-1.5 text-[10px] text-rose-600">
+          <p className="mt-1.5 text-[12px] text-rose-600">
             {errors.email.message}
           </p>
         ) : null}
@@ -212,10 +212,10 @@ export function LoginForm() {
 
       <div>
         <div className="mb-2 flex items-center justify-between">
-          <label htmlFor="password" className="text-[11px] font-semibold text-navy">
+          <label htmlFor="password" className="text-[13px] font-semibold text-navy">
             كلمة المرور
           </label>
-          <Link href="/forgot-password" className="text-[9px] font-semibold text-teal">
+          <Link href="/forgot-password" className="text-[12px] font-semibold text-teal">
             نسيت كلمة المرور؟
           </Link>
         </div>
@@ -239,13 +239,13 @@ export function LoginForm() {
           </button>
         </div>
         {errors.password ? (
-          <p className="mt-1.5 text-[10px] text-rose-600">
+          <p className="mt-1.5 text-[12px] text-rose-600">
             {errors.password.message}
           </p>
         ) : null}
       </div>
 
-      <label className="flex w-fit items-center gap-2 text-[10px] text-slate">
+      <label className="flex w-fit items-center gap-2 text-[12px] text-slate">
         <input
           type="checkbox"
           className="size-4 rounded border-navy/15 accent-teal"

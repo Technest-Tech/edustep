@@ -128,10 +128,10 @@ export function CommunicationsContent() {
         <div className="flex items-start gap-3">
           <CircleAlert size={18} className="mt-0.5 shrink-0 text-amber-700" />
           <div>
-            <p className="text-[10px] font-bold text-amber-950">
+            <p className="text-[12px] font-bold text-amber-950">
               الإرسال الخارجي محفوظ كـ “في قائمة الانتظار”
             </p>
-            <p className="mt-1 text-[8px] leading-5 text-amber-800">
+            <p className="mt-1 text-[11px] leading-5 text-amber-800">
               النظام لا يدّعي إرسال WhatsApp أو البريد قبل ربط حساب مزوّد رسمي وتسجيل نتيجة التسليم.
             </p>
           </div>
@@ -146,7 +146,7 @@ export function CommunicationsContent() {
                 key={item.value}
                 type="button"
                 onClick={() => setChannel(item.value)}
-                className={`whitespace-nowrap rounded-lg px-3 py-2 text-[9px] font-semibold transition ${
+                className={`whitespace-nowrap rounded-lg px-3 py-2 text-[12px] font-semibold transition ${
                   channel === item.value ? "bg-navy text-white" : "text-slate hover:text-navy"
                 }`}
               >
@@ -161,7 +161,7 @@ export function CommunicationsContent() {
               value={search}
               onChange={(event) => setSearch(event.target.value)}
               placeholder="اسم ولي الأمر أو الطالب..."
-              className="min-w-0 flex-1 bg-transparent text-[9px] text-navy outline-none"
+              className="min-w-0 flex-1 bg-transparent text-[12px] text-navy outline-none"
             />
           </label>
         </div>
@@ -175,7 +175,7 @@ export function CommunicationsContent() {
         ) : query.isError ? (
           <div className="p-12 text-center">
             <CircleAlert className="mx-auto text-rose-500" size={27} />
-            <p className="mt-3 text-[10px] font-semibold text-navy">تعذر تحميل سجل الرسائل</p>
+            <p className="mt-3 text-[12px] font-semibold text-navy">تعذر تحميل سجل الرسائل</p>
           </div>
         ) : messages.length ? (
           <div className="divide-y divide-navy/[0.055]">
@@ -214,11 +214,11 @@ function MessageRow({ message }: { message: Message }) {
       </span>
       <div className="min-w-0 flex-1">
         <div className="flex flex-wrap items-center gap-2">
-          <p className="text-[10px] font-bold text-navy">
+          <p className="text-[12px] font-bold text-navy">
             {message.guardian?.name ?? "ولي الأمر"}
           </p>
-          <span className="text-[8px] text-slate">·</span>
-          <p className="text-[8px] font-semibold text-teal">
+          <span className="text-[11px] text-slate">·</span>
+          <p className="text-[11px] font-semibold text-teal">
             {channelLabels[message.channel]}
           </p>
           <StatusBadge
@@ -226,22 +226,22 @@ function MessageRow({ message }: { message: Message }) {
             label={statusLabels[message.status] ?? message.status}
           />
         </div>
-        <p className="mt-1 text-[8px] text-slate">
+        <p className="mt-1 text-[11px] text-slate">
           {message.student?.full_name ?? "رسالة عامة"} · {formatDateTime(message.created_at)}
         </p>
         {message.subject ? (
-          <p className="mt-3 text-[9px] font-bold text-navy">{message.subject}</p>
+          <p className="mt-3 text-[12px] font-bold text-navy">{message.subject}</p>
         ) : null}
-        <p className="mt-2 line-clamp-2 text-[9px] leading-5 text-slate">{message.body}</p>
+        <p className="mt-2 line-clamp-2 text-[12px] leading-5 text-slate">{message.body}</p>
         {!message.provider_connected ? (
-          <p className="mt-2 text-[8px] font-semibold text-amber-700">
+          <p className="mt-2 text-[11px] font-semibold text-amber-700">
             محفوظ وبانتظار ربط مزوّد {channelLabels[message.channel]}.
           </p>
         ) : null}
       </div>
       <div className="sm:text-left">
-        <p className="text-[8px] text-slate">بواسطة</p>
-        <p className="mt-1 text-[9px] font-semibold text-navy">
+        <p className="text-[11px] text-slate">بواسطة</p>
+        <p className="mt-1 text-[12px] font-semibold text-navy">
           {message.sender?.name ?? "النظام"}
         </p>
       </div>
@@ -358,7 +358,7 @@ function ComposeMessageDialog({
               <Dialog.Title className="text-lg font-bold text-navy">
                 رسالة جديدة
               </Dialog.Title>
-              <Dialog.Description className="mt-1 text-[9px] leading-5 text-slate">
+              <Dialog.Description className="mt-1 text-[12px] leading-5 text-slate">
                 اختر ولي الأمر والطالب ثم القناة أو قالبًا جاهزًا.
               </Dialog.Description>
             </div>
@@ -375,7 +375,7 @@ function ComposeMessageDialog({
 
           <form onSubmit={submit} className="mt-6 space-y-4">
             {error ? (
-              <div className="rounded-xl border border-rose-200 bg-rose-50 p-3 text-[9px] text-rose-700">
+              <div className="rounded-xl border border-rose-200 bg-rose-50 p-3 text-[12px] text-rose-700">
                 {error}
               </div>
             ) : null}
@@ -443,7 +443,7 @@ function ComposeMessageDialog({
             </div>
 
             {channel !== "internal" ? (
-              <div className="flex gap-3 rounded-xl bg-amber-50 p-3 text-[8px] leading-5 text-amber-800">
+              <div className="flex gap-3 rounded-xl bg-amber-50 p-3 text-[11px] leading-5 text-amber-800">
                 <Clock3 size={15} className="mt-0.5 shrink-0" />
                 ستُحفظ الرسالة في قائمة الانتظار حتى ربط مزوّد {channelLabels[channel]} الرسمي.
               </div>
@@ -490,7 +490,7 @@ function ComposeMessageDialog({
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <label className="block">
-      <span className="mb-2 block text-[9px] font-semibold text-navy">{label}</span>
+      <span className="mb-2 block text-[12px] font-semibold text-navy">{label}</span>
       {children}
     </label>
   );
@@ -517,10 +517,10 @@ function CommunicationMetric({
         </span>
         <div>
           <p className="text-lg font-bold text-navy">{value}</p>
-          <p className="text-[9px] font-semibold text-slate">{label}</p>
+          <p className="text-[12px] font-semibold text-slate">{label}</p>
         </div>
       </div>
-      <p className="mt-3 text-[8px] text-slate/70">{hint}</p>
+      <p className="mt-3 text-[11px] text-slate/70">{hint}</p>
     </article>
   );
 }

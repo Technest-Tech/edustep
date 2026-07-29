@@ -148,7 +148,7 @@ export function AddGroupDialog({
           <div className="flex items-start justify-between gap-4">
             <div>
               <Dialog.Title className="text-lg font-bold text-navy">إنشاء جروب جديد</Dialog.Title>
-              <Dialog.Description className="mt-1 max-w-md text-[9px] leading-5 text-slate">
+              <Dialog.Description className="mt-1 max-w-md text-[12px] leading-5 text-slate">
                 حدد البرنامج والمستوى والسعة والمواعيد. يمكن بدء التسجيل قبل تعيين المعلم.
               </Dialog.Description>
             </div>
@@ -168,7 +168,7 @@ export function AddGroupDialog({
             }}
           >
             <section className="rounded-2xl border border-navy/[0.065] p-4">
-              <h2 className="text-[10px] font-bold text-navy">البيانات الأساسية</h2>
+              <h2 className="text-[12px] font-bold text-navy">البيانات الأساسية</h2>
               <div className="mt-4 grid gap-4 sm:grid-cols-2">
                 <GroupField label="اسم الجروب">
                   <input
@@ -257,7 +257,7 @@ export function AddGroupDialog({
             </section>
 
             <section className="rounded-2xl border border-navy/[0.065] p-4">
-              <h2 className="text-[10px] font-bold text-navy">التشغيل والرسوم</h2>
+              <h2 className="text-[12px] font-bold text-navy">التشغيل والرسوم</h2>
               <div className="mt-4 grid gap-4 sm:grid-cols-2">
                 <GroupField label="نظام الدراسة">
                   <select
@@ -340,7 +340,7 @@ export function AddGroupDialog({
             </section>
 
             <section className="rounded-2xl border border-navy/[0.065] p-4">
-              <h2 className="text-[10px] font-bold text-navy">المواعيد الأسبوعية</h2>
+              <h2 className="text-[12px] font-bold text-navy">المواعيد الأسبوعية</h2>
               <div className="mt-4 grid gap-4 sm:grid-cols-2">
                 <ScheduleSlot
                   label="الموعد الأول"
@@ -360,7 +360,7 @@ export function AddGroupDialog({
             </section>
 
             {error ? (
-              <p role="alert" className="rounded-xl bg-rose-50 px-3 py-2 text-[9px] text-rose-700">
+              <p role="alert" className="rounded-xl bg-rose-50 px-3 py-2 text-[12px] text-rose-700">
                 {error}
               </p>
             ) : null}
@@ -395,10 +395,10 @@ function ScheduleSlot({
 }) {
   return (
     <div>
-      <p className="mb-2 text-[9px] font-semibold text-slate">{label}</p>
+      <p className="mb-2 text-[12px] font-semibold text-slate">{label}</p>
       <div className="grid grid-cols-[1fr_110px] gap-2">
         <select
-          className="min-h-11 rounded-xl border border-navy/[0.09] bg-cloud/70 px-3 text-[10px] outline-none"
+          className="min-h-11 rounded-xl border border-navy/[0.09] bg-cloud/70 px-3 text-[12px] outline-none"
           value={day}
           onChange={(event) => onDayChange(event.target.value)}
         >
@@ -409,7 +409,7 @@ function ScheduleSlot({
           ))}
         </select>
         <input
-          className="min-h-11 rounded-xl border border-navy/[0.09] bg-cloud/70 px-3 text-[10px] outline-none"
+          className="min-h-11 rounded-xl border border-navy/[0.09] bg-cloud/70 px-3 text-[12px] outline-none"
           type="time"
           value={time}
           onChange={(event) => onTimeChange(event.target.value)}
@@ -422,8 +422,8 @@ function ScheduleSlot({
 function GroupField({ label, children }: { label: string; children: ReactElement }) {
   return (
     <label>
-      <span className="mb-2 block text-[9px] font-semibold text-slate">{label}</span>
-      <span className="[&>input]:min-h-11 [&>input]:w-full [&>input]:rounded-xl [&>input]:border [&>input]:border-navy/[0.09] [&>input]:bg-cloud/70 [&>input]:px-3.5 [&>input]:text-[10px] [&>input]:outline-none [&>select]:min-h-11 [&>select]:w-full [&>select]:rounded-xl [&>select]:border [&>select]:border-navy/[0.09] [&>select]:bg-cloud/70 [&>select]:px-3.5 [&>select]:text-[10px] [&>select]:outline-none [&>select]:disabled:opacity-50">
+      <span className="mb-2 block text-[12px] font-semibold text-slate">{label}</span>
+      <span className="[&>input]:min-h-11 [&>input]:w-full [&>input]:rounded-xl [&>input]:border [&>input]:border-navy/[0.09] [&>input]:bg-cloud/70 [&>input]:px-3.5 [&>input]:text-[12px] [&>input]:outline-none [&>select]:min-h-11 [&>select]:w-full [&>select]:rounded-xl [&>select]:border [&>select]:border-navy/[0.09] [&>select]:bg-cloud/70 [&>select]:px-3.5 [&>select]:text-[12px] [&>select]:outline-none [&>select]:disabled:opacity-50">
         {children}
       </span>
     </label>
@@ -433,8 +433,8 @@ function GroupField({ label, children }: { label: string; children: ReactElement
 function LevelDefault({ label, value }: { label: string; value: string }) {
   return (
     <div className="rounded-xl bg-white p-3">
-      <p className="text-[9px] text-slate">{label}</p>
-      <p className="mt-1 text-[11px] font-bold text-navy">{value}</p>
+      <p className="text-[12px] text-slate">{label}</p>
+      <p className="mt-1 text-[13px] font-bold text-navy">{value}</p>
     </div>
   );
 }

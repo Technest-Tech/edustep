@@ -30,18 +30,18 @@ export function DocsShell({ children }: { children: ReactNode }) {
             />
             <span className="hidden h-8 w-px bg-navy/10 sm:block" />
             <span className="hidden sm:block">
-              <span className="flex items-center gap-1.5 text-[11px] font-bold text-navy">
+              <span className="flex items-center gap-1.5 text-[13px] font-bold text-navy">
                 <BookOpenText size={15} className="text-teal" />
                 دليل التشغيل
               </span>
-              <span className="mt-0.5 block text-[8px] text-slate">
+              <span className="mt-0.5 block text-[11px] text-slate">
                 مرجع فريق الأكاديمية
               </span>
             </span>
           </Link>
 
           <div className="mr-auto flex items-center gap-2">
-            <span className="hidden rounded-full border border-emerald-100 bg-emerald-50 px-3 py-1.5 text-[8px] font-semibold text-emerald-700 lg:inline-flex">
+            <span className="hidden rounded-full border border-emerald-100 bg-emerald-50 px-3 py-1.5 text-[11px] font-semibold text-emerald-700 lg:inline-flex">
               محدث حسب النسخة الحالية
             </span>
             <button
@@ -55,7 +55,7 @@ export function DocsShell({ children }: { children: ReactNode }) {
             </button>
             <Link
               href={workspaceHref}
-              className="inline-flex min-h-10 items-center gap-2 rounded-xl bg-navy px-3.5 text-[9px] font-semibold text-white shadow-[0_8px_22px_rgba(11,36,84,.16)] transition hover:bg-navy-soft sm:px-4"
+              className="inline-flex min-h-10 items-center gap-2 rounded-xl bg-navy px-3.5 text-[12px] font-semibold text-white shadow-[0_8px_22px_rgba(11,36,84,.16)] transition hover:bg-navy-soft sm:px-4"
             >
               العودة للنظام
               <ExternalLink size={14} className="text-sun" />

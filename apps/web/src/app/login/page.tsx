@@ -27,7 +27,7 @@ export default function LoginPage() {
         </div>
 
         <div className="relative my-auto max-w-xl">
-          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/8 px-3 py-2 text-[10px] text-white/70">
+          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/8 px-3 py-2 text-[12px] text-white/70">
             <Sparkles size={14} className="text-sun" />
             Academy Operations System
           </div>
@@ -54,7 +54,7 @@ export default function LoginPage() {
                   className="rounded-2xl border border-white/10 bg-white/[0.065] p-4"
                 >
                   <FeatureIcon size={19} className="text-sun" />
-                  <p className="mt-3 text-[10px] leading-5 text-white/65">
+                  <p className="mt-3 text-[12px] leading-5 text-white/65">
                     {label as string}
                   </p>
                 </div>
@@ -63,7 +63,7 @@ export default function LoginPage() {
           </div>
         </div>
 
-        <p className="relative text-[9px] text-white/35">
+        <p className="relative text-[12px] text-white/35">
           EduStep Academy OS · Built for focused growth
         </p>
       </section>
@@ -78,7 +78,7 @@ export default function LoginPage() {
             priority
             className="mb-10 h-auto w-[190px] lg:hidden"
           />
-          <p className="text-[10px] font-semibold text-teal">مرحبًا بعودتك</p>
+          <p className="text-[12px] font-semibold text-teal">مرحبًا بعودتك</p>
           <h2 className="mt-2 text-3xl font-bold tracking-tight text-navy">
             تسجيل الدخول
           </h2>
@@ -90,8 +90,8 @@ export default function LoginPage() {
 
           {process.env.NODE_ENV !== "production" ? (
             <div className="mt-7 rounded-2xl border border-navy/[0.07] bg-white px-4 py-3">
-              <p className="text-[9px] font-semibold text-navy">حسابات التجربة المحلية</p>
-              <div className="mt-2 space-y-1 text-[8px] leading-5 text-slate">
+              <p className="text-[12px] font-semibold text-navy">حسابات التجربة المحلية</p>
+              <div className="mt-2 space-y-1 text-[11px] leading-5 text-slate">
                 <p>الإدارة: admin@edustep.local</p>
                 <p>المعلم: sara@edustep.local</p>
                 <p>ولي الأمر: parent@edustep.local</p>

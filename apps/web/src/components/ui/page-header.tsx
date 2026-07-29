@@ -15,13 +15,13 @@ export function PageHeader({
     <div className="flex flex-col justify-between gap-4 lg:flex-row lg:items-end">
       <div>
         {eyebrow ? (
-          <p className="mb-2 text-[10px] font-semibold text-teal">{eyebrow}</p>
+          <p className="mb-2 text-[12px] font-semibold text-teal">{eyebrow}</p>
         ) : null}
         <h1 className="text-2xl font-bold tracking-tight text-navy sm:text-[28px]">
           {title}
         </h1>
         {description ? (
-          <p className="mt-2 max-w-2xl text-xs leading-6 text-slate">
+          <p className="mt-2 max-w-2xl text-sm leading-6 text-slate">
             {description}
           </p>
         ) : null}

@@ -134,7 +134,7 @@ export function TeachersContent() {
             value={search}
             onChange={(event) => setSearch(event.target.value)}
             placeholder="ابحث بالاسم أو الهاتف أو البريد أو التخصص..."
-            className="min-h-11 w-full rounded-xl border border-navy/[0.08] bg-cloud/60 pr-10 pl-3.5 text-[11px] outline-none transition focus:border-teal"
+            className="min-h-11 w-full rounded-xl border border-navy/[0.08] bg-cloud/60 pr-10 pl-3.5 text-[13px] outline-none transition focus:border-teal"
           />
         </label>
         <div className="flex rounded-xl bg-cloud p-1" aria-label="فلترة حالة المعلمين">
@@ -148,7 +148,7 @@ export function TeachersContent() {
               type="button"
               onClick={() => setStatus(value as typeof status)}
               aria-pressed={status === value}
-              className={`rounded-lg px-3 py-2 text-[10px] font-semibold transition ${
+              className={`rounded-lg px-3 py-2 text-[12px] font-semibold transition ${
                 status === value ? "bg-navy text-white shadow-sm" : "text-slate hover:text-navy"
               }`}
             >
@@ -156,7 +156,7 @@ export function TeachersContent() {
             </button>
           ))}
         </div>
-        <span className="px-2 text-[10px] text-slate">
+        <span className="px-2 text-[12px] text-slate">
           {filteredTeachers.length} من {teachers.length}
         </span>
       </section>
@@ -199,7 +199,7 @@ export function TeachersContent() {
             <p className="mt-3 text-xs font-semibold text-navy">
               {teachers.length ? "لا توجد نتائج مطابقة" : "لم يضف معلمون بعد"}
             </p>
-            <p className="mt-2 text-[10px] text-slate">
+            <p className="mt-2 text-[12px] text-slate">
               {teachers.length
                 ? "جرّب تغيير البحث أو حالة الحساب."
                 : "ابدأ بإضافة أول معلم وإنشاء حساب دخوله."}
@@ -269,7 +269,7 @@ function TeacherCard({
             <div className="flex flex-wrap items-start justify-between gap-2">
               <div>
                 <h2 className="text-sm font-bold text-navy">{teacher.name}</h2>
-                <p className="mt-1 text-[9px] text-slate">
+                <p className="mt-1 text-[12px] text-slate">
                   {teacher.specialization ?? "مدرس لغة إنجليزية"}
                 </p>
               </div>
@@ -288,17 +288,17 @@ function TeacherCard({
         <div className="mt-5 grid grid-cols-3 divide-x divide-x-reverse divide-navy/[0.07] rounded-2xl bg-cloud/85 p-4 text-center">
           <div>
             <p className="text-lg font-bold text-navy">{teacher.active_cohorts_count}</p>
-            <p className="mt-1 text-[8px] text-slate">جروبات</p>
+            <p className="mt-1 text-[11px] text-slate">جروبات</p>
           </div>
           <div>
             <p className="text-lg font-bold text-navy">{teacher.active_students_count}</p>
-            <p className="mt-1 text-[8px] text-slate">طلاب</p>
+            <p className="mt-1 text-[11px] text-slate">طلاب</p>
           </div>
           <div>
-            <p className="text-[11px] font-bold text-navy">
+            <p className="text-[13px] font-bold text-navy">
               {teacher.current_rate ? formatCurrency(teacher.current_rate.amount) : "—"}
             </p>
-            <p className="mt-2 text-[8px] text-slate">
+            <p className="mt-2 text-[11px] text-slate">
               {teacher.current_rate?.type === "fixed_session" ? "للحصة" : "للساعة"}
             </p>
           </div>
@@ -306,20 +306,20 @@ function TeacherCard({
 
         <div className="mt-5 grid gap-4 sm:grid-cols-2">
           <div>
-            <p className="flex items-center gap-1.5 text-[9px] font-semibold text-navy">
+            <p className="flex items-center gap-1.5 text-[12px] font-semibold text-navy">
               <BriefcaseBusiness size={14} className="text-teal" />
               نظام العمل
             </p>
-            <p className="mt-2 text-[9px] leading-5 text-slate">
+            <p className="mt-2 text-[12px] leading-5 text-slate">
               {teacher.employment_type === "full_time" ? "دوام كامل" : "دوام جزئي"}
             </p>
           </div>
           <div>
-            <p className="flex items-center gap-1.5 text-[9px] font-semibold text-navy">
+            <p className="flex items-center gap-1.5 text-[12px] font-semibold text-navy">
               <Clock3 size={14} className="text-teal" />
               أيام التوفر
             </p>
-            <p className="mt-2 text-[9px] leading-5 text-slate">
+            <p className="mt-2 text-[12px] leading-5 text-slate">
               {teacher.availability?.map((day) => dayLabels[day] ?? day).join(" · ") ?? "لم تحدد"}
             </p>
           </div>
@@ -327,8 +327,8 @@ function TeacherCard({
 
         <div className="mt-5 border-t border-navy/[0.055] pt-4">
           <div className="flex items-center justify-between">
-            <p className="text-[9px] font-semibold text-navy">الجروبات الحالية</p>
-            <span className="text-[8px] text-slate">{teacher.cohorts.length} إجمالي</span>
+            <p className="text-[12px] font-semibold text-navy">الجروبات الحالية</p>
+            <span className="text-[11px] text-slate">{teacher.cohorts.length} إجمالي</span>
           </div>
           <div className="mt-3 space-y-2">
             {teacher.cohorts.slice(0, 2).map((cohort) => (
@@ -337,8 +337,8 @@ function TeacherCard({
                 className="flex items-center justify-between rounded-xl border border-navy/[0.055] px-3 py-2.5"
               >
                 <div className="min-w-0">
-                  <p className="truncate text-[9px] font-medium text-ink">{cohort.name}</p>
-                  <p className="mt-1 text-[8px] text-slate">
+                  <p className="truncate text-[12px] font-medium text-ink">{cohort.name}</p>
+                  <p className="mt-1 text-[11px] text-slate">
                     {cohort.level} · {cohort.students_count} طلاب
                   </p>
                 </div>
@@ -346,7 +346,7 @@ function TeacherCard({
               </div>
             ))}
             {!teacher.cohorts.length ? (
-              <p className="rounded-xl bg-cloud p-3 text-center text-[9px] text-slate">
+              <p className="rounded-xl bg-cloud p-3 text-center text-[12px] text-slate">
                 لا توجد جروبات مسندة حاليًا
               </p>
             ) : null}
@@ -418,7 +418,7 @@ function TeacherProfile({
                 <Dialog.Title className="truncate text-lg font-bold text-navy">
                   {profile.name}
                 </Dialog.Title>
-                <Dialog.Description className="mt-1 text-[9px] text-slate">
+                <Dialog.Description className="mt-1 text-[12px] text-slate">
                   {profile.specialization ?? "مدرس لغة إنجليزية"}
                 </Dialog.Description>
               </div>
@@ -473,21 +473,21 @@ function TeacherProfile({
               <section className="mt-5 rounded-2xl bg-navy p-5 text-white">
                 <div className="flex items-start justify-between gap-3">
                   <div>
-                    <p className="text-[9px] text-teal-bright">النبذة ونظام العمل</p>
+                    <p className="text-[12px] text-teal-bright">النبذة ونظام العمل</p>
                     <h2 className="mt-1 text-sm font-bold">
                       {profile.employment_type === "full_time" ? "دوام كامل" : "دوام جزئي"}
                     </h2>
                   </div>
                   <BriefcaseBusiness size={20} className="text-sun" />
                 </div>
-                <p className="mt-4 text-[9px] leading-5 text-white/65">
+                <p className="mt-4 text-[12px] leading-5 text-white/65">
                   {profile.bio ?? "لم تتم إضافة نبذة مهنية بعد."}
                 </p>
                 <div className="mt-4 flex flex-wrap gap-2">
                   {profile.availability?.map((day) => (
                     <span
                       key={day}
-                      className="rounded-lg bg-white/[0.08] px-2.5 py-1.5 text-[8px] text-white/75"
+                      className="rounded-lg bg-white/[0.08] px-2.5 py-1.5 text-[11px] text-white/75"
                     >
                       {dayLabels[day] ?? day}
                     </span>
@@ -499,7 +499,7 @@ function TeacherProfile({
                 <div className="flex items-center justify-between gap-3">
                   <div>
                     <h2 className="text-xs font-bold text-navy">الجدول القادم</h2>
-                    <p className="mt-1 text-[8px] text-slate">أقرب الحصص المسندة للمعلم</p>
+                    <p className="mt-1 text-[11px] text-slate">أقرب الحصص المسندة للمعلم</p>
                   </div>
                   <CalendarClock size={17} className="text-teal" />
                 </div>
@@ -513,10 +513,10 @@ function TeacherProfile({
                         <Clock3 size={16} />
                       </div>
                       <div className="min-w-0 flex-1">
-                        <p className="truncate text-[10px] font-bold text-navy">
+                        <p className="truncate text-[12px] font-bold text-navy">
                           {session.cohort.name}
                         </p>
-                        <p className="mt-1 text-[8px] text-slate">
+                        <p className="mt-1 text-[11px] text-slate">
                           {formatDateTime(session.starts_at)}
                         </p>
                       </div>
@@ -524,7 +524,7 @@ function TeacherProfile({
                     </article>
                   ))}
                   {!upcomingSessions.length ? (
-                    <p className="rounded-xl bg-cloud p-4 text-center text-[9px] text-slate">
+                    <p className="rounded-xl bg-cloud p-4 text-center text-[12px] text-slate">
                       لا توجد حصص قادمة ضمن البيانات الحالية.
                     </p>
                   ) : null}
@@ -535,7 +535,7 @@ function TeacherProfile({
                 <div className="flex items-center justify-between gap-3">
                   <div>
                     <h2 className="text-xs font-bold text-navy">آخر المستحقات</h2>
-                    <p className="mt-1 text-[8px] text-slate">
+                    <p className="mt-1 text-[11px] text-slate">
                       مبالغ محسوبة تلقائيًا من الحصص المكتملة
                     </p>
                   </div>
@@ -548,15 +548,15 @@ function TeacherProfile({
                       className="flex items-center justify-between gap-3 rounded-xl border border-navy/[0.055] p-3"
                     >
                       <div className="min-w-0">
-                        <p className="truncate text-[9px] font-semibold text-navy">
+                        <p className="truncate text-[12px] font-semibold text-navy">
                           {earning.session.cohort}
                         </p>
-                        <p className="mt-1 text-[8px] text-slate">
+                        <p className="mt-1 text-[11px] text-slate">
                           {formatDateTime(`${earning.earned_on}T12:00:00`)}
                         </p>
                       </div>
                       <div className="text-left">
-                        <p className="text-[10px] font-bold text-navy">
+                        <p className="text-[12px] font-bold text-navy">
                           {formatCurrency(earning.amount)}
                         </p>
                         <StatusBadge
@@ -574,7 +574,7 @@ function TeacherProfile({
                     </article>
                   ))}
                   {!recentEarnings.length ? (
-                    <p className="rounded-xl bg-cloud p-4 text-center text-[9px] text-slate">
+                    <p className="rounded-xl bg-cloud p-4 text-center text-[12px] text-slate">
                       لا توجد مستحقات مسجلة حتى الآن.
                     </p>
                   ) : null}
@@ -602,17 +602,17 @@ function TeacherDetailMetric({
   return (
     <article className="rounded-2xl bg-cloud/80 p-3">
       <Icon size={16} className="text-teal" />
-      <p className={`mt-3 truncate font-bold text-navy ${small ? "text-[10px]" : "text-base"}`}>
+      <p className={`mt-3 truncate font-bold text-navy ${small ? "text-[12px]" : "text-base"}`}>
         {value}
       </p>
-      <p className="mt-1 text-[7px] text-slate">{label}</p>
+      <p className="mt-1 text-[11px] text-slate">{label}</p>
     </article>
   );
 }
 
 function ContactPill({ icon: Icon, value }: { icon: typeof Mail; value: string }) {
   return (
-    <span dir="ltr" className="inline-flex items-center gap-1.5 rounded-lg bg-cloud px-2.5 py-1.5 text-[8px] text-slate">
+    <span dir="ltr" className="inline-flex items-center gap-1.5 rounded-lg bg-cloud px-2.5 py-1.5 text-[11px] text-slate">
       <Icon size={12} />
       {value}
     </span>
@@ -637,7 +637,7 @@ function TeacherMetric({
       </div>
       <div>
         <p className="text-xl font-bold text-navy">{value}</p>
-        <p className="mt-1 text-[9px] text-slate">{label}</p>
+        <p className="mt-1 text-[12px] text-slate">{label}</p>
       </div>
     </article>
   );

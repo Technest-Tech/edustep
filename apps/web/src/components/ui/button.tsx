@@ -3,7 +3,7 @@ import type { ButtonHTMLAttributes } from "react";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex min-h-10 items-center justify-center gap-2 rounded-xl px-4 text-[11px] font-semibold transition duration-200 disabled:pointer-events-none disabled:opacity-50",
+  "inline-flex min-h-10 items-center justify-center gap-2 rounded-xl px-4 text-[12px] font-semibold leading-5 transition duration-200 disabled:pointer-events-none disabled:opacity-50",
   {
     variants: {
       variant: {
@@ -16,9 +16,9 @@ const buttonVariants = cva(
         danger: "bg-rose-50 text-rose-700 hover:bg-rose-100",
       },
       size: {
-        sm: "min-h-8 rounded-lg px-3 text-[10px]",
+        sm: "min-h-8 rounded-lg px-3 text-[11px]",
         md: "min-h-10 px-4",
-        lg: "min-h-12 rounded-[14px] px-5 text-xs",
+        lg: "min-h-12 rounded-[14px] px-5 text-[13px]",
         icon: "size-10 min-h-10 px-0",
       },
     },

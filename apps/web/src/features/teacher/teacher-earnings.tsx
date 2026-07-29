@@ -54,7 +54,7 @@ export function TeacherEarnings() {
 
       <section className="flex flex-col gap-4 rounded-2xl border border-navy/[0.065] bg-white p-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <p className="text-[9px] font-semibold text-slate">فترة الاستحقاق</p>
+          <p className="text-[12px] font-semibold text-slate">فترة الاستحقاق</p>
           <p className="mt-1 text-xs font-bold text-navy">
             {new Date(`${month}-01T12:00:00`).toLocaleDateString("ar-EG", {
               month: "long",
@@ -69,7 +69,7 @@ export function TeacherEarnings() {
             type="month"
             value={month}
             onChange={(event) => setMonth(event.target.value)}
-            className="bg-transparent text-[10px] font-semibold text-navy outline-none"
+            className="bg-transparent text-[12px] font-semibold text-navy outline-none"
           />
         </label>
       </section>
@@ -108,7 +108,7 @@ export function TeacherEarnings() {
       <section className="overflow-hidden rounded-3xl border border-navy/[0.065] bg-white shadow-[0_12px_40px_rgba(11,36,84,.04)]">
         <div className="border-b border-navy/[0.055] p-5 sm:p-6">
           <h2 className="text-sm font-bold text-navy">تفاصيل الحصص والمبالغ</h2>
-          <p className="mt-1 text-[9px] text-slate">سجل واضح يمكنك الرجوع إليه في أي وقت</p>
+          <p className="mt-1 text-[12px] text-slate">سجل واضح يمكنك الرجوع إليه في أي وقت</p>
         </div>
 
         {query.isLoading ? (
@@ -120,7 +120,7 @@ export function TeacherEarnings() {
         ) : query.isError ? (
           <div className="p-10 text-center">
             <CircleAlert className="mx-auto text-rose-500" size={26} />
-            <p className="mt-3 text-[10px] font-semibold text-navy">تعذر تحميل المستحقات</p>
+            <p className="mt-3 text-[12px] font-semibold text-navy">تعذر تحميل المستحقات</p>
           </div>
         ) : data?.earnings.length ? (
           <div className="divide-y divide-navy/[0.055]">
@@ -134,7 +134,7 @@ export function TeacherEarnings() {
                 </span>
                 <div className="min-w-0 flex-1">
                   <div className="flex flex-wrap items-center gap-2">
-                    <p className="text-[10px] font-bold text-navy">
+                    <p className="text-[12px] font-bold text-navy">
                       {earning.session.cohort?.name}
                     </p>
                     <StatusBadge
@@ -142,8 +142,8 @@ export function TeacherEarnings() {
                       label={statusLabels[earning.status] ?? earning.status}
                     />
                   </div>
-                  <p className="mt-1 text-[9px] text-slate">{earning.session.title}</p>
-                  <p className="mt-2 text-[8px] text-slate/75">
+                  <p className="mt-1 text-[12px] text-slate">{earning.session.title}</p>
+                  <p className="mt-2 text-[11px] text-slate/75">
                     {formatDate(earning.earned_on)} · {earning.duration_minutes} دقيقة ·{" "}
                     {earning.rate_type === "hourly" ? "سعر بالساعة" : "سعر للحصة"}
                   </p>
@@ -152,7 +152,7 @@ export function TeacherEarnings() {
                   <p className="text-base font-bold text-navy">
                     {formatCurrency(earning.amount)}
                   </p>
-                  <p className="mt-1 text-[8px] text-slate">
+                  <p className="mt-1 text-[11px] text-slate">
                     السعر المرجعي {formatCurrency(earning.rate_amount)}
                   </p>
                 </div>
@@ -162,7 +162,7 @@ export function TeacherEarnings() {
         ) : (
           <div className="p-12 text-center">
             <Coins className="mx-auto text-teal" size={28} />
-            <p className="mt-3 text-[10px] font-semibold text-navy">
+            <p className="mt-3 text-[12px] font-semibold text-navy">
               لا توجد مستحقات في هذا الشهر
             </p>
           </div>
@@ -191,8 +191,8 @@ function EarningMetric({
         <Icon size={17} />
       </span>
       <p className="mt-4 text-base font-bold text-navy">{value}</p>
-      <p className="mt-1 text-[9px] font-semibold text-slate">{label}</p>
-      <p className="mt-1 text-[8px] text-slate/70">{hint}</p>
+      <p className="mt-1 text-[12px] font-semibold text-slate">{label}</p>
+      <p className="mt-1 text-[11px] text-slate/70">{hint}</p>
     </article>
   );
 }

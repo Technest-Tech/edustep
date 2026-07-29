@@ -119,7 +119,7 @@ export function ReportsContent() {
 
           <TeacherWorkload report={report} />
 
-          <p className="text-left text-[8px] text-slate">
+          <p className="text-left text-[11px] text-slate">
             آخر تحديث: {formatDateTime(report.generated_at)}
           </p>
         </>
@@ -138,12 +138,12 @@ function FinancePerformance({ report }: { report: OperationsReport }) {
     <article className="overflow-hidden rounded-2xl bg-navy p-5 text-white shadow-[0_18px_45px_rgba(11,36,84,.15)] sm:p-6">
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
-          <p className="text-[9px] font-semibold text-teal-bright">الأداء المالي</p>
+          <p className="text-[12px] font-semibold text-teal-bright">الأداء المالي</p>
           <h2 className="mt-1 text-base font-bold">التحصيل والتدفق النقدي</h2>
         </div>
         <Link
           href="/finance"
-          className="rounded-xl border border-white/10 bg-white/[0.07] px-3 py-2 text-[9px] font-semibold text-white/75 transition hover:bg-white/10 hover:text-white"
+          className="rounded-xl border border-white/10 bg-white/[0.07] px-3 py-2 text-[12px] font-semibold text-white/75 transition hover:bg-white/10 hover:text-white"
         >
           فتح الحسابات
         </Link>
@@ -162,7 +162,7 @@ function FinancePerformance({ report }: { report: OperationsReport }) {
 
       <div className="mt-7 border-t border-white/10 pt-5">
         <div className="flex items-center justify-between">
-          <p className="text-[10px] font-semibold text-white/80">التحصيل خلال 6 أشهر</p>
+          <p className="text-[12px] font-semibold text-white/80">التحصيل خلال 6 أشهر</p>
           <BarChart3 size={17} className="text-teal-bright" />
         </div>
         <div className="mt-5 flex h-36 items-end gap-2 sm:gap-4">
@@ -171,14 +171,14 @@ function FinancePerformance({ report }: { report: OperationsReport }) {
 
             return (
               <div key={month.month} className="flex h-full min-w-0 flex-1 flex-col justify-end">
-                <p className="mb-2 truncate text-center text-[8px] font-semibold text-white/70">
+                <p className="mb-2 truncate text-center text-[11px] font-semibold text-white/70">
                   {Number(month.amount) ? formatCurrency(month.amount) : "—"}
                 </p>
                 <div
                   className="min-h-1 rounded-t-lg bg-gradient-to-t from-teal to-teal-bright transition-all"
                   style={{ height: `${height}%` }}
                 />
-                <p className="mt-2 truncate text-center text-[7px] text-white/40">
+                <p className="mt-2 truncate text-center text-[11px] text-white/40">
                   {month.label}
                 </p>
               </div>
@@ -218,14 +218,14 @@ function AttendanceBreakdown({ report }: { report: OperationsReport }) {
 
   return (
     <article className="rounded-2xl border border-navy/[0.065] bg-white p-5 shadow-[0_8px_30px_rgba(11,36,84,.035)] sm:p-6">
-      <p className="text-[9px] font-semibold text-teal">Attendance Health</p>
+      <p className="text-[12px] font-semibold text-teal">Attendance Health</p>
       <h2 className="mt-1 text-sm font-bold text-navy">توزيع الحضور</h2>
-      <p className="mt-1 text-[8px] text-slate">كل سجلات الحصص المكتملة</p>
+      <p className="mt-1 text-[11px] text-slate">كل سجلات الحصص المكتملة</p>
 
       <div className="mt-6 flex items-end justify-between gap-4">
         <div>
           <p className="text-3xl font-bold text-navy">{report.summary.attendance_rate}%</p>
-          <p className="mt-1 text-[8px] text-slate">متوسط الانتظام</p>
+          <p className="mt-1 text-[11px] text-slate">متوسط الانتظام</p>
         </div>
         <div className="grid size-16 place-items-center rounded-full border-[7px] border-emerald-100 bg-cloud text-xs font-bold text-emerald-700">
           {total}
@@ -244,11 +244,11 @@ function AttendanceBreakdown({ report }: { report: OperationsReport }) {
       <div className="mt-5 grid grid-cols-2 gap-3">
         {attendanceItems.map((item) => (
           <div key={item.label} className="flex items-center justify-between rounded-xl bg-cloud/70 p-3">
-            <span className="flex items-center gap-2 text-[9px] text-slate">
+            <span className="flex items-center gap-2 text-[12px] text-slate">
               <span className={`size-2 rounded-full ${item.color}`} />
               {item.label}
             </span>
-            <span className="text-[11px] font-bold text-navy">{item.value}</span>
+            <span className="text-[13px] font-bold text-navy">{item.value}</span>
           </div>
         ))}
       </div>
@@ -262,13 +262,13 @@ function LeadSources({ report }: { report: OperationsReport }) {
 
   return (
     <article className="rounded-2xl border border-navy/[0.065] bg-white p-5 shadow-[0_8px_30px_rgba(11,36,84,.035)] sm:p-6">
-      <p className="text-[9px] font-semibold text-teal">CRM Acquisition</p>
+      <p className="text-[12px] font-semibold text-teal">CRM Acquisition</p>
       <h2 className="mt-1 text-sm font-bold text-navy">مصادر العملاء</h2>
-      <p className="mt-1 text-[8px] text-slate">{total} فرصة مسجلة</p>
+      <p className="mt-1 text-[11px] text-slate">{total} فرصة مسجلة</p>
       <div className="mt-6 space-y-4">
         {report.lead_sources.map((source) => (
           <div key={source.source}>
-            <div className="flex items-center justify-between text-[9px]">
+            <div className="flex items-center justify-between text-[12px]">
               <span className="font-medium text-ink">{source.label}</span>
               <span className="font-bold text-navy">{source.count}</span>
             </div>
@@ -291,16 +291,16 @@ function CohortPerformance({ report }: { report: OperationsReport }) {
       <div className="flex items-start justify-between gap-3 border-b border-navy/[0.055] p-5">
         <div>
           <h2 className="text-sm font-bold text-navy">صحة الجروبات</h2>
-          <p className="mt-1 text-[8px] text-slate">الإشغال والحصص وانتظام الحضور</p>
+          <p className="mt-1 text-[11px] text-slate">الإشغال والحصص وانتظام الحضور</p>
         </div>
-        <Link href="/groups" className="text-[9px] font-semibold text-teal hover:text-navy">
+        <Link href="/groups" className="text-[12px] font-semibold text-teal hover:text-navy">
           إدارة الجروبات
         </Link>
       </div>
       <div className="overflow-x-auto">
         <table className="w-full min-w-[720px] border-collapse">
           <thead>
-            <tr className="bg-cloud/55 text-right text-[8px] font-semibold text-slate">
+            <tr className="bg-cloud/55 text-right text-[11px] font-semibold text-slate">
               <th className="px-5 py-3">الجروب</th>
               <th className="px-4 py-3">الحالة</th>
               <th className="px-4 py-3">الإشغال</th>
@@ -313,8 +313,8 @@ function CohortPerformance({ report }: { report: OperationsReport }) {
               <tr key={cohort.id} className="transition hover:bg-cloud/50">
                 <td className="px-5 py-4">
                   <Link href={`/groups/${cohort.id}`} className="block">
-                    <p className="text-[10px] font-bold text-navy">{cohort.name}</p>
-                    <p className="mt-1 text-[8px] text-slate">
+                    <p className="text-[12px] font-bold text-navy">{cohort.name}</p>
+                    <p className="mt-1 text-[11px] text-slate">
                       {cohort.teacher ?? "بدون معلم"} · {cohort.level}
                     </p>
                   </Link>
@@ -326,16 +326,16 @@ function CohortPerformance({ report }: { report: OperationsReport }) {
                   />
                 </td>
                 <td className="px-4 py-4">
-                  <p className="text-[10px] font-bold text-navy">
+                  <p className="text-[12px] font-bold text-navy">
                     {cohort.active_students}/{cohort.capacity}
                   </p>
-                  <p className="mt-1 text-[8px] text-slate">{cohort.occupancy_rate}%</p>
+                  <p className="mt-1 text-[11px] text-slate">{cohort.occupancy_rate}%</p>
                 </td>
                 <td className="px-4 py-4">
-                  <p className="text-[10px] font-bold text-navy">
+                  <p className="text-[12px] font-bold text-navy">
                     {cohort.completed_sessions}/{cohort.sessions}
                   </p>
-                  <p className="mt-1 text-[8px] text-slate">مكتملة</p>
+                  <p className="mt-1 text-[11px] text-slate">مكتملة</p>
                 </td>
                 <td className="px-5 py-4">
                   <div className="flex items-center gap-2">
@@ -347,7 +347,7 @@ function CohortPerformance({ report }: { report: OperationsReport }) {
                         style={{ width: `${cohort.attendance_rate}%` }}
                       />
                     </div>
-                    <span className="text-[9px] font-bold text-navy">
+                    <span className="text-[12px] font-bold text-navy">
                       {cohort.attendance_rate}%
                     </span>
                   </div>
@@ -366,11 +366,11 @@ function TeacherWorkload({ report }: { report: OperationsReport }) {
     <section className="rounded-2xl border border-navy/[0.065] bg-white p-5 shadow-[0_8px_30px_rgba(11,36,84,.035)] sm:p-6">
       <div className="flex items-start justify-between gap-3">
         <div>
-          <p className="text-[9px] font-semibold text-teal">Team Capacity</p>
+          <p className="text-[12px] font-semibold text-teal">Team Capacity</p>
           <h2 className="mt-1 text-sm font-bold text-navy">أحمال فريق التدريس</h2>
-          <p className="mt-1 text-[8px] text-slate">الجروبات والطلاب والحصص لكل معلم</p>
+          <p className="mt-1 text-[11px] text-slate">الجروبات والطلاب والحصص لكل معلم</p>
         </div>
-        <Link href="/teachers" className="text-[9px] font-semibold text-teal hover:text-navy">
+        <Link href="/teachers" className="text-[12px] font-semibold text-teal hover:text-navy">
           ملف المعلمين
         </Link>
       </div>
@@ -378,12 +378,12 @@ function TeacherWorkload({ report }: { report: OperationsReport }) {
         {report.teachers.map((teacher) => (
           <article key={teacher.id} className="rounded-2xl border border-navy/[0.055] bg-cloud/55 p-4">
             <div className="flex items-center gap-3">
-              <div className="grid size-10 place-items-center rounded-xl bg-navy text-[11px] font-bold text-white">
+              <div className="grid size-10 place-items-center rounded-xl bg-navy text-[13px] font-bold text-white">
                 {teacher.name.charAt(0)}
               </div>
               <div>
-                <p className="text-[10px] font-bold text-navy">{teacher.name}</p>
-                <p className="mt-1 text-[8px] text-slate">معلم نشط</p>
+                <p className="text-[12px] font-bold text-navy">{teacher.name}</p>
+                <p className="mt-1 text-[11px] text-slate">معلم نشط</p>
               </div>
             </div>
             <div className="mt-4 grid grid-cols-3 gap-2">
@@ -417,8 +417,8 @@ function ReportMetric({
         <Icon size={18} />
       </div>
       <p className="mt-4 text-xl font-bold text-navy">{value}</p>
-      <p className="mt-1 text-[9px] font-semibold text-ink">{label}</p>
-      <p className="mt-1 text-[8px] text-slate">{hint}</p>
+      <p className="mt-1 text-[12px] font-semibold text-ink">{label}</p>
+      <p className="mt-1 text-[11px] text-slate">{hint}</p>
     </article>
   );
 }
@@ -436,7 +436,7 @@ function DarkMetric({
 }) {
   return (
     <div className="rounded-xl bg-white/[0.065] p-3.5">
-      <p className="text-[8px] text-white/45">{label}</p>
+      <p className="text-[11px] text-white/45">{label}</p>
       <p
         className={`mt-2 truncate text-sm font-bold ${
           danger ? "text-rose-300" : accent ? "text-teal-bright" : "text-white"
@@ -452,7 +452,7 @@ function MiniStat({ label, value }: { label: string; value: number }) {
   return (
     <div className="rounded-xl bg-white p-2.5 text-center">
       <p className="text-sm font-bold text-navy">{value}</p>
-      <p className="mt-1 text-[7px] text-slate">{label}</p>
+      <p className="mt-1 text-[11px] text-slate">{label}</p>
     </div>
   );
 }

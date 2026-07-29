@@ -302,7 +302,7 @@ function OrganizationPanel({
                           : [...form.working_days, value],
                       )
                     }
-                    className={`rounded-xl px-3 py-2 text-[9px] font-semibold transition ${
+                    className={`rounded-xl px-3 py-2 text-[12px] font-semibold transition ${
                       selected ? "bg-navy text-white" : "border border-navy/[0.08] bg-cloud text-slate"
                     }`}
                   >
@@ -377,8 +377,8 @@ function OrganizationPanel({
             <div className="flex items-start gap-3">
               <Fingerprint className="mt-0.5 shrink-0 text-sun" size={19} />
               <div>
-                <p className="text-[11px] font-semibold">كل تعديل موثق</p>
-                <p className="mt-1 text-[8px] leading-5 text-white/50">
+                <p className="text-[13px] font-semibold">كل تعديل موثق</p>
+                <p className="mt-1 text-[11px] leading-5 text-white/50">
                   آخر تحديث بواسطة {settings.updater?.name ?? "النظام"} في {formatDateTime(settings.updated_at)}.
                 </p>
               </div>
@@ -429,7 +429,7 @@ function TeamPanel({
       <div className="flex flex-col gap-4 border-b border-navy/[0.055] p-5 lg:flex-row lg:items-center lg:justify-between">
         <div>
           <h2 className="text-sm font-bold text-navy">أعضاء الفريق والحسابات</h2>
-          <p className="mt-1 text-[9px] text-slate">إدارة الوصول دون حذف السجل التاريخي لأي مستخدم.</p>
+          <p className="mt-1 text-[12px] text-slate">إدارة الوصول دون حذف السجل التاريخي لأي مستخدم.</p>
         </div>
         <Button onClick={() => onDialog({ type: "create" })}>
           <Plus size={15} className="text-sun" />
@@ -440,7 +440,7 @@ function TeamPanel({
         <label className="flex min-h-10 flex-1 items-center gap-2 rounded-xl border border-navy/[0.08] bg-white px-3">
           <Search size={15} className="text-slate" />
           <span className="sr-only">بحث في الفريق</span>
-          <input value={search} onChange={(event) => setSearch(event.target.value)} className="min-w-0 flex-1 bg-transparent text-[10px] outline-none" placeholder="الاسم، البريد، أو المسمى الوظيفي..." />
+          <input value={search} onChange={(event) => setSearch(event.target.value)} className="min-w-0 flex-1 bg-transparent text-[12px] outline-none" placeholder="الاسم، البريد، أو المسمى الوظيفي..." />
         </label>
         <div className="flex flex-wrap gap-1 rounded-xl bg-white p-1">
           {([
@@ -449,7 +449,7 @@ function TeamPanel({
             ["portal", "حسابات البوابات"],
             ["suspended", "موقوفة"],
           ] as const).map(([value, label]) => (
-            <button key={value} type="button" onClick={() => setScope(value)} className={`rounded-lg px-3 py-2 text-[8px] font-semibold ${scope === value ? "bg-navy text-white" : "text-slate"}`}>
+            <button key={value} type="button" onClick={() => setScope(value)} className={`rounded-lg px-3 py-2 text-[11px] font-semibold ${scope === value ? "bg-navy text-white" : "text-slate"}`}>
               {label}
             </button>
           ))}
@@ -459,7 +459,7 @@ function TeamPanel({
       <div className="hidden overflow-x-auto lg:block">
         <table className="w-full min-w-[900px] border-collapse">
           <thead>
-            <tr className="bg-cloud/45 text-right text-[8px] font-semibold text-slate">
+            <tr className="bg-cloud/45 text-right text-[11px] font-semibold text-slate">
               <th className="px-5 py-3">المستخدم</th>
               <th className="px-4 py-3">الدور</th>
               <th className="px-4 py-3">الحالة</th>
@@ -473,12 +473,12 @@ function TeamPanel({
               <tr key={member.id} className="transition hover:bg-cloud/45">
                 <td className="px-5 py-4"><MemberIdentity member={member} current={member.id === currentUserId} /></td>
                 <td className="px-4 py-4">
-                  <p className="text-[9px] font-semibold text-navy">{roleLabels[member.role] ?? member.role}</p>
-                  <p className="mt-1 text-[8px] text-slate">{member.account_type === "portal" ? "حساب بوابة" : "حساب فريق"}</p>
+                  <p className="text-[12px] font-semibold text-navy">{roleLabels[member.role] ?? member.role}</p>
+                  <p className="mt-1 text-[11px] text-slate">{member.account_type === "portal" ? "حساب بوابة" : "حساب فريق"}</p>
                 </td>
                 <td className="px-4 py-4"><StatusBadge value={member.status} label={member.status === "active" ? "نشط" : "موقوف"} /></td>
-                <td className="px-4 py-4 text-[8px] text-slate">{member.last_login_at ? relativeTime(member.last_login_at) : "لم يسجل الدخول"}</td>
-                <td className="px-4 py-4 text-[8px] text-slate">{member.audit_events_count} تغييرات</td>
+                <td className="px-4 py-4 text-[11px] text-slate">{member.last_login_at ? relativeTime(member.last_login_at) : "لم يسجل الدخول"}</td>
+                <td className="px-4 py-4 text-[11px] text-slate">{member.audit_events_count} تغييرات</td>
                 <td className="px-5 py-4">
                   <div className="flex justify-end gap-1">
                     {member.id !== currentUserId ? (
@@ -505,7 +505,7 @@ function TeamPanel({
               <StatusBadge value={member.status} label={member.status === "active" ? "نشط" : "موقوف"} />
             </div>
             <div className="mt-3 flex items-center justify-between rounded-xl bg-cloud p-3">
-              <span className="text-[8px] text-slate">{roleLabels[member.role]}</span>
+              <span className="text-[11px] text-slate">{roleLabels[member.role]}</span>
               <Button size="sm" variant="secondary" onClick={() => onDialog({ type: "edit", member })}>إدارة الحساب</Button>
             </div>
           </article>
@@ -522,8 +522,8 @@ function RolesPanel({ roles, team }: { roles: RoleDefinition[]; team: TeamMember
       <div className="mb-5 flex items-start gap-3 rounded-2xl bg-mist/60 p-4">
         <ShieldCheck className="shrink-0 text-teal" size={20} />
         <div>
-          <h2 className="text-[11px] font-bold text-navy">الصلاحيات تُفرض من الـAPI</h2>
-          <p className="mt-1 text-[8px] leading-5 text-slate">إخفاء زر في الواجهة ليس حماية؛ كل مسار في Laravel يتحقق من الدور قبل تنفيذ الإجراء.</p>
+          <h2 className="text-[13px] font-bold text-navy">الصلاحيات تُفرض من الـAPI</h2>
+          <p className="mt-1 text-[11px] leading-5 text-slate">إخفاء زر في الواجهة ليس حماية؛ كل مسار في Laravel يتحقق من الدور قبل تنفيذ الإجراء.</p>
         </div>
       </div>
       <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
@@ -536,15 +536,15 @@ function RolesPanel({ roles, team }: { roles: RoleDefinition[]; team: TeamMember
                 <div className={`grid size-10 place-items-center rounded-xl ${role.key === "owner" ? "bg-white/10 text-sun" : "bg-cloud text-teal"}`}>
                   <ShieldCheck size={18} />
                 </div>
-                <span className={`rounded-full px-2.5 py-1 text-[8px] font-semibold ${role.key === "owner" ? "bg-white/10 text-white/65" : "bg-cloud text-slate"}`}>{members} حساب</span>
+                <span className={`rounded-full px-2.5 py-1 text-[11px] font-semibold ${role.key === "owner" ? "bg-white/10 text-white/65" : "bg-cloud text-slate"}`}>{members} حساب</span>
               </div>
               <h3 className={`mt-4 text-sm font-bold ${role.key === "owner" ? "text-white" : "text-navy"}`}>{role.label}</h3>
-              <p className={`mt-2 min-h-10 text-[8px] leading-5 ${role.key === "owner" ? "text-white/50" : "text-slate"}`}>{role.description}</p>
+              <p className={`mt-2 min-h-10 text-[11px] leading-5 ${role.key === "owner" ? "text-white/50" : "text-slate"}`}>{role.description}</p>
               <div className={`mt-4 border-t pt-4 ${role.key === "owner" ? "border-white/10" : "border-navy/[0.055]"}`}>
-                <p className={`text-[8px] font-semibold ${role.key === "owner" ? "text-white/40" : "text-slate"}`}>أهم الصلاحيات</p>
+                <p className={`text-[11px] font-semibold ${role.key === "owner" ? "text-white/40" : "text-slate"}`}>أهم الصلاحيات</p>
                 <div className="mt-2 flex flex-wrap gap-1.5">
                   {role.permissions.map((permission) => (
-                    <span key={permission} className={`rounded-lg px-2 py-1.5 text-[8px] ${role.key === "owner" ? "bg-white/[0.07] text-white/75" : "bg-cloud text-navy"}`}>{permission}</span>
+                    <span key={permission} className={`rounded-lg px-2 py-1.5 text-[11px] ${role.key === "owner" ? "bg-white/[0.07] text-white/75" : "bg-cloud text-navy"}`}>{permission}</span>
                   ))}
                 </div>
               </div>
@@ -576,18 +576,18 @@ function AuditPanel({ items }: { items: AuditLog[] }) {
       <div className="flex flex-col gap-4 border-b border-navy/[0.055] p-5 lg:flex-row lg:items-center lg:justify-between">
         <div>
           <h2 className="text-sm font-bold text-navy">سجل التدقيق والأمان</h2>
-          <p className="mt-1 text-[9px] text-slate">آخر 100 عملية تغيير ناجحة، مع رقم الطلب للرجوع للسجلات التقنية.</p>
+          <p className="mt-1 text-[12px] text-slate">آخر 100 عملية تغيير ناجحة، مع رقم الطلب للرجوع للسجلات التقنية.</p>
         </div>
         <label className="flex min-h-10 w-full items-center gap-2 rounded-xl border border-navy/[0.08] bg-cloud px-3 lg:max-w-xs">
           <Search size={15} className="text-slate" />
           <span className="sr-only">بحث في سجل التدقيق</span>
-          <input value={search} onChange={(event) => setSearch(event.target.value)} className="min-w-0 flex-1 bg-transparent text-[10px] outline-none" placeholder="المنفذ أو وصف العملية..." />
+          <input value={search} onChange={(event) => setSearch(event.target.value)} className="min-w-0 flex-1 bg-transparent text-[12px] outline-none" placeholder="المنفذ أو وصف العملية..." />
         </label>
       </div>
       <div className="thin-scrollbar flex gap-2 overflow-x-auto border-b border-navy/[0.055] bg-cloud/35 p-4">
-        <button type="button" onClick={() => setCategory("all")} className={`shrink-0 rounded-full px-3 py-2 text-[8px] font-semibold ${category === "all" ? "bg-navy text-white" : "bg-white text-slate"}`}>كل الأحداث</button>
+        <button type="button" onClick={() => setCategory("all")} className={`shrink-0 rounded-full px-3 py-2 text-[11px] font-semibold ${category === "all" ? "bg-navy text-white" : "bg-white text-slate"}`}>كل الأحداث</button>
         {Object.entries(categoryLabels).map(([value, label]) => (
-          <button key={value} type="button" onClick={() => setCategory(value)} className={`shrink-0 rounded-full px-3 py-2 text-[8px] font-semibold ${category === value ? "bg-navy text-white" : "bg-white text-slate"}`}>{label}</button>
+          <button key={value} type="button" onClick={() => setCategory(value)} className={`shrink-0 rounded-full px-3 py-2 text-[11px] font-semibold ${category === value ? "bg-navy text-white" : "bg-white text-slate"}`}>{label}</button>
         ))}
       </div>
       {filtered.length ? (
@@ -595,28 +595,28 @@ function AuditPanel({ items }: { items: AuditLog[] }) {
           {filtered.map((item) => (
             <article key={item.id} className="grid gap-4 px-5 py-4 transition hover:bg-cloud/45 xl:grid-cols-[170px_minmax(0,1fr)_170px] xl:items-start">
               <div className="flex items-center gap-3">
-                <div className="grid size-9 shrink-0 place-items-center rounded-xl bg-mist text-[10px] font-bold text-navy">{item.actor?.name.charAt(0) ?? "ن"}</div>
+                <div className="grid size-9 shrink-0 place-items-center rounded-xl bg-mist text-[12px] font-bold text-navy">{item.actor?.name.charAt(0) ?? "ن"}</div>
                 <div className="min-w-0">
-                  <p className="truncate text-[9px] font-semibold text-ink">{item.actor?.name ?? "النظام"}</p>
-                  <p className="mt-1 text-[8px] text-slate">{roleLabels[item.actor?.role ?? ""] ?? "System"}</p>
+                  <p className="truncate text-[12px] font-semibold text-ink">{item.actor?.name ?? "النظام"}</p>
+                  <p className="mt-1 text-[11px] text-slate">{roleLabels[item.actor?.role ?? ""] ?? "System"}</p>
                 </div>
               </div>
               <div>
                 <div className="flex flex-wrap items-center gap-2">
                   <StatusBadge value={item.category} label={categoryLabels[item.category] ?? item.category} />
-                  <span className="font-mono text-[7px] text-slate">{item.action}</span>
+                  <span className="font-mono text-[11px] text-slate">{item.action}</span>
                 </div>
-                <p className="mt-2 text-[10px] font-medium leading-5 text-ink">{item.description}</p>
+                <p className="mt-2 text-[12px] font-medium leading-5 text-ink">{item.description}</p>
                 {item.changed_fields.length ? (
-                  <p className="mt-2 text-[8px] text-slate">
+                  <p className="mt-2 text-[11px] text-slate">
                     الحقول: {item.changed_fields.map((field) => fieldLabels[field] ?? field).join("، ")}
                   </p>
                 ) : null}
               </div>
               <div className="xl:text-left">
-                <p className="text-[8px] font-medium text-slate">{formatDateTime(item.created_at)}</p>
-                <p className="mt-1 font-mono text-[7px] text-slate/60">{item.request_id ?? "بدون رقم طلب"}</p>
-                <p className="mt-1 text-[7px] text-slate/60">{item.ip_address}</p>
+                <p className="text-[11px] font-medium text-slate">{formatDateTime(item.created_at)}</p>
+                <p className="mt-1 font-mono text-[11px] text-slate/60">{item.request_id ?? "بدون رقم طلب"}</p>
+                <p className="mt-1 text-[11px] text-slate/60">{item.ip_address}</p>
               </div>
             </article>
           ))}
@@ -687,7 +687,7 @@ function CreateMemberDialog({
           <Field label="كلمة المرور المؤقتة"><input dir="ltr" type="password" value={form.password} onChange={(event) => setForm({ ...form, password: event.target.value })} required /></Field>
           <Field label="تأكيد كلمة المرور"><input dir="ltr" type="password" value={form.password_confirmation} onChange={(event) => setForm({ ...form, password_confirmation: event.target.value })} required /></Field>
         </div>
-        <p className="rounded-xl bg-amber-50 px-3 py-2 text-[8px] leading-5 text-amber-800">10 أحرف على الأقل، مع حرف كبير وصغير ورقم. لا تظهر كلمة المرور في سجل التدقيق.</p>
+        <p className="rounded-xl bg-amber-50 px-3 py-2 text-[11px] leading-5 text-amber-800">10 أحرف على الأقل، مع حرف كبير وصغير ورقم. لا تظهر كلمة المرور في سجل التدقيق.</p>
         <DialogActions error={error} pending={mutation.isPending} submitLabel="إنشاء الحساب" />
       </form>
     </ActionDialog>
@@ -816,7 +816,7 @@ function ActionDialog({ open, onClose, title, description, children }: { open: b
           <div className="flex items-start justify-between gap-4">
             <div>
               <Dialog.Title className="text-lg font-bold text-navy">{title}</Dialog.Title>
-              <Dialog.Description className="mt-1 text-[9px] leading-5 text-slate">{description}</Dialog.Description>
+              <Dialog.Description className="mt-1 text-[12px] leading-5 text-slate">{description}</Dialog.Description>
             </div>
             <Dialog.Close asChild><Button size="icon" variant="secondary" aria-label="إغلاق"><X size={16} /></Button></Dialog.Close>
           </div>
@@ -844,7 +844,7 @@ function SettingsSection({ icon: Icon, title, description, children }: { icon: L
     <section className="rounded-2xl border border-navy/[0.065] bg-white p-5">
       <div className="mb-5 flex items-start gap-3">
         <div className="grid size-10 shrink-0 place-items-center rounded-xl bg-mist text-teal"><Icon size={18} /></div>
-        <div><h2 className="text-[12px] font-bold text-navy">{title}</h2><p className="mt-1 text-[8px] leading-5 text-slate">{description}</p></div>
+        <div><h2 className="text-[12px] font-bold text-navy">{title}</h2><p className="mt-1 text-[11px] leading-5 text-slate">{description}</p></div>
       </div>
       <div className="space-y-4">{children}</div>
     </section>
@@ -854,8 +854,8 @@ function SettingsSection({ icon: Icon, title, description, children }: { icon: L
 function Field({ label, children }: { label: string; children: ReactElement }) {
   return (
     <label>
-      <span className="mb-2 block text-[9px] font-semibold text-navy">{label}</span>
-      <span className="[&>input]:min-h-11 [&>input]:w-full [&>input]:rounded-xl [&>input]:border [&>input]:border-navy/[0.09] [&>input]:bg-cloud/70 [&>input]:px-3.5 [&>input]:text-[10px] [&>input]:outline-none [&>input:disabled]:opacity-55 [&>select]:min-h-11 [&>select]:w-full [&>select]:rounded-xl [&>select]:border [&>select]:border-navy/[0.09] [&>select]:bg-cloud/70 [&>select]:px-3.5 [&>select]:text-[10px] [&>select]:outline-none [&>select:disabled]:opacity-55 [&>textarea]:w-full [&>textarea]:resize-none [&>textarea]:rounded-xl [&>textarea]:border [&>textarea]:border-navy/[0.09] [&>textarea]:bg-cloud/70 [&>textarea]:p-3.5 [&>textarea]:text-[10px] [&>textarea]:outline-none">{children}</span>
+      <span className="mb-2 block text-[12px] font-semibold text-navy">{label}</span>
+      <span className="[&>input]:min-h-11 [&>input]:w-full [&>input]:rounded-xl [&>input]:border [&>input]:border-navy/[0.09] [&>input]:bg-cloud/70 [&>input]:px-3.5 [&>input]:text-[12px] [&>input]:outline-none [&>input:disabled]:opacity-55 [&>select]:min-h-11 [&>select]:w-full [&>select]:rounded-xl [&>select]:border [&>select]:border-navy/[0.09] [&>select]:bg-cloud/70 [&>select]:px-3.5 [&>select]:text-[12px] [&>select]:outline-none [&>select:disabled]:opacity-55 [&>textarea]:w-full [&>textarea]:resize-none [&>textarea]:rounded-xl [&>textarea]:border [&>textarea]:border-navy/[0.09] [&>textarea]:bg-cloud/70 [&>textarea]:p-3.5 [&>textarea]:text-[12px] [&>textarea]:outline-none">{children}</span>
     </label>
   );
 }
@@ -863,10 +863,10 @@ function Field({ label, children }: { label: string; children: ReactElement }) {
 function MemberIdentity({ member, current }: { member: TeamMember; current: boolean }) {
   return (
     <div className="flex min-w-0 items-center gap-3">
-      <div className={`grid size-10 shrink-0 place-items-center rounded-xl text-[11px] font-bold ${current ? "bg-navy text-sun" : "bg-mist text-navy"}`}>{member.name.charAt(0)}</div>
+      <div className={`grid size-10 shrink-0 place-items-center rounded-xl text-[13px] font-bold ${current ? "bg-navy text-sun" : "bg-mist text-navy"}`}>{member.name.charAt(0)}</div>
       <div className="min-w-0">
-        <div className="flex items-center gap-2"><p className="truncate text-[10px] font-semibold text-ink">{member.name}</p>{current ? <span className="rounded bg-sun/20 px-1.5 py-0.5 text-[7px] font-bold text-amber-800">أنت</span> : null}</div>
-        <p className="mt-1 truncate text-[8px] text-slate">{member.job_title ?? member.email}</p>
+        <div className="flex items-center gap-2"><p className="truncate text-[12px] font-semibold text-ink">{member.name}</p>{current ? <span className="rounded bg-sun/20 px-1.5 py-0.5 text-[11px] font-bold text-amber-800">أنت</span> : null}</div>
+        <p className="mt-1 truncate text-[11px] text-slate">{member.job_title ?? member.email}</p>
       </div>
     </div>
   );
@@ -874,7 +874,7 @@ function MemberIdentity({ member, current }: { member: TeamMember; current: bool
 
 function ViewButton({ icon: Icon, active, onClick, children }: { icon: LucideIcon; active: boolean; onClick: () => void; children: ReactNode }) {
   return (
-    <button type="button" onClick={onClick} className={`inline-flex min-h-10 shrink-0 items-center gap-2 rounded-xl px-4 text-[9px] font-semibold transition ${active ? "bg-white text-navy shadow-sm" : "text-slate hover:text-navy"}`}>
+    <button type="button" onClick={onClick} className={`inline-flex min-h-10 shrink-0 items-center gap-2 rounded-xl px-4 text-[12px] font-semibold transition ${active ? "bg-white text-navy shadow-sm" : "text-slate hover:text-navy"}`}>
       <Icon size={14} className={active ? "text-teal" : ""} />{children}
     </button>
   );
@@ -884,7 +884,7 @@ function MetricCard({ icon: Icon, label, value, hint, tone }: { icon: LucideIcon
   return (
     <article className="rounded-2xl border border-navy/[0.065] bg-white p-4 shadow-[0_8px_28px_rgba(11,36,84,.035)]">
       <div className="flex items-start justify-between gap-3">
-        <div><p className="text-2xl font-bold text-navy">{value}</p><p className="mt-1 text-[9px] font-medium text-slate">{label}</p><p className="mt-2 text-[8px] text-slate/70">{hint}</p></div>
+        <div><p className="text-2xl font-bold text-navy">{value}</p><p className="mt-1 text-[12px] font-medium text-slate">{label}</p><p className="mt-2 text-[11px] text-slate/70">{hint}</p></div>
         <div className={`grid size-10 place-items-center rounded-xl ${tone}`}><Icon size={18} /></div>
       </div>
     </article>
@@ -893,11 +893,11 @@ function MetricCard({ icon: Icon, label, value, hint, tone }: { icon: LucideIcon
 
 function Feedback({ tone, children }: { tone: "error" | "success" | "info"; children: ReactNode }) {
   const styles = { error: "bg-rose-50 text-rose-700", success: "bg-emerald-50 text-emerald-700", info: "bg-sky-50 text-sky-700" };
-  return <p role={tone === "error" ? "alert" : undefined} className={`mt-4 rounded-xl px-3 py-2.5 text-[9px] leading-5 ${styles[tone]}`}>{children}</p>;
+  return <p role={tone === "error" ? "alert" : undefined} className={`mt-4 rounded-xl px-3 py-2.5 text-[12px] leading-5 ${styles[tone]}`}>{children}</p>;
 }
 
 function EmptyState({ icon: Icon, text }: { icon: LucideIcon; text: string }) {
-  return <div className="grid min-h-48 place-items-center p-8 text-center"><div><Icon className="mx-auto text-teal" size={26} /><p className="mt-3 text-[10px] font-semibold text-navy">{text}</p></div></div>;
+  return <div className="grid min-h-48 place-items-center p-8 text-center"><div><Icon className="mx-auto text-teal" size={26} /><p className="mt-3 text-[12px] font-semibold text-navy">{text}</p></div></div>;
 }
 
 function ManagementSkeleton() {

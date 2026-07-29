@@ -1479,10 +1479,10 @@ export function DocsContent() {
                 "التزم بأهم قاعدة",
               ].map((item, index) => (
                 <div key={item} className="flex items-start gap-2.5">
-                  <span className="grid size-6 shrink-0 place-items-center rounded-lg bg-mist text-[10px] font-bold text-teal">
+                  <span className="grid size-6 shrink-0 place-items-center rounded-lg bg-mist text-[12px] font-bold text-teal">
                     {index + 1}
                   </span>
-                  <p className="pt-1 text-[11px] leading-5 text-slate">{item}</p>
+                  <p className="pt-1 text-[13px] leading-5 text-slate">{item}</p>
                 </div>
               ))}
             </div>
@@ -1491,7 +1491,7 @@ export function DocsContent() {
           <div className="mt-4 rounded-2xl bg-navy p-4 text-white shadow-[0_16px_35px_rgba(11,36,84,.15)]">
             <Lightbulb size={18} className="text-sun" />
             <p className="mt-3 text-xs font-bold">مش عارف تبدأ منين؟</p>
-            <p className="mt-2 text-[11px] leading-6 text-white/60">
+            <p className="mt-2 text-[13px] leading-6 text-white/60">
               ابدأ بـ«رحلة العميل الكاملة»، وبعدها افتح شرح الشاشة التي تخص دورك.
             </p>
           </div>
@@ -1508,10 +1508,10 @@ function DocsHero({ workspaceHref }: { workspaceHref: string }) {
       <div className="absolute -bottom-24 right-1/3 size-56 rounded-full bg-sun/10 blur-3xl" />
       <div className="relative">
         <div className="flex flex-wrap items-center gap-2">
-          <span className="rounded-full border border-white/10 bg-white/[0.07] px-3 py-1.5 text-[11px] font-semibold text-white/70">
+          <span className="rounded-full border border-white/10 bg-white/[0.07] px-3 py-1.5 text-[13px] font-semibold text-white/70">
             دليل الفريق العملي
           </span>
-          <span className="rounded-full bg-sun px-3 py-1.5 text-[11px] font-bold text-navy">
+          <span className="rounded-full bg-sun px-3 py-1.5 text-[13px] font-bold text-navy">
             المناهج المكثفة v1.1
           </span>
         </div>
@@ -1535,7 +1535,7 @@ function DocsHero({ workspaceHref }: { workspaceHref: string }) {
               className="rounded-2xl border border-white/[0.08] bg-white/[0.055] p-4"
             >
               <p className="font-mono text-xl font-black text-sun">{value}</p>
-              <p className="mt-1 text-[11px] text-white/50">{label}</p>
+              <p className="mt-1 text-[13px] text-white/50">{label}</p>
             </div>
           ))}
         </div>
@@ -1577,7 +1577,7 @@ function GuideNavigation({
     <nav className="mt-5 space-y-6" aria-label="أقسام دليل التشغيل">
       {guideGroups.map((group) => (
         <div key={group.label}>
-          <p className="mb-2 px-3 text-[10px] font-bold tracking-[0.1em] text-slate/60">
+          <p className="mb-2 px-3 text-[12px] font-bold tracking-[0.1em] text-slate/60">
             {group.label}
           </p>
           <div className="space-y-1">
@@ -1648,7 +1648,7 @@ function SearchResults({
       <div className="flex items-center justify-between gap-3">
         <div>
           <p className="text-xs font-bold text-navy">نتائج البحث</p>
-          <p className="mt-1 text-[11px] text-slate">
+          <p className="mt-1 text-[13px] text-slate">
             {results.length
               ? `${results.length} قسم متعلق بـ «${query.trim()}»`
               : `لا توجد نتيجة لـ «${query.trim()}»`}
@@ -1666,7 +1666,7 @@ function SearchResults({
               className="rounded-xl bg-cloud/70 p-3 text-right transition hover:bg-mist"
             >
               <p className="text-xs font-bold text-navy">{section.title}</p>
-              <p className="mt-1 line-clamp-2 text-[11px] leading-5 text-slate">
+              <p className="mt-1 line-clamp-2 text-[13px] leading-5 text-slate">
                 {section.summary}
               </p>
             </button>
@@ -1698,7 +1698,7 @@ function GuideSectionCard({
             <Icon size={21} />
           </span>
           <div className="min-w-0 flex-1">
-            <p className="font-mono text-[10px] font-bold text-teal">
+            <p className="font-mono text-[12px] font-bold text-teal">
               {String(index).padStart(2, "0")}
             </p>
             <h2 className="mt-1 text-lg font-black text-navy sm:text-xl">
@@ -1709,7 +1709,7 @@ function GuideSectionCard({
           {section.href ? (
             <Link
               href={section.href}
-              className="hidden min-h-10 items-center gap-2 rounded-xl border border-navy/[0.08] bg-white px-3 text-[11px] font-bold text-navy transition hover:border-teal/25 hover:text-teal sm:inline-flex print:hidden"
+              className="hidden min-h-10 items-center gap-2 rounded-xl border border-navy/[0.08] bg-white px-3 text-[13px] font-bold text-navy transition hover:border-teal/25 hover:text-teal sm:inline-flex print:hidden"
             >
               افتح الشاشة
               <ExternalLink size={13} />
@@ -1740,7 +1740,7 @@ function GuideSectionCard({
             </div>
             <Link
               href={section.href}
-              className="inline-flex min-h-9 items-center gap-2 rounded-xl bg-sky-700 px-3 text-[11px] font-bold text-white print:hidden"
+              className="inline-flex min-h-9 items-center gap-2 rounded-xl bg-sky-700 px-3 text-[13px] font-bold text-white print:hidden"
             >
               فتح
               <ArrowLeft size={13} />
@@ -1856,7 +1856,7 @@ function BlockTitle({
       </span>
       <div>
         <h3 className="text-sm font-black text-navy">{title}</h3>
-        <p className="mt-1 text-[11px] leading-5 text-slate">{description}</p>
+        <p className="mt-1 text-[13px] leading-5 text-slate">{description}</p>
       </div>
     </div>
   );

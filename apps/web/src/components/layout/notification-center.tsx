@@ -70,7 +70,7 @@ export function NotificationCenter() {
           <div className="flex items-center justify-between border-b border-navy/[0.06] px-4 py-4">
             <div>
               <h2 className="text-xs font-bold text-navy">مركز التنبيهات</h2>
-              <p className="mt-1 text-[8px] text-slate">
+              <p className="mt-1 text-[11px] text-slate">
                 أهم ما يحتاج انتباهك الآن
               </p>
             </div>
@@ -92,7 +92,7 @@ export function NotificationCenter() {
             ) : query.isError ? (
               <div className="p-6 text-center">
                 <CircleAlert className="mx-auto text-rose-500" size={24} />
-                <p className="mt-2 text-[10px] font-semibold text-navy">
+                <p className="mt-2 text-[12px] font-semibold text-navy">
                   تعذر تحميل التنبيهات
                 </p>
               </div>
@@ -118,7 +118,7 @@ export function NotificationCenter() {
                         </span>
                         <span className="min-w-0 flex-1">
                           <span className="flex items-center justify-between gap-3">
-                            <span className="text-[10px] font-bold text-navy">
+                            <span className="text-[12px] font-bold text-navy">
                               {item.title}
                             </span>
                             <span
@@ -132,10 +132,10 @@ export function NotificationCenter() {
                               )}
                             />
                           </span>
-                          <span className="mt-1 block truncate text-[9px] text-slate">
+                          <span className="mt-1 block truncate text-[12px] text-slate">
                             {item.description}
                           </span>
-                          <span className="mt-1.5 block text-[8px] text-slate/75">
+                          <span className="mt-1.5 block text-[11px] text-slate/75">
                             {relativeTime(item.occurred_at)}
                           </span>
                         </span>
@@ -149,10 +149,10 @@ export function NotificationCenter() {
                 <div className="mx-auto grid size-11 place-items-center rounded-2xl bg-emerald-50 text-emerald-600">
                   <Bell size={19} />
                 </div>
-                <p className="mt-3 text-[10px] font-semibold text-navy">
+                <p className="mt-3 text-[12px] font-semibold text-navy">
                   كل شيء تحت السيطرة
                 </p>
-                <p className="mt-1 text-[8px] text-slate">
+                <p className="mt-1 text-[11px] text-slate">
                   لا توجد تنبيهات تحتاج إجراء حاليًا.
                 </p>
               </div>

@@ -113,7 +113,7 @@ export function PayrollContent() {
 
       <section className="flex flex-col gap-4 rounded-2xl border border-navy/[0.065] bg-white p-4 shadow-[0_8px_30px_rgba(11,36,84,.035)] sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <p className="text-[9px] font-semibold text-slate">فترة المراجعة</p>
+          <p className="text-[12px] font-semibold text-slate">فترة المراجعة</p>
           <p className="mt-1 text-xs font-bold text-navy">
             {new Date(`${month}-01T12:00:00`).toLocaleDateString("ar-EG", {
               month: "long",
@@ -128,7 +128,7 @@ export function PayrollContent() {
             type="month"
             value={month}
             onChange={(event) => setMonth(event.target.value)}
-            className="bg-transparent text-[10px] font-semibold text-navy outline-none"
+            className="bg-transparent text-[12px] font-semibold text-navy outline-none"
           />
         </label>
       </section>
@@ -175,7 +175,7 @@ export function PayrollContent() {
         <button
           type="button"
           onClick={() => setActiveTab("payroll")}
-          className={`rounded-lg px-4 py-2 text-[10px] font-semibold transition ${
+          className={`rounded-lg px-4 py-2 text-[12px] font-semibold transition ${
             activeTab === "payroll" ? "bg-navy text-white" : "text-slate hover:text-navy"
           }`}
         >
@@ -184,7 +184,7 @@ export function PayrollContent() {
         <button
           type="button"
           onClick={() => setActiveTab("expenses")}
-          className={`rounded-lg px-4 py-2 text-[10px] font-semibold transition ${
+          className={`rounded-lg px-4 py-2 text-[12px] font-semibold transition ${
             activeTab === "expenses" ? "bg-navy text-white" : "text-slate hover:text-navy"
           }`}
         >
@@ -206,10 +206,10 @@ export function PayrollContent() {
         <section className="flex items-center gap-3 rounded-2xl border border-amber-200 bg-amber-50 p-4">
           <CircleAlert size={19} className="shrink-0 text-amber-700" />
           <div>
-            <p className="text-[10px] font-bold text-amber-900">
+            <p className="text-[12px] font-bold text-amber-900">
               {payroll.summary.missing_rates} مستحق بدون قاعدة سعر
             </p>
-            <p className="mt-1 text-[8px] text-amber-800">
+            <p className="mt-1 text-[11px] text-amber-800">
               راجع ملف المعلم وحدد سعر الساعة قبل اعتماد دورة الرواتب.
             </p>
           </div>
@@ -248,7 +248,7 @@ function PayrollPanel({
               </div>
               <div className="min-w-0 flex-1">
                 <p className="truncate text-xs font-bold text-navy">{row.teacher.name}</p>
-                <p className="mt-1 text-[8px] text-slate">{row.sessions} حصص مكتملة</p>
+                <p className="mt-1 text-[11px] text-slate">{row.sessions} حصص مكتملة</p>
               </div>
               <p className="text-sm font-bold text-teal">{formatCurrency(row.total)}</p>
             </div>
@@ -264,7 +264,7 @@ function PayrollPanel({
       <section className="overflow-hidden rounded-2xl border border-navy/[0.065] bg-white shadow-[0_8px_30px_rgba(11,36,84,.035)]">
         <div className="border-b border-navy/[0.055] p-5">
           <h2 className="text-sm font-bold text-navy">سجل المستحقات</h2>
-          <p className="mt-1 text-[8px] text-slate">
+          <p className="mt-1 text-[11px] text-slate">
             كل مبلغ مرتبط بالحصة والسعر المستخدم في الحساب.
           </p>
         </div>
@@ -273,7 +273,7 @@ function PayrollPanel({
             <div className="hidden overflow-x-auto md:block">
               <table className="w-full min-w-[900px] border-collapse">
                 <thead>
-                  <tr className="bg-cloud/55 text-right text-[8px] font-semibold text-slate">
+                  <tr className="bg-cloud/55 text-right text-[11px] font-semibold text-slate">
                     <th className="px-5 py-3.5">المعلم والحصة</th>
                     <th className="px-4 py-3.5">التاريخ</th>
                     <th className="px-4 py-3.5">طريقة الحساب</th>
@@ -307,19 +307,19 @@ function EarningRow({ earning }: { earning: TeacherEarning }) {
   return (
     <tr className="transition hover:bg-cloud/50">
       <td className="px-5 py-4">
-        <p className="text-[10px] font-bold text-navy">{earning.teacher.name}</p>
-        <p className="mt-1 text-[8px] text-slate">
+        <p className="text-[12px] font-bold text-navy">{earning.teacher.name}</p>
+        <p className="mt-1 text-[11px] text-slate">
           {earning.session.cohort?.name} · {earning.session.title}
         </p>
       </td>
-      <td className="px-4 py-4 text-[9px] text-slate">{formatDate(earning.earned_on)}</td>
+      <td className="px-4 py-4 text-[12px] text-slate">{formatDate(earning.earned_on)}</td>
       <td className="px-4 py-4">
-        <p className="text-[9px] font-semibold text-navy">
+        <p className="text-[12px] font-semibold text-navy">
           {earning.rate_type === "hourly" ? "بالساعة" : "سعر الحصة"}
         </p>
-        <p className="mt-1 text-[8px] text-slate">{earning.duration_minutes} دقيقة</p>
+        <p className="mt-1 text-[11px] text-slate">{earning.duration_minutes} دقيقة</p>
       </td>
-      <td className="px-4 py-4 text-[10px] font-bold text-navy">
+      <td className="px-4 py-4 text-[12px] font-bold text-navy">
         {formatCurrency(earning.amount)}
       </td>
       <td className="px-4 py-4">
@@ -340,8 +340,8 @@ function EarningCard({ earning }: { earning: TeacherEarning }) {
     <article className="p-4">
       <div className="flex items-start justify-between gap-3">
         <div>
-          <p className="text-[10px] font-bold text-navy">{earning.teacher.name}</p>
-          <p className="mt-1 text-[8px] text-slate">{earning.session.cohort?.name}</p>
+          <p className="text-[12px] font-bold text-navy">{earning.teacher.name}</p>
+          <p className="mt-1 text-[11px] text-slate">{earning.session.cohort?.name}</p>
         </div>
         <StatusBadge
           value={earning.status}
@@ -350,7 +350,7 @@ function EarningCard({ earning }: { earning: TeacherEarning }) {
       </div>
       <div className="mt-4 flex items-end justify-between rounded-xl bg-cloud p-3">
         <div>
-          <p className="text-[8px] text-slate">{formatDate(earning.earned_on)}</p>
+          <p className="text-[11px] text-slate">{formatDate(earning.earned_on)}</p>
           <p className="mt-1 text-sm font-bold text-navy">{formatCurrency(earning.amount)}</p>
         </div>
         <EarningActions earning={earning} />
@@ -398,7 +398,7 @@ function EarningActions({ earning }: { earning: TeacherEarning }) {
     );
   }
 
-  return <span className="text-[8px] text-slate">لا يوجد إجراء</span>;
+  return <span className="text-[11px] text-slate">لا يوجد إجراء</span>;
 }
 
 function ExpensesPanel({
@@ -417,7 +417,7 @@ function ExpensesPanel({
       <div className="flex items-start justify-between gap-3 border-b border-navy/[0.055] p-5">
         <div>
           <h2 className="text-sm font-bold text-navy">سجل المصروفات</h2>
-          <p className="mt-1 text-[8px] text-slate">
+          <p className="mt-1 text-[11px] text-slate">
             من التسجيل إلى الاعتماد ثم الدفع، بدون حذف التاريخ المالي.
           </p>
         </div>
@@ -431,7 +431,7 @@ function ExpensesPanel({
           <div className="hidden overflow-x-auto md:block">
             <table className="w-full min-w-[900px] border-collapse">
               <thead>
-                <tr className="bg-cloud/55 text-right text-[8px] font-semibold text-slate">
+                <tr className="bg-cloud/55 text-right text-[11px] font-semibold text-slate">
                   <th className="px-5 py-3.5">المصروف</th>
                   <th className="px-4 py-3.5">التصنيف</th>
                   <th className="px-4 py-3.5">التاريخ</th>
@@ -452,8 +452,8 @@ function ExpensesPanel({
               <article key={expense.id} className="p-4">
                 <div className="flex items-start justify-between gap-3">
                   <div>
-                    <p className="text-[10px] font-bold text-navy">{expense.description}</p>
-                    <p className="mt-1 text-[8px] text-slate">
+                    <p className="text-[12px] font-bold text-navy">{expense.description}</p>
+                    <p className="mt-1 text-[11px] text-slate">
                       {expense.vendor_name ?? expense.category}
                     </p>
                   </div>
@@ -481,14 +481,14 @@ function ExpenseRow({ expense }: { expense: Expense }) {
   return (
     <tr className="transition hover:bg-cloud/50">
       <td className="px-5 py-4">
-        <p className="text-[10px] font-bold text-navy">{expense.description}</p>
-        <p className="mt-1 font-mono text-[8px] text-slate">
+        <p className="text-[12px] font-bold text-navy">{expense.description}</p>
+        <p className="mt-1 font-mono text-[11px] text-slate">
           {expense.expense_number} {expense.vendor_name ? `· ${expense.vendor_name}` : ""}
         </p>
       </td>
-      <td className="px-4 py-4 text-[9px] text-slate">{expense.category}</td>
-      <td className="px-4 py-4 text-[9px] text-slate">{formatDate(expense.incurred_on)}</td>
-      <td className="px-4 py-4 text-[10px] font-bold text-navy">
+      <td className="px-4 py-4 text-[12px] text-slate">{expense.category}</td>
+      <td className="px-4 py-4 text-[12px] text-slate">{formatDate(expense.incurred_on)}</td>
+      <td className="px-4 py-4 text-[12px] font-bold text-navy">
         {formatCurrency(expense.amount)}
       </td>
       <td className="px-4 py-4">
@@ -545,7 +545,7 @@ function ExpenseActions({ expense }: { expense: Expense }) {
     );
   }
 
-  return <span className="text-[8px] text-slate">لا يوجد إجراء</span>;
+  return <span className="text-[11px] text-slate">لا يوجد إجراء</span>;
 }
 
 function AddExpenseDialog({
@@ -606,7 +606,7 @@ function AddExpenseDialog({
               <Dialog.Title className="text-base font-bold text-navy">
                 تسجيل مصروف جديد
               </Dialog.Title>
-              <Dialog.Description className="mt-1 text-[9px] text-slate">
+              <Dialog.Description className="mt-1 text-[12px] text-slate">
                 سيُرسل المصروف للمراجعة قبل تسجيل الدفع.
               </Dialog.Description>
             </div>
@@ -668,7 +668,7 @@ function AddExpenseDialog({
             </ExpenseField>
 
             {error ? (
-              <p className="rounded-xl bg-rose-50 p-3 text-[9px] text-rose-700 sm:col-span-2">
+              <p className="rounded-xl bg-rose-50 p-3 text-[12px] text-rose-700 sm:col-span-2">
                 {error}
               </p>
             ) : null}
@@ -700,7 +700,7 @@ function ExpenseField({
 }) {
   return (
     <label
-      className={`grid gap-2 text-[9px] font-semibold text-navy ${className ?? ""} [&_input]:min-h-11 [&_input]:rounded-xl [&_input]:border [&_input]:border-navy/[0.08] [&_input]:bg-cloud/60 [&_input]:px-3 [&_input]:text-[10px] [&_input]:font-normal [&_input]:outline-none [&_select]:min-h-11 [&_select]:rounded-xl [&_select]:border [&_select]:border-navy/[0.08] [&_select]:bg-cloud/60 [&_select]:px-3 [&_select]:text-[10px] [&_select]:font-normal [&_select]:outline-none [&_textarea]:rounded-xl [&_textarea]:border [&_textarea]:border-navy/[0.08] [&_textarea]:bg-cloud/60 [&_textarea]:p-3 [&_textarea]:text-[10px] [&_textarea]:font-normal [&_textarea]:outline-none`}
+      className={`grid gap-2 text-[12px] font-semibold text-navy ${className ?? ""} [&_input]:min-h-11 [&_input]:rounded-xl [&_input]:border [&_input]:border-navy/[0.08] [&_input]:bg-cloud/60 [&_input]:px-3 [&_input]:text-[12px] [&_input]:font-normal [&_input]:outline-none [&_select]:min-h-11 [&_select]:rounded-xl [&_select]:border [&_select]:border-navy/[0.08] [&_select]:bg-cloud/60 [&_select]:px-3 [&_select]:text-[12px] [&_select]:font-normal [&_select]:outline-none [&_textarea]:rounded-xl [&_textarea]:border [&_textarea]:border-navy/[0.08] [&_textarea]:bg-cloud/60 [&_textarea]:p-3 [&_textarea]:text-[12px] [&_textarea]:font-normal [&_textarea]:outline-none`}
     >
       {label}
       {children}
@@ -727,8 +727,8 @@ function PayrollMetric({
         <Icon size={18} />
       </div>
       <p className="mt-4 truncate text-base font-bold text-navy">{value}</p>
-      <p className="mt-1 text-[9px] font-semibold text-ink">{label}</p>
-      <p className="mt-1 text-[7px] text-slate">{hint}</p>
+      <p className="mt-1 text-[12px] font-semibold text-ink">{label}</p>
+      <p className="mt-1 text-[11px] text-slate">{hint}</p>
     </article>
   );
 }
@@ -736,8 +736,8 @@ function PayrollMetric({
 function MiniAmount({ label, value }: { label: string; value: string }) {
   return (
     <div className="rounded-xl bg-cloud/80 p-2.5 text-center">
-      <p className="truncate text-[9px] font-bold text-navy">{formatCurrency(value)}</p>
-      <p className="mt-1 text-[7px] text-slate">{label}</p>
+      <p className="truncate text-[12px] font-bold text-navy">{formatCurrency(value)}</p>
+      <p className="mt-1 text-[11px] text-slate">{label}</p>
     </div>
   );
 }
@@ -747,7 +747,7 @@ function EmptyPanel({ message }: { message: string }) {
     <div className="grid min-h-52 place-items-center p-8 text-center">
       <div>
         <ReceiptText className="mx-auto text-teal" size={27} />
-        <p className="mt-3 text-[10px] font-semibold text-navy">{message}</p>
+        <p className="mt-3 text-[12px] font-semibold text-navy">{message}</p>
       </div>
     </div>
   );

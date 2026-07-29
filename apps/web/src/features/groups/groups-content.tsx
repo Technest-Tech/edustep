@@ -137,7 +137,7 @@ export function GroupsContent() {
               key={value}
               type="button"
               onClick={() => setStatus(value)}
-              className={`shrink-0 rounded-full px-3.5 py-2.5 text-[9px] font-semibold transition ${
+              className={`shrink-0 rounded-full px-3.5 py-2.5 text-[12px] font-semibold transition ${
                 status === value
                   ? "bg-navy text-white shadow-[0_7px_18px_rgba(11,36,84,.15)]"
                   : "border border-navy/[0.07] bg-white text-slate hover:bg-cloud"
@@ -207,10 +207,10 @@ function GroupCard({ group }: { group: Cohort }) {
                 value={group.status}
                 label={cohortStatusLabels[group.status] ?? group.status}
               />
-              <span className="font-mono text-[8px] text-slate">{group.code}</span>
+              <span className="font-mono text-[11px] text-slate">{group.code}</span>
             </div>
             <h2 className="mt-3 truncate text-sm font-bold text-navy">{group.name}</h2>
-            <p className="mt-1 text-[9px] text-slate">
+            <p className="mt-1 text-[12px] text-slate">
               {group.program.name_ar} · {group.level.name_ar}
             </p>
           </div>
@@ -225,11 +225,11 @@ function GroupCard({ group }: { group: Cohort }) {
 
         <div className="mt-5 rounded-2xl bg-cloud/85 p-4">
           <div className="flex items-center justify-between">
-            <span className="flex items-center gap-1.5 text-[9px] text-slate">
+            <span className="flex items-center gap-1.5 text-[12px] text-slate">
               <UsersRound size={13} />
               الإشغال
             </span>
-            <span className="text-[10px] font-bold text-navy">
+            <span className="text-[12px] font-bold text-navy">
               {group.enrolled_count + group.reserved_seats} / {group.capacity}
             </span>
           </div>
@@ -241,7 +241,7 @@ function GroupCard({ group }: { group: Cohort }) {
               style={{ width: `${occupancy}%` }}
             />
           </div>
-          <div className="mt-2 flex items-center justify-between text-[8px]">
+          <div className="mt-2 flex items-center justify-between text-[11px]">
             <span className="text-slate">
               {group.enrolled_count} مسجل · {group.reserved_seats} محجوز
             </span>
@@ -250,7 +250,7 @@ function GroupCard({ group }: { group: Cohort }) {
             </span>
           </div>
           {group.waitlist_count ? (
-            <div className="mt-2 flex items-center gap-1.5 rounded-lg bg-amber-50 px-2.5 py-2 text-[8px] font-semibold text-amber-800">
+            <div className="mt-2 flex items-center gap-1.5 rounded-lg bg-amber-50 px-2.5 py-2 text-[11px] font-semibold text-amber-800">
               <Hourglass size={11} />
               {group.waitlist_count} على قائمة الانتظار
             </div>
@@ -292,12 +292,12 @@ function GroupCard({ group }: { group: Cohort }) {
 
         <div className="mt-5 flex items-center justify-between gap-3 border-t border-navy/[0.055] pt-4">
           <div>
-            <p className="text-[8px] text-slate">رسوم الطالب</p>
-            <p className="mt-1 text-[11px] font-bold text-navy">{formatCurrency(group.fee)}</p>
+            <p className="text-[11px] text-slate">رسوم الطالب</p>
+            <p className="mt-1 text-[13px] font-bold text-navy">{formatCurrency(group.fee)}</p>
           </div>
           <Link
             href={`/groups/${group.id}`}
-            className="inline-flex min-h-9 items-center gap-1.5 rounded-xl bg-navy px-3 text-[9px] font-semibold text-white transition hover:bg-navy-soft"
+            className="inline-flex min-h-9 items-center gap-1.5 rounded-xl bg-navy px-3 text-[12px] font-semibold text-white transition hover:bg-navy-soft"
           >
             لوحة الجروب
             <ArrowLeft size={13} className="text-sun" />
@@ -323,8 +323,8 @@ function GroupInfo({
         <Icon size={14} />
       </div>
       <div className="min-w-0">
-        <dt className="text-[8px] text-slate">{label}</dt>
-        <dd className="mt-1 line-clamp-2 text-[9px] font-medium leading-4 text-ink">{value}</dd>
+        <dt className="text-[11px] text-slate">{label}</dt>
+        <dd className="mt-1 line-clamp-2 text-[12px] font-medium leading-4 text-ink">{value}</dd>
       </div>
     </div>
   );
@@ -346,7 +346,7 @@ function GroupMetric({
       <div className="flex items-center justify-between gap-3">
         <div>
           <p className="text-2xl font-bold text-navy">{value}</p>
-          <p className="mt-1 text-[9px] text-slate">{label}</p>
+          <p className="mt-1 text-[12px] text-slate">{label}</p>
         </div>
         <div className={`grid size-11 place-items-center rounded-2xl ${tone}`}>
           <Icon size={20} />

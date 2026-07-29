@@ -101,7 +101,7 @@ export function AddLeadDialog({
               <Dialog.Title className="text-xl font-bold text-navy">
                 إضافة عميل محتمل
               </Dialog.Title>
-              <Dialog.Description className="mt-2 text-[10px] leading-5 text-slate">
+              <Dialog.Description className="mt-2 text-[12px] leading-5 text-slate">
                 سجل بيانات التواصل والاهتمام، ثم أضف أول متابعة من صفحة العميل.
               </Dialog.Description>
             </div>
@@ -156,7 +156,7 @@ export function AddLeadDialog({
             </div>
 
             {mutation.isError && !(mutation.error instanceof ApiError) ? (
-              <p className="mt-4 rounded-xl bg-rose-50 px-4 py-3 text-[10px] text-rose-700">
+              <p className="mt-4 rounded-xl bg-rose-50 px-4 py-3 text-[12px] text-rose-700">
                 تعذر حفظ العميل. حاول مرة أخرى.
               </p>
             ) : null}
@@ -189,11 +189,11 @@ function Field({
 }) {
   return (
     <label className={className}>
-      <span className="mb-2 block text-[10px] font-semibold text-navy">{label}</span>
-      <span className="[&>input]:min-h-11 [&>input]:w-full [&>input]:rounded-xl [&>input]:border [&>input]:border-navy/[0.09] [&>input]:bg-cloud/70 [&>input]:px-3.5 [&>input]:text-[11px] [&>input]:outline-none [&>input]:transition [&>input]:focus:border-teal/50 [&>select]:min-h-11 [&>select]:w-full [&>select]:rounded-xl [&>select]:border [&>select]:border-navy/[0.09] [&>select]:bg-cloud/70 [&>select]:px-3.5 [&>select]:text-[11px] [&>select]:outline-none [&>textarea]:w-full [&>textarea]:resize-none [&>textarea]:rounded-xl [&>textarea]:border [&>textarea]:border-navy/[0.09] [&>textarea]:bg-cloud/70 [&>textarea]:p-3.5 [&>textarea]:text-[11px] [&>textarea]:outline-none">
+      <span className="mb-2 block text-[12px] font-semibold text-navy">{label}</span>
+      <span className="[&>input]:min-h-11 [&>input]:w-full [&>input]:rounded-xl [&>input]:border [&>input]:border-navy/[0.09] [&>input]:bg-cloud/70 [&>input]:px-3.5 [&>input]:text-[13px] [&>input]:outline-none [&>input]:transition [&>input]:focus:border-teal/50 [&>select]:min-h-11 [&>select]:w-full [&>select]:rounded-xl [&>select]:border [&>select]:border-navy/[0.09] [&>select]:bg-cloud/70 [&>select]:px-3.5 [&>select]:text-[13px] [&>select]:outline-none [&>textarea]:w-full [&>textarea]:resize-none [&>textarea]:rounded-xl [&>textarea]:border [&>textarea]:border-navy/[0.09] [&>textarea]:bg-cloud/70 [&>textarea]:p-3.5 [&>textarea]:text-[13px] [&>textarea]:outline-none">
         {children}
       </span>
-      {error ? <span className="mt-1 block text-[9px] text-rose-600">{error}</span> : null}
+      {error ? <span className="mt-1 block text-[12px] text-rose-600">{error}</span> : null}
     </label>
   );
 }

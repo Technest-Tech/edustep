@@ -118,7 +118,7 @@ export function GroupDetail({ cohortId }: { cohortId: string }) {
       <div>
         <Link
           href="/groups"
-          className="mb-4 inline-flex items-center gap-1.5 text-[9px] font-semibold text-teal"
+          className="mb-4 inline-flex items-center gap-1.5 text-[12px] font-semibold text-teal"
         >
           <ArrowRight size={13} />
           العودة إلى الجروبات
@@ -243,7 +243,7 @@ function GroupWaitlist({ cohort }: { cohort: CohortDetail }) {
       <div className="flex items-center justify-between border-b border-navy/[0.055] px-5 py-4">
         <div>
           <h2 className="text-sm font-bold text-navy">قائمة انتظار الجروب</h2>
-          <p className="mt-1 text-[9px] text-slate">بالأولوية ووقت الانضمام</p>
+          <p className="mt-1 text-[12px] text-slate">بالأولوية ووقت الانضمام</p>
         </div>
         <div className="grid size-9 place-items-center rounded-xl bg-amber-50 text-amber-700">
           <Hourglass size={16} />
@@ -253,19 +253,19 @@ function GroupWaitlist({ cohort }: { cohort: CohortDetail }) {
         <div className="divide-y divide-navy/[0.05]">
           {cohort.waitlist.map((entry) => (
             <div key={entry.id} className="flex items-center gap-3 px-5 py-3.5">
-              <span className="grid size-7 place-items-center rounded-lg bg-cloud text-[8px] font-bold text-navy">
+              <span className="grid size-7 place-items-center rounded-lg bg-cloud text-[11px] font-bold text-navy">
                 {entry.priority}
               </span>
               <div className="min-w-0 flex-1">
-                <p className="truncate text-[9px] font-semibold text-ink">
+                <p className="truncate text-[12px] font-semibold text-ink">
                   {entry.lead?.full_name ?? "عميل"}
                 </p>
-                <p className="mt-1 text-[8px] text-slate">
+                <p className="mt-1 text-[11px] text-slate">
                   {formatDateTime(entry.joined_at)}
                 </p>
               </div>
               {entry.lead?.id ? (
-                <Link href={`/leads/${entry.lead.id}`} className="text-[8px] font-semibold text-teal">
+                <Link href={`/leads/${entry.lead.id}`} className="text-[11px] font-semibold text-teal">
                   فتح الملف
                 </Link>
               ) : null}
@@ -273,7 +273,7 @@ function GroupWaitlist({ cohort }: { cohort: CohortDetail }) {
           ))}
         </div>
       ) : (
-        <p className="px-5 py-8 text-center text-[9px] text-slate">
+        <p className="px-5 py-8 text-center text-[12px] text-slate">
           لا يوجد عملاء على قائمة الانتظار.
         </p>
       )}
@@ -293,7 +293,7 @@ function SessionsPanel({
       <div className="flex items-center justify-between border-b border-navy/[0.055] px-5 py-4">
         <div>
           <h2 className="text-sm font-bold text-navy">الحصص والجدول</h2>
-          <p className="mt-1 text-[9px] text-slate">الأحدث أولًا مع حالة الحضور</p>
+          <p className="mt-1 text-[12px] text-slate">الأحدث أولًا مع حالة الحضور</p>
         </div>
         <div className="grid size-9 place-items-center rounded-xl bg-mist text-teal">
           <CalendarDays size={17} />
@@ -308,10 +308,10 @@ function SessionsPanel({
               className="grid gap-4 px-5 py-4 transition hover:bg-cloud/55 sm:grid-cols-[115px_minmax(0,1fr)_155px] sm:items-center"
             >
               <div>
-                <p className="text-[10px] font-bold text-navy">
+                <p className="text-[12px] font-bold text-navy">
                   {formatDate(session.starts_at)}
                 </p>
-                <p className="mt-1 flex items-center gap-1 text-[8px] text-slate">
+                <p className="mt-1 flex items-center gap-1 text-[11px] text-slate">
                   <Clock3 size={11} />
                   {new Intl.DateTimeFormat("ar-EG", {
                     hour: "numeric",
@@ -321,16 +321,16 @@ function SessionsPanel({
               </div>
               <div className="min-w-0">
                 <div className="flex flex-wrap items-center gap-2">
-                  <h3 className="truncate text-[11px] font-semibold text-ink">
+                  <h3 className="truncate text-[13px] font-semibold text-ink">
                     {session.title}
                   </h3>
                   {session.session_number ? (
-                    <span className="rounded-md bg-mist px-2 py-1 text-[8px] font-bold text-teal">
+                    <span className="rounded-md bg-mist px-2 py-1 text-[11px] font-bold text-teal">
                       الحصة {session.session_number}
                     </span>
                   ) : null}
                   {session.cycle_phase ? (
-                    <span className="rounded-md bg-violet-50 px-2 py-1 text-[8px] font-semibold text-violet-700">
+                    <span className="rounded-md bg-violet-50 px-2 py-1 text-[11px] font-semibold text-violet-700">
                       {cyclePhaseLabels[session.cycle_phase] ?? session.cycle_phase}
                     </span>
                   ) : null}
@@ -339,11 +339,11 @@ function SessionsPanel({
                     label={sessionStatusLabels[session.status] ?? session.status}
                   />
                 </div>
-                <p className="mt-1.5 line-clamp-1 text-[8px] text-slate">
+                <p className="mt-1.5 line-clamp-1 text-[11px] text-slate">
                   {session.lesson_focus ?? "لم يحدد هدف الحصة"}
                 </p>
                 {session.attendance_summary.recorded ? (
-                  <div className="mt-2 flex flex-wrap gap-2 text-[8px]">
+                  <div className="mt-2 flex flex-wrap gap-2 text-[11px]">
                     <span className="text-emerald-700">
                       {session.attendance_summary.present} حاضر
                     </span>
@@ -371,7 +371,7 @@ function SessionsPanel({
         <div className="grid min-h-48 place-items-center p-8 text-center">
           <div>
             <CalendarDays className="mx-auto text-teal" size={28} />
-            <p className="mt-3 text-[10px] font-semibold text-navy">لا توجد حصص بعد</p>
+            <p className="mt-3 text-[12px] font-semibold text-navy">لا توجد حصص بعد</p>
           </div>
         </div>
       )}
@@ -391,9 +391,9 @@ function StudentsPanel({
       <div className="flex items-center justify-between border-b border-navy/[0.055] px-5 py-4">
         <div>
           <h2 className="text-sm font-bold text-navy">طلاب الجروب</h2>
-          <p className="mt-1 text-[9px] text-slate">الحضور وآخر تقييم لكل طالب</p>
+          <p className="mt-1 text-[12px] text-slate">الحضور وآخر تقييم لكل طالب</p>
         </div>
-        <span className="rounded-full bg-navy px-2.5 py-1 text-[8px] font-bold text-white">
+        <span className="rounded-full bg-navy px-2.5 py-1 text-[11px] font-bold text-white">
           {students.length}
         </span>
       </div>
@@ -401,7 +401,7 @@ function StudentsPanel({
       <div className="hidden overflow-x-auto md:block">
         <table className="w-full min-w-[760px] border-collapse">
           <thead>
-            <tr className="bg-cloud/55 text-right text-[8px] font-semibold text-slate">
+            <tr className="bg-cloud/55 text-right text-[11px] font-semibold text-slate">
               <th className="px-5 py-3">الطالب</th>
               <th className="px-4 py-3">نسبة الحضور</th>
               <th className="px-4 py-3">الغياب</th>
@@ -443,12 +443,12 @@ function StudentRow({
     <tr className="transition hover:bg-cloud/55">
       <td className="px-5 py-4">
         <div className="flex items-center gap-3">
-          <div className="grid size-9 place-items-center rounded-xl bg-mist text-[10px] font-bold text-navy">
+          <div className="grid size-9 place-items-center rounded-xl bg-mist text-[12px] font-bold text-navy">
             {student.full_name.charAt(0)}
           </div>
           <div>
-            <p className="text-[10px] font-semibold text-ink">{student.full_name}</p>
-            <p className="mt-1 font-mono text-[8px] text-slate">{student.student_code}</p>
+            <p className="text-[12px] font-semibold text-ink">{student.full_name}</p>
+            <p className="mt-1 font-mono text-[11px] text-slate">{student.student_code}</p>
           </div>
         </div>
       </td>
@@ -456,12 +456,12 @@ function StudentRow({
         <AttendanceRate value={student.attendance_rate} />
       </td>
       <td className="px-4 py-4">
-        <span className={student.absences > 1 ? "text-[9px] font-bold text-rose-600" : "text-[9px] text-slate"}>
+        <span className={student.absences > 1 ? "text-[12px] font-bold text-rose-600" : "text-[12px] text-slate"}>
           {student.absences}
         </span>
       </td>
       <td className="px-4 py-4">
-        {progress ? <ProgressBadge progress={progress} /> : <span className="text-[8px] text-slate">لم يقيّم</span>}
+        {progress ? <ProgressBadge progress={progress} /> : <span className="text-[11px] text-slate">لم يقيّم</span>}
       </td>
       <td className="px-5 py-4 text-left">
         <Button size="sm" variant="ghost" onClick={() => onProgress(student)}>
@@ -484,17 +484,17 @@ function StudentMobileCard({
     <article className="p-4">
       <div className="flex items-start justify-between gap-3">
         <div>
-          <p className="text-[10px] font-semibold text-ink">{student.full_name}</p>
-          <p className="mt-1 font-mono text-[8px] text-slate">{student.student_code}</p>
+          <p className="text-[12px] font-semibold text-ink">{student.full_name}</p>
+          <p className="mt-1 font-mono text-[11px] text-slate">{student.student_code}</p>
         </div>
         <AttendanceRate value={student.attendance_rate} />
       </div>
       <div className="mt-3 flex items-center justify-between rounded-xl bg-cloud p-3">
-        <span className="text-[8px] text-slate">{student.absences} غياب</span>
+        <span className="text-[11px] text-slate">{student.absences} غياب</span>
         {student.latest_progress[0] ? (
           <ProgressBadge progress={student.latest_progress[0]} />
         ) : (
-          <span className="text-[8px] text-slate">لم يقيّم</span>
+          <span className="text-[11px] text-slate">لم يقيّم</span>
         )}
         <Button size="sm" variant="ghost" onClick={() => onProgress(student)}>
           تقييم
@@ -509,7 +509,7 @@ function NextSessionCard({ session }: { session?: ClassSession }) {
     <section className="overflow-hidden rounded-2xl bg-navy p-5 text-white shadow-[0_16px_40px_rgba(11,36,84,.16)]">
       <div className="flex items-start justify-between">
         <div>
-          <p className="text-[9px] text-white/45">الحصة القادمة</p>
+          <p className="text-[12px] text-white/45">الحصة القادمة</p>
           <h2 className="mt-2 text-sm font-bold">{session?.title ?? "لم تجدول حصة"}</h2>
         </div>
         <div className="grid size-10 place-items-center rounded-xl bg-white/10 text-sun">
@@ -518,14 +518,14 @@ function NextSessionCard({ session }: { session?: ClassSession }) {
       </div>
       {session ? (
         <>
-          <p className="mt-4 text-[10px] text-white/70">
+          <p className="mt-4 text-[12px] text-white/70">
             {formatDateTime(session.starts_at)}
           </p>
-          <p className="mt-2 line-clamp-2 text-[8px] leading-5 text-white/45">
+          <p className="mt-2 line-clamp-2 text-[11px] leading-5 text-white/45">
             {session.lesson_focus}
           </p>
           <div className="mt-5 flex items-center justify-between rounded-xl bg-white/[0.07] p-3">
-            <span className="text-[8px] text-white/50">
+            <span className="text-[11px] text-white/50">
               {session.teacher?.name ?? "المعلم غير معيّن"}
             </span>
             {session.meeting_url ? (
@@ -534,7 +534,7 @@ function NextSessionCard({ session }: { session?: ClassSession }) {
                 onClick={() =>
                   window.open(session.meeting_url ?? "", "_blank", "noopener,noreferrer")
                 }
-                className="text-[8px] font-semibold text-sun"
+                className="text-[11px] font-semibold text-sun"
               >
                 فتح الرابط
               </button>
@@ -542,7 +542,7 @@ function NextSessionCard({ session }: { session?: ClassSession }) {
           </div>
         </>
       ) : (
-        <p className="mt-4 text-[9px] text-white/45">أضف أول حصة من زر الجدولة.</p>
+        <p className="mt-4 text-[12px] text-white/45">أضف أول حصة من زر الجدولة.</p>
       )}
     </section>
   );
@@ -591,12 +591,12 @@ function GroupInformation({ cohort }: { cohort: CohortDetail }) {
       </dl>
       {cohort.schedule?.length ? (
         <div className="mt-5 border-t border-navy/[0.055] pt-4">
-          <p className="text-[8px] font-semibold text-slate">الجدول الأسبوعي</p>
+          <p className="text-[11px] font-semibold text-slate">الجدول الأسبوعي</p>
           <div className="mt-2 flex flex-wrap gap-2">
             {cohort.schedule.map((slot) => (
               <span
                 key={`${slot.day}-${slot.time}`}
-                className="rounded-lg bg-cloud px-2.5 py-1.5 text-[8px] font-medium text-navy"
+                className="rounded-lg bg-cloud px-2.5 py-1.5 text-[11px] font-medium text-navy"
               >
                 {slot.day} · {slot.time}
               </span>
@@ -771,7 +771,7 @@ function AttendanceDialog({
       >
         <div className="flex flex-wrap gap-2 rounded-xl bg-cloud p-3">
           {Object.entries(attendanceLabels).map(([value, label]) => (
-            <div key={value} className="flex items-center gap-1.5 text-[8px] text-slate">
+            <div key={value} className="flex items-center gap-1.5 text-[11px] text-slate">
               <span
                 className={`size-2 rounded-full ${
                   value === "present"
@@ -795,12 +795,12 @@ function AttendanceDialog({
               className="flex flex-col gap-3 p-3.5 sm:flex-row sm:items-center"
             >
               <div className="flex min-w-0 flex-1 items-center gap-3">
-                <div className="grid size-9 place-items-center rounded-xl bg-mist text-[10px] font-bold text-navy">
+                <div className="grid size-9 place-items-center rounded-xl bg-mist text-[12px] font-bold text-navy">
                   {student.full_name.charAt(0)}
                 </div>
                 <div>
-                  <p className="text-[10px] font-semibold text-ink">{student.full_name}</p>
-                  <p className="mt-1 text-[8px] text-slate">{student.student_code}</p>
+                  <p className="text-[12px] font-semibold text-ink">{student.full_name}</p>
+                  <p className="mt-1 text-[11px] text-slate">{student.student_code}</p>
                 </div>
               </div>
               <div className="grid grid-cols-4 gap-1.5">
@@ -811,7 +811,7 @@ function AttendanceDialog({
                     onClick={() =>
                       setRecords((current) => ({ ...current, [student.id]: value }))
                     }
-                    className={`min-h-9 rounded-lg px-2 text-[8px] font-semibold transition ${
+                    className={`min-h-9 rounded-lg px-2 text-[11px] font-semibold transition ${
                       records[student.id] === value
                         ? value === "present"
                           ? "bg-emerald-600 text-white"
@@ -843,7 +843,7 @@ function AttendanceDialog({
         </div>
 
         {session.status !== "completed" ? (
-          <label className="mt-4 flex items-center gap-2 text-[9px] font-medium text-navy">
+          <label className="mt-4 flex items-center gap-2 text-[12px] font-medium text-navy">
             <input
               type="checkbox"
               checked={completeSession}
@@ -1053,12 +1053,12 @@ function GenerateScheduleDialog({
         }}
       >
         <div className="rounded-2xl bg-cloud p-4">
-          <p className="text-[9px] font-semibold text-navy">الجدول الأسبوعي الحالي</p>
+          <p className="text-[12px] font-semibold text-navy">الجدول الأسبوعي الحالي</p>
           <div className="mt-3 flex flex-wrap gap-2">
             {(cohort.schedule ?? []).map((slot) => (
               <span
                 key={`${slot.day}-${slot.time}`}
-                className="rounded-lg bg-white px-3 py-2 text-[8px] font-semibold text-teal"
+                className="rounded-lg bg-white px-3 py-2 text-[11px] font-semibold text-teal"
               >
                 {slot.day} · {slot.time}
               </span>
@@ -1112,11 +1112,11 @@ function GenerateScheduleDialog({
 
         {result ? (
           <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-4">
-            <p className="text-[10px] font-bold text-emerald-900">
+            <p className="text-[12px] font-bold text-emerald-900">
               تم إنشاء {result.summary.created} حصص
             </p>
             {result.summary.target_sessions ? (
-              <p className="mt-1 text-[8px] text-emerald-800">
+              <p className="mt-1 text-[11px] text-emerald-800">
                 خطة المستوى {result.summary.target_sessions} حصة
                 {result.summary.remaining_sessions
                   ? ` · متبقي ${result.summary.remaining_sessions} حصة`
@@ -1129,7 +1129,7 @@ function GenerateScheduleDialog({
               <ResultStat label="تعارضات" value={result.summary.conflicts} />
             </div>
             {result.closures.length ? (
-              <p className="mt-3 text-[8px] leading-5 text-emerald-800">
+              <p className="mt-3 text-[11px] leading-5 text-emerald-800">
                 تم تجاوز: {result.closures.map((closure) => `${closure.name} (${closure.date})`).join("، ")}
               </p>
             ) : null}
@@ -1149,8 +1149,8 @@ function GenerateScheduleDialog({
 function ResultStat({ label, value }: { label: string; value: number }) {
   return (
     <div className="rounded-xl bg-white/80 p-2.5">
-      <p className="text-[11px] font-bold text-navy">{value}</p>
-      <p className="mt-1 text-[7px] text-slate">{label}</p>
+      <p className="text-[13px] font-bold text-navy">{value}</p>
+      <p className="mt-1 text-[11px] text-slate">{label}</p>
     </div>
   );
 }
@@ -1183,7 +1183,7 @@ function ActionDialog({
           <div className="flex items-start justify-between gap-4">
             <div>
               <Dialog.Title className="text-lg font-bold text-navy">{title}</Dialog.Title>
-              <Dialog.Description className="mt-1 text-[9px] leading-5 text-slate">
+              <Dialog.Description className="mt-1 text-[12px] leading-5 text-slate">
                 {description}
               </Dialog.Description>
             </div>
@@ -1203,8 +1203,8 @@ function ActionDialog({
 function DialogField({ label, children }: { label: string; children: ReactElement }) {
   return (
     <label>
-      <span className="mb-2 block text-[10px] font-semibold text-navy">{label}</span>
-      <span className="[&>input]:min-h-11 [&>input]:w-full [&>input]:rounded-xl [&>input]:border [&>input]:border-navy/[0.09] [&>input]:bg-cloud/70 [&>input]:px-3.5 [&>input]:text-[10px] [&>input]:outline-none [&>select]:min-h-11 [&>select]:w-full [&>select]:rounded-xl [&>select]:border [&>select]:border-navy/[0.09] [&>select]:bg-cloud/70 [&>select]:px-3.5 [&>select]:text-[10px] [&>select]:outline-none [&>textarea]:w-full [&>textarea]:resize-none [&>textarea]:rounded-xl [&>textarea]:border [&>textarea]:border-navy/[0.09] [&>textarea]:bg-cloud/70 [&>textarea]:p-3.5 [&>textarea]:text-[10px] [&>textarea]:outline-none">
+      <span className="mb-2 block text-[12px] font-semibold text-navy">{label}</span>
+      <span className="[&>input]:min-h-11 [&>input]:w-full [&>input]:rounded-xl [&>input]:border [&>input]:border-navy/[0.09] [&>input]:bg-cloud/70 [&>input]:px-3.5 [&>input]:text-[12px] [&>input]:outline-none [&>select]:min-h-11 [&>select]:w-full [&>select]:rounded-xl [&>select]:border [&>select]:border-navy/[0.09] [&>select]:bg-cloud/70 [&>select]:px-3.5 [&>select]:text-[12px] [&>select]:outline-none [&>textarea]:w-full [&>textarea]:resize-none [&>textarea]:rounded-xl [&>textarea]:border [&>textarea]:border-navy/[0.09] [&>textarea]:bg-cloud/70 [&>textarea]:p-3.5 [&>textarea]:text-[12px] [&>textarea]:outline-none">
         {children}
       </span>
     </label>
@@ -1223,7 +1223,7 @@ function DialogActions({
   return (
     <>
       {error ? (
-        <p role="alert" className="mt-4 rounded-xl bg-rose-50 px-3 py-2 text-[9px] text-rose-700">
+        <p role="alert" className="mt-4 rounded-xl bg-rose-50 px-3 py-2 text-[12px] text-rose-700">
           {error}
         </p>
       ) : null}
@@ -1256,14 +1256,14 @@ function GroupMetric({
     <article className="rounded-2xl border border-navy/[0.065] bg-white p-4 shadow-[0_8px_26px_rgba(11,36,84,.03)]">
       <div className="flex items-start justify-between gap-3">
         <div>
-          <p className="text-[9px] text-slate">{label}</p>
+          <p className="text-[12px] text-slate">{label}</p>
           <p className="mt-2 text-xl font-bold text-navy">{value}</p>
         </div>
         <div className={`grid size-10 place-items-center rounded-xl ${tone}`}>
           <Icon size={18} />
         </div>
       </div>
-      <p className="mt-3 text-[8px] text-slate">{hint}</p>
+      <p className="mt-3 text-[11px] text-slate">{hint}</p>
     </article>
   );
 }
@@ -1279,7 +1279,7 @@ function AttendanceRate({ value }: { value: number }) {
           style={{ width: `${value}%` }}
         />
       </div>
-      <span className="text-[9px] font-bold text-navy">{value}%</span>
+      <span className="text-[12px] font-bold text-navy">{value}%</span>
     </div>
   );
 }
@@ -1292,7 +1292,7 @@ function ProgressBadge({ progress }: { progress: ProgressEntry }) {
         label={ratingLabels[progress.rating] ?? progress.rating}
       />
       {progress.score ? (
-        <p className="mt-1 text-[8px] text-slate">{Number(progress.score)} / 100</p>
+        <p className="mt-1 text-[11px] text-slate">{Number(progress.score)} / 100</p>
       ) : null}
     </div>
   );
@@ -1313,8 +1313,8 @@ function InfoRow({
         {icon}
       </div>
       <div className="min-w-0">
-        <dt className="text-[8px] text-slate">{label}</dt>
-        <dd className="mt-1 truncate text-[9px] font-medium text-ink">{value}</dd>
+        <dt className="text-[11px] text-slate">{label}</dt>
+        <dd className="mt-1 truncate text-[12px] font-medium text-ink">{value}</dd>
       </div>
     </div>
   );

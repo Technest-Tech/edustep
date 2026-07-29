@@ -139,7 +139,7 @@ export function AcademicProgressContent() {
               value={search}
               onChange={(event) => setSearch(event.target.value)}
               placeholder="ابحث باسم الطالب، الكود أو الجروب..."
-              className="min-w-0 flex-1 bg-transparent text-[11px] text-ink outline-none"
+              className="min-w-0 flex-1 bg-transparent text-[13px] text-ink outline-none"
             />
           </label>
           <div className="flex items-center gap-2 overflow-x-auto">
@@ -154,7 +154,7 @@ export function AcademicProgressContent() {
                 key={value}
                 type="button"
                 onClick={() => setFilter(value)}
-                className={`shrink-0 rounded-full px-3 py-2 text-[9px] font-semibold transition ${
+                className={`shrink-0 rounded-full px-3 py-2 text-[12px] font-semibold transition ${
                   filter === value ? "bg-navy text-white" : "bg-cloud text-slate hover:text-navy"
                 }`}
               >
@@ -193,7 +193,7 @@ export function AcademicProgressContent() {
             <div>
               <BadgeCheck className="mx-auto text-teal" size={30} />
               <p className="mt-3 text-xs font-bold text-navy">لا توجد نتائج مطابقة</p>
-              <p className="mt-1 text-[9px] text-slate">جرّب تغيير البحث أو الفلتر.</p>
+              <p className="mt-1 text-[12px] text-slate">جرّب تغيير البحث أو الفلتر.</p>
             </div>
           </div>
         )}
@@ -272,20 +272,20 @@ function StudentProgressCard({
         <div className="min-w-0 flex-1">
           <div className="flex items-start justify-between gap-2">
             <div className="min-w-0">
-              <h2 className="truncate text-[11px] font-bold text-navy">{student.full_name}</h2>
-              <p className="mt-1 font-mono text-[8px] text-slate">{student.student_code}</p>
+              <h2 className="truncate text-[13px] font-bold text-navy">{student.full_name}</h2>
+              <p className="mt-1 font-mono text-[11px] text-slate">{student.student_code}</p>
             </div>
             {hasRisk ? (
-              <span className="rounded-full bg-rose-50 px-2.5 py-1 text-[8px] font-bold text-rose-700">
+              <span className="rounded-full bg-rose-50 px-2.5 py-1 text-[11px] font-bold text-rose-700">
                 {student.open_risks.length} تنبيه
               </span>
             ) : (
-              <span className="rounded-full bg-emerald-50 px-2.5 py-1 text-[8px] font-bold text-emerald-700">
+              <span className="rounded-full bg-emerald-50 px-2.5 py-1 text-[11px] font-bold text-emerald-700">
                 مستقر
               </span>
             )}
           </div>
-          <p className="mt-2 truncate text-[9px] text-slate">{student.cohort?.name ?? "غير مسجل"}</p>
+          <p className="mt-2 truncate text-[12px] text-slate">{student.cohort?.name ?? "غير مسجل"}</p>
         </div>
       </div>
 
@@ -296,8 +296,8 @@ function StudentProgressCard({
 
       <div className="mt-4 flex items-center justify-between rounded-xl bg-cloud/75 p-3">
         <div>
-          <p className="text-[8px] text-slate">آخر تقرير</p>
-          <p className="mt-1 max-w-40 truncate text-[9px] font-semibold text-navy">
+          <p className="text-[11px] text-slate">آخر تقرير</p>
+          <p className="mt-1 max-w-40 truncate text-[12px] font-semibold text-navy">
             {latestReport?.period_label ?? "لم يُنشأ بعد"}
           </p>
         </div>
@@ -372,7 +372,7 @@ function StudentProgressPanel({
               </span>
               <div className="min-w-0">
                 <Dialog.Title className="truncate text-lg font-bold text-navy">{student.full_name}</Dialog.Title>
-                <Dialog.Description className="mt-1 text-[9px] text-slate">
+                <Dialog.Description className="mt-1 text-[12px] text-slate">
                   {student.student_code} · {student.cohort?.name ?? "غير مسجل"}
                 </Dialog.Description>
               </div>
@@ -392,7 +392,7 @@ function StudentProgressPanel({
             <div className="flex items-center justify-between gap-3">
               <div>
                 <h2 className="text-xs font-bold text-navy">المخاطر وخطط التدخل</h2>
-                <p className="mt-1 text-[8px] text-slate">تنبيهات يدوية وآلية مع مسؤول وخطة قابلة للقياس</p>
+                <p className="mt-1 text-[11px] text-slate">تنبيهات يدوية وآلية مع مسؤول وخطة قابلة للقياس</p>
               </div>
               <Button size="sm" variant="secondary" onClick={() => onRisk(student)}>
                 <ShieldAlert size={14} />
@@ -405,13 +405,13 @@ function StudentProgressPanel({
                   <div className="flex flex-wrap items-start justify-between gap-3">
                     <div>
                       <div className="flex items-center gap-2">
-                        <span className="rounded-full bg-white px-2 py-1 text-[8px] font-bold text-rose-700">
+                        <span className="rounded-full bg-white px-2 py-1 text-[11px] font-bold text-rose-700">
                           {severityLabels[risk.severity]} · {riskTypeLabels[risk.type]}
                         </span>
-                        {risk.is_automatic ? <span className="text-[8px] text-slate">كشف تلقائي</span> : null}
+                        {risk.is_automatic ? <span className="text-[11px] text-slate">كشف تلقائي</span> : null}
                       </div>
-                      <h3 className="mt-2 text-[10px] font-bold text-navy">{risk.title}</h3>
-                      {risk.description ? <p className="mt-1 text-[8px] leading-5 text-slate">{risk.description}</p> : null}
+                      <h3 className="mt-2 text-[12px] font-bold text-navy">{risk.title}</h3>
+                      {risk.description ? <p className="mt-1 text-[11px] leading-5 text-slate">{risk.description}</p> : null}
                     </div>
                     <StatusBadge value={risk.status} label={risk.status === "monitoring" ? "تحت المتابعة" : "مفتوح"} />
                   </div>
@@ -420,8 +420,8 @@ function StudentProgressPanel({
                       <div key={item.id} className="rounded-xl bg-white/85 p-3">
                         <div className="flex items-start justify-between gap-3">
                           <div>
-                            <p className="text-[9px] font-semibold text-navy">{item.title}</p>
-                            <p className="mt-1 text-[8px] text-slate">
+                            <p className="text-[12px] font-semibold text-navy">{item.title}</p>
+                            <p className="mt-1 text-[11px] text-slate">
                               {item.owner?.name ?? "غير مسند"} · {item.due_on ? formatDate(item.due_on) : "بدون موعد"}
                             </p>
                           </div>
@@ -456,7 +456,7 @@ function StudentProgressPanel({
               {!student.open_risks.length ? (
                 <div className="rounded-2xl bg-emerald-50 p-5 text-center">
                   <BadgeCheck className="mx-auto text-emerald-600" size={24} />
-                  <p className="mt-2 text-[10px] font-bold text-emerald-800">لا توجد مخاطر مفتوحة</p>
+                  <p className="mt-2 text-[12px] font-bold text-emerald-800">لا توجد مخاطر مفتوحة</p>
                 </div>
               ) : null}
             </div>
@@ -466,7 +466,7 @@ function StudentProgressPanel({
             <div className="flex items-center justify-between gap-3">
               <div>
                 <h2 className="text-xs font-bold text-navy">التقارير الدورية</h2>
-                <p className="mt-1 text-[8px] text-slate">المسودات والتقارير المنشورة لولي الأمر</p>
+                <p className="mt-1 text-[11px] text-slate">المسودات والتقارير المنشورة لولي الأمر</p>
               </div>
               <Button size="sm" onClick={() => onReport(student)}>
                 <ClipboardPlus size={14} />
@@ -478,16 +478,16 @@ function StudentProgressPanel({
                 <article key={report.id} className="rounded-xl border border-navy/[0.055] bg-cloud/50 p-4">
                   <div className="flex items-start justify-between gap-3">
                     <div>
-                      <p className="text-[10px] font-bold text-navy">{report.period_label}</p>
-                      <p className="mt-1 text-[8px] text-slate">
+                      <p className="text-[12px] font-bold text-navy">{report.period_label}</p>
+                      <p className="mt-1 text-[11px] text-slate">
                         {formatDate(report.period_starts_on)} — {formatDate(report.period_ends_on)}
                       </p>
                     </div>
                     <StatusBadge value={report.status} label={report.status === "published" ? "منشور" : "مسودة"} />
                   </div>
-                  <p className="mt-3 text-[9px] leading-5 text-slate">{report.summary}</p>
+                  <p className="mt-3 text-[12px] leading-5 text-slate">{report.summary}</p>
                   <div className="mt-3 flex items-center justify-between">
-                    <span className="text-[9px] font-bold text-teal">
+                    <span className="text-[12px] font-bold text-teal">
                       {ratingLabels[report.overall_rating]}
                       {report.overall_score ? ` · ${Number(report.overall_score)}%` : ""}
                     </span>
@@ -497,12 +497,12 @@ function StudentProgressPanel({
                         نشر للأسرة
                       </Button>
                     ) : report.published_at ? (
-                      <span className="text-[8px] text-slate">{formatDateTime(report.published_at)}</span>
+                      <span className="text-[11px] text-slate">{formatDateTime(report.published_at)}</span>
                     ) : null}
                   </div>
                 </article>
               ))}
-              {!student.reports.length ? <p className="py-7 text-center text-[9px] text-slate">لم تُنشأ تقارير بعد.</p> : null}
+              {!student.reports.length ? <p className="py-7 text-center text-[12px] text-slate">لم تُنشأ تقارير بعد.</p> : null}
             </div>
           </section>
         </Dialog.Content>
@@ -643,7 +643,7 @@ function FormDialog({ open, onClose, title, description, children }: { open: boo
         <Dialog.Overlay className="fixed inset-0 z-[60] bg-navy/40 backdrop-blur-[2px]" />
         <Dialog.Content dir="rtl" className="fixed left-1/2 top-1/2 z-[60] max-h-[90vh] w-[calc(100%-2rem)] max-w-[570px] -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-3xl bg-white p-5 shadow-2xl sm:p-7">
           <div className="flex items-start justify-between gap-4">
-            <div><Dialog.Title className="text-lg font-bold text-navy">{title}</Dialog.Title><Dialog.Description className="mt-1 text-[9px] leading-5 text-slate">{description}</Dialog.Description></div>
+            <div><Dialog.Title className="text-lg font-bold text-navy">{title}</Dialog.Title><Dialog.Description className="mt-1 text-[12px] leading-5 text-slate">{description}</Dialog.Description></div>
             <Dialog.Close asChild><Button size="icon" variant="secondary" aria-label="إغلاق"><X size={16} /></Button></Dialog.Close>
           </div>
           <div className="mt-6">{children}</div>
@@ -654,7 +654,7 @@ function FormDialog({ open, onClose, title, description, children }: { open: boo
 }
 
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
-  return <label className="block text-[9px] font-semibold text-navy [&_input]:mt-2 [&_input]:min-h-11 [&_input]:w-full [&_input]:rounded-xl [&_input]:border [&_input]:border-navy/10 [&_input]:px-3 [&_input]:text-[10px] [&_input]:outline-none [&_input]:focus:border-teal/50 [&_select]:mt-2 [&_select]:min-h-11 [&_select]:w-full [&_select]:rounded-xl [&_select]:border [&_select]:border-navy/10 [&_select]:bg-white [&_select]:px-3 [&_select]:text-[10px] [&_textarea]:mt-2 [&_textarea]:w-full [&_textarea]:rounded-xl [&_textarea]:border [&_textarea]:border-navy/10 [&_textarea]:p-3 [&_textarea]:text-[10px] [&_textarea]:outline-none [&_textarea]:focus:border-teal/50">{label}{children}</label>;
+  return <label className="block text-[12px] font-semibold text-navy [&_input]:mt-2 [&_input]:min-h-11 [&_input]:w-full [&_input]:rounded-xl [&_input]:border [&_input]:border-navy/10 [&_input]:px-3 [&_input]:text-[12px] [&_input]:outline-none [&_input]:focus:border-teal/50 [&_select]:mt-2 [&_select]:min-h-11 [&_select]:w-full [&_select]:rounded-xl [&_select]:border [&_select]:border-navy/10 [&_select]:bg-white [&_select]:px-3 [&_select]:text-[12px] [&_textarea]:mt-2 [&_textarea]:w-full [&_textarea]:rounded-xl [&_textarea]:border [&_textarea]:border-navy/10 [&_textarea]:p-3 [&_textarea]:text-[12px] [&_textarea]:outline-none [&_textarea]:focus:border-teal/50">{label}{children}</label>;
 }
 
 function DialogActions({ pending, onCancel, submit }: { pending: boolean; onCancel: () => void; submit: string }) {
@@ -662,15 +662,15 @@ function DialogActions({ pending, onCancel, submit }: { pending: boolean; onCanc
 }
 
 function ProgressMetric({ icon: Icon, value, label, tone }: { icon: typeof Activity; value: number; label: string; tone: string }) {
-  return <article className="rounded-2xl border border-navy/[0.06] bg-white p-4 shadow-[0_8px_28px_rgba(11,36,84,.035)]"><div className="flex items-center gap-3"><span className={`grid size-10 place-items-center rounded-2xl ${tone}`}><Icon size={18} /></span><div><p className="text-xl font-bold text-navy">{value}</p><p className="mt-0.5 text-[8px] text-slate">{label}</p></div></div></article>;
+  return <article className="rounded-2xl border border-navy/[0.06] bg-white p-4 shadow-[0_8px_28px_rgba(11,36,84,.035)]"><div className="flex items-center gap-3"><span className={`grid size-10 place-items-center rounded-2xl ${tone}`}><Icon size={18} /></span><div><p className="text-xl font-bold text-navy">{value}</p><p className="mt-0.5 text-[11px] text-slate">{label}</p></div></div></article>;
 }
 
 function MiniMetric({ icon: Icon, label, value }: { icon: typeof Activity; label: string; value: string }) {
-  return <div className="rounded-2xl bg-cloud p-3"><Icon size={15} className="text-teal" /><p className="mt-2 text-sm font-bold text-navy">{value}</p><p className="mt-1 text-[8px] text-slate">{label}</p></div>;
+  return <div className="rounded-2xl bg-cloud p-3"><Icon size={15} className="text-teal" /><p className="mt-2 text-sm font-bold text-navy">{value}</p><p className="mt-1 text-[11px] text-slate">{label}</p></div>;
 }
 
 function ScoreBox({ label, value, good }: { label: string; value: string; good: boolean }) {
-  return <div className={`rounded-xl p-3 ${good ? "bg-emerald-50" : "bg-amber-50"}`}><p className={`text-sm font-bold ${good ? "text-emerald-700" : "text-amber-700"}`}>{value}</p><p className="mt-1 text-[8px] text-slate">{label}</p></div>;
+  return <div className={`rounded-xl p-3 ${good ? "bg-emerald-50" : "bg-amber-50"}`}><p className={`text-sm font-bold ${good ? "text-emerald-700" : "text-amber-700"}`}>{value}</p><p className="mt-1 text-[11px] text-slate">{label}</p></div>;
 }
 
 function today() {

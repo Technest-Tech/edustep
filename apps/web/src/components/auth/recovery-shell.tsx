@@ -35,20 +35,20 @@ export function RecoveryShell({
         </div>
 
         <div className="mt-9">
-          <p className="text-[9px] font-bold tracking-[0.16em] text-teal">
+          <p className="text-[12px] font-bold tracking-[0.16em] text-teal">
             {eyebrow}
           </p>
           <h1 className="mt-2 text-2xl font-bold tracking-tight text-navy">
             {title}
           </h1>
-          <p className="mt-3 text-[10px] leading-6 text-slate">{description}</p>
+          <p className="mt-3 text-[12px] leading-6 text-slate">{description}</p>
         </div>
 
         {children}
 
         <Link
           href="/login"
-          className="mt-7 flex items-center justify-center gap-2 text-[9px] font-semibold text-teal"
+          className="mt-7 flex items-center justify-center gap-2 text-[12px] font-semibold text-teal"
         >
           <ArrowRight size={14} />
           العودة لتسجيل الدخول

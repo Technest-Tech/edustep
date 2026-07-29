@@ -200,7 +200,7 @@ function PolicyItem({
           <Icon size={18} />
         </span>
         <div>
-          <p className="text-[11px] text-white/55">{label}</p>
+          <p className="text-[13px] text-white/55">{label}</p>
           <p className="mt-1 text-sm font-semibold">{value}</p>
         </div>
       </div>
@@ -242,7 +242,7 @@ function ProgramNavigator({
               }`}
             >
               <span className="block text-sm font-bold">{program.name_ar}</span>
-              <span className={`mt-1 block text-[11px] ${active ? "text-white/55" : "text-slate"}`}>
+              <span className={`mt-1 block text-[13px] ${active ? "text-white/55" : "text-slate"}`}>
                 {program.levels?.length ?? 0} مستويات · {program.session_duration_minutes} دقيقة
               </span>
             </button>
@@ -253,7 +253,7 @@ function ProgramNavigator({
       <div className="my-5 h-px bg-navy/[0.07]" />
       <div className="flex items-center justify-between px-1">
         <p className="text-xs font-bold text-navy">اختار المستوى</p>
-        <span className="text-[11px] text-slate">{selectedProgram.levels?.length ?? 0} مستوى</span>
+        <span className="text-[13px] text-slate">{selectedProgram.levels?.length ?? 0} مستوى</span>
       </div>
       <div className="mt-3 max-h-[480px] space-y-2 overflow-y-auto pe-1">
         {selectedProgram.levels?.map((level, index) => {
@@ -282,12 +282,12 @@ function ProgramNavigator({
                 <span className="flex items-center gap-2">
                   <span className="truncate text-sm font-semibold text-ink">{level.name_ar}</span>
                   {level.is_optional ? (
-                    <span className="rounded-full bg-amber-50 px-2 py-0.5 text-[9px] font-semibold text-amber-700">
+                    <span className="rounded-full bg-amber-50 px-2 py-0.5 text-[12px] font-semibold text-amber-700">
                       اختياري
                     </span>
                   ) : null}
                 </span>
-                <span className="mt-1 block text-[11px] text-slate">
+                <span className="mt-1 block text-[13px] text-slate">
                   {level.code} · {level.cefr_reference} · {levelCohorts.length} جروب
                 </span>
               </span>
@@ -326,13 +326,13 @@ function LevelWorkspace({
         <div className="relative flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
           <div className="max-w-2xl">
             <div className="flex flex-wrap items-center gap-2">
-              <span className="rounded-full bg-navy px-3 py-1 text-[11px] font-bold text-white">
+              <span className="rounded-full bg-navy px-3 py-1 text-[13px] font-bold text-white">
                 {level.code}
               </span>
-              <span className="rounded-full bg-mist px-3 py-1 text-[11px] font-semibold text-teal">
+              <span className="rounded-full bg-mist px-3 py-1 text-[13px] font-semibold text-teal">
                 CEFR · {level.cefr_reference}
               </span>
-              <span className="rounded-full bg-cloud px-3 py-1 text-[11px] font-semibold text-slate">
+              <span className="rounded-full bg-cloud px-3 py-1 text-[13px] font-semibold text-slate">
                 {program.name_ar}
               </span>
             </div>
@@ -407,7 +407,7 @@ function CurriculumSection({ level }: { level: Level }) {
     <section className="rounded-3xl border border-navy/[0.07] bg-white p-5 shadow-[0_12px_42px_rgba(11,36,84,.05)] sm:p-6">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-teal">
+          <p className="text-[13px] font-bold uppercase tracking-[0.16em] text-teal">
             Curriculum map
           </p>
           <h3 className="mt-2 text-xl font-bold text-navy">محتوى المستوى</h3>
@@ -491,7 +491,7 @@ function CatalogMetric({
 function QuickFact({ label, value }: { label: string; value: string }) {
   return (
     <div className="rounded-2xl border border-navy/[0.06] bg-cloud/45 p-3">
-      <p className="text-[11px] text-slate">{label}</p>
+      <p className="text-[13px] text-slate">{label}</p>
       <p className="mt-1 text-sm font-bold text-navy">{value}</p>
     </div>
   );
@@ -540,7 +540,7 @@ function PriceCard({
     >
       <p className={`text-xs ${accent ? "text-white/55" : "text-slate"}`}>{label}</p>
       <p className={`mt-2 text-xl font-bold ${accent ? "text-white" : "text-navy"}`}>{value}</p>
-      <p className={`mt-2 text-[11px] leading-5 ${accent ? "text-white/55" : "text-slate"}`}>
+      <p className={`mt-2 text-[13px] leading-5 ${accent ? "text-white/55" : "text-slate"}`}>
         {note}
       </p>
     </article>
@@ -550,7 +550,7 @@ function PriceCard({
 function UnitDetail({ label, value }: { label: string; value: string | null }) {
   return (
     <div>
-      <p className="text-[10px] font-semibold text-teal">{label}</p>
+      <p className="text-[12px] font-semibold text-teal">{label}</p>
       <p className="mt-1 text-xs leading-5 text-slate">{value ?? "يحددها المعلم في خطة الحصة."}</p>
     </div>
   );

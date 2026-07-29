@@ -168,10 +168,10 @@ export function CalendarContent() {
               <ChevronLeft size={16} />
             </Button>
             <div className="mr-2">
-              <p className="text-[10px] font-bold text-navy">
+              <p className="text-[12px] font-bold text-navy">
                 {formatWeekRange(weekStart, weekEnd)}
               </p>
-              <p className="mt-1 text-[8px] text-slate">السبت — الجمعة</p>
+              <p className="mt-1 text-[11px] text-slate">السبت — الجمعة</p>
             </div>
           </div>
 
@@ -244,7 +244,7 @@ export function CalendarContent() {
                       today ? "bg-navy text-white" : "bg-cloud/55",
                     )}
                   >
-                    <p className={cn("text-[8px]", today ? "text-white/55" : "text-slate")}>
+                    <p className={cn("text-[11px]", today ? "text-white/55" : "text-slate")}>
                       {day.toLocaleDateString("ar-EG", { weekday: "long" })}
                     </p>
                     <p className="mt-1 text-base font-bold">{day.getDate()}</p>
@@ -255,7 +255,7 @@ export function CalendarContent() {
                     ))}
                     {!daySessions.length ? (
                       <div className="grid min-h-28 place-items-center rounded-xl border border-dashed border-navy/[0.08]">
-                        <p className="text-[8px] text-slate/60">لا توجد حصص</p>
+                        <p className="text-[11px] text-slate/60">لا توجد حصص</p>
                       </div>
                     ) : null}
                   </div>
@@ -277,17 +277,17 @@ export function CalendarContent() {
                 >
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-[10px] font-bold text-navy">
+                      <p className="text-[12px] font-bold text-navy">
                         {day.toLocaleDateString("ar-EG", { weekday: "long" })}
                       </p>
-                      <p className="mt-1 text-[8px] text-slate">
+                      <p className="mt-1 text-[11px] text-slate">
                         {day.toLocaleDateString("ar-EG", {
                           day: "numeric",
                           month: "long",
                         })}
                       </p>
                     </div>
-                    <span className="grid size-8 place-items-center rounded-xl bg-cloud text-[10px] font-bold text-navy">
+                    <span className="grid size-8 place-items-center rounded-xl bg-cloud text-[12px] font-bold text-navy">
                       {daySessions.length}
                     </span>
                   </div>
@@ -302,7 +302,7 @@ export function CalendarContent() {
             {!sessions.length ? (
               <div className="rounded-2xl border border-dashed border-navy/[0.1] bg-white p-10 text-center">
                 <CalendarCheck2 className="mx-auto text-teal" size={28} />
-                <p className="mt-3 text-[10px] font-semibold text-navy">
+                <p className="mt-3 text-[12px] font-semibold text-navy">
                   لا توجد حصص في هذا الأسبوع
                 </p>
               </div>
@@ -316,8 +316,8 @@ export function CalendarContent() {
           <ShieldCheck size={18} />
         </div>
         <div>
-          <p className="text-[10px] font-bold">حماية التعارض مفعّلة</p>
-          <p className="mt-1 text-[8px] leading-4 text-slate">
+          <p className="text-[12px] font-bold">حماية التعارض مفعّلة</p>
+          <p className="mt-1 text-[11px] leading-4 text-slate">
             النظام يمنع حفظ حصتين متداخلتين لنفس المعلم أو نفس القاعة ويعرض سبب التعارض بوضوح.
           </p>
         </div>
@@ -345,7 +345,7 @@ function CalendarSessionCard({
       )}
     >
       <div className="flex items-center justify-between gap-2">
-        <span className="font-mono text-[9px] font-bold text-navy">
+        <span className="font-mono text-[12px] font-bold text-navy">
           {formatTime(start)}
         </span>
         {!compact ? (
@@ -355,13 +355,13 @@ function CalendarSessionCard({
           />
         ) : null}
       </div>
-      <p className="mt-2 line-clamp-2 text-[9px] font-bold leading-4 text-navy">
+      <p className="mt-2 line-clamp-2 text-[12px] font-bold leading-4 text-navy">
         {session.cohort?.name ?? session.title}
       </p>
-      <p className="mt-1 truncate text-[7px] text-slate">
+      <p className="mt-1 truncate text-[11px] text-slate">
         {session.cohort?.level ?? session.title}
       </p>
-      <div className="mt-2 flex items-center gap-1.5 text-[7px] text-slate">
+      <div className="mt-2 flex items-center gap-1.5 text-[11px] text-slate">
         {session.cohort?.delivery_mode === "online" ? (
           <MonitorPlay size={11} className="text-teal" />
         ) : (
@@ -370,7 +370,7 @@ function CalendarSessionCard({
         <span className="truncate">{session.teacher?.name ?? "غير معيّن"}</span>
       </div>
       {!compact ? (
-        <p className="mt-2 text-[7px] text-slate">
+        <p className="mt-2 text-[11px] text-slate">
           {formatTime(start)} — {formatTime(end)}
         </p>
       ) : null}
@@ -398,8 +398,8 @@ function CalendarMetric({
       </div>
       <div>
         <p className="text-xl font-bold text-navy">{value}</p>
-        <p className="mt-1 text-[9px] font-semibold text-ink">{label}</p>
-        <p className="mt-1 text-[7px] text-slate">{hint}</p>
+        <p className="mt-1 text-[12px] font-semibold text-ink">{label}</p>
+        <p className="mt-1 text-[11px] text-slate">{hint}</p>
       </div>
     </article>
   );
@@ -421,7 +421,7 @@ function FilterSelect({
       value={value}
       onChange={(event) => onChange(event.target.value)}
       aria-label={label}
-      className="min-h-10 rounded-xl border border-navy/[0.08] bg-cloud px-3 text-[9px] font-medium text-navy outline-none focus:border-teal"
+      className="min-h-10 rounded-xl border border-navy/[0.08] bg-cloud px-3 text-[12px] font-medium text-navy outline-none focus:border-teal"
     >
       <option value="">{label}</option>
       {options.map((option) => (

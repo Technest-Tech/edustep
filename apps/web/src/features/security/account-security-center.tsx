@@ -85,8 +85,8 @@ export function AccountSecurityCenter() {
         <section className="flex items-start gap-3 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-amber-900">
           <CircleAlert className="mt-0.5 shrink-0" size={19} />
           <div>
-            <p className="text-[11px] font-bold">إجراء أمني مطلوب</p>
-            <p className="mt-1 text-[9px] leading-5">
+            <p className="text-[13px] font-bold">إجراء أمني مطلوب</p>
+            <p className="mt-1 text-[12px] leading-5">
               {security.user.must_change_password
                 ? "غيّر كلمة المرور المؤقتة أولًا. سيظل الوصول لباقي النظام مقيدًا حتى إتمام ذلك."
                 : "فعّل التحقق بخطوتين لهذا الحساب المميز قبل متابعة العمل داخل النظام."}
@@ -97,8 +97,8 @@ export function AccountSecurityCenter() {
         <section className="flex items-start gap-3 rounded-2xl border border-emerald-100 bg-emerald-50 p-4 text-emerald-800">
           <BadgeCheck className="mt-0.5 shrink-0" size={19} />
           <div>
-            <p className="text-[11px] font-bold">الحساب مستوفٍ لمتطلبات الأمان</p>
-            <p className="mt-1 text-[9px] leading-5">
+            <p className="text-[13px] font-bold">الحساب مستوفٍ لمتطلبات الأمان</p>
+            <p className="mt-1 text-[12px] leading-5">
               راجع الجلسات المفتوحة ورموز الاسترداد دوريًا، خصوصًا عند تغيير
               جهاز أو موظف.
             </p>
@@ -231,7 +231,7 @@ function PasswordPanel() {
             />
           </SecurityField>
         </div>
-        <p className="text-[8px] leading-5 text-slate">
+        <p className="text-[11px] leading-5 text-slate">
           10 أحرف على الأقل، وتشمل حرفًا كبيرًا وصغيرًا ورقمًا.
         </p>
         <Feedback error={error} notice={notice} />
@@ -360,17 +360,17 @@ function TwoFactorPanel({ security }: { security: AccountSecurityData }) {
             }}
           >
             <div className="rounded-xl bg-navy p-4 text-white">
-              <p className="text-[9px] font-semibold text-sun">
+              <p className="text-[12px] font-semibold text-sun">
                 الخطوة 1 · أضف الحساب لتطبيق المصادقة
               </p>
-              <p className="mt-2 text-[8px] leading-5 text-white/60">
+              <p className="mt-2 text-[11px] leading-5 text-white/60">
                 افتح Google Authenticator أو Microsoft Authenticator وأدخل
                 المفتاح التالي يدويًا.
               </p>
               <div className="mt-3 flex items-center gap-2 rounded-lg bg-white/10 p-3">
                 <code
                   dir="ltr"
-                  className="min-w-0 flex-1 break-all font-mono text-[10px] tracking-wider text-white"
+                  className="min-w-0 flex-1 break-all font-mono text-[12px] tracking-wider text-white"
                 >
                   {setup.secret}
                 </code>
@@ -378,7 +378,7 @@ function TwoFactorPanel({ security }: { security: AccountSecurityData }) {
               </div>
               <a
                 href={setup.provisioning_uri}
-                className="mt-3 inline-flex text-[8px] font-semibold text-teal-bright"
+                className="mt-3 inline-flex text-[11px] font-semibold text-teal-bright"
               >
                 فتح تطبيق المصادقة على هذا الجهاز ←
               </a>
@@ -419,7 +419,7 @@ function TwoFactorPanel({ security }: { security: AccountSecurityData }) {
               setupMutation.mutate();
             }}
           >
-            <div className="rounded-xl border border-amber-100 bg-amber-50 p-3 text-[8px] leading-5 text-amber-800">
+            <div className="rounded-xl border border-amber-100 bg-amber-50 p-3 text-[11px] leading-5 text-amber-800">
               {security.two_factor.required
                 ? "التفعيل مطلوب لهذا الدور قبل استخدام باقي النظام."
                 : "ننصح بتفعيله لحماية حسابك حتى إذا تسربت كلمة المرور."}
@@ -448,8 +448,8 @@ function TwoFactorPanel({ security }: { security: AccountSecurityData }) {
         <div className="mt-5">
           <div className="flex items-center justify-between gap-3 rounded-xl bg-emerald-50 p-4">
             <div>
-              <p className="text-[10px] font-bold text-emerald-800">مفعّل</p>
-              <p className="mt-1 text-[8px] text-emerald-700">
+              <p className="text-[12px] font-bold text-emerald-800">مفعّل</p>
+              <p className="mt-1 text-[11px] text-emerald-700">
                 {security.two_factor.recovery_codes_remaining} رموز استرداد
                 متبقية
               </p>
@@ -467,7 +467,7 @@ function TwoFactorPanel({ security }: { security: AccountSecurityData }) {
                 else disableMutation.mutate();
               }}
             >
-              <p className="text-[9px] font-semibold text-navy">
+              <p className="text-[12px] font-semibold text-navy">
                 {action === "codes"
                   ? "إنشاء رموز استرداد جديدة"
                   : "إيقاف التحقق بخطوتين"}
@@ -546,10 +546,10 @@ function RecoveryCodes({
 }) {
   return (
     <div className="mt-5 rounded-xl border border-amber-200 bg-amber-50 p-4">
-      <p className="text-[10px] font-bold text-amber-900">
+      <p className="text-[12px] font-bold text-amber-900">
         احفظ رموز الاسترداد الآن
       </p>
-      <p className="mt-1 text-[8px] leading-5 text-amber-800">
+      <p className="mt-1 text-[11px] leading-5 text-amber-800">
         تظهر هذه الرموز مرة واحدة فقط. كل رمز يُستخدم مرة واحدة عند فقدان
         تطبيق المصادقة.
       </p>
@@ -558,7 +558,7 @@ function RecoveryCodes({
         className="mt-3 grid gap-2 rounded-xl bg-white p-3 sm:grid-cols-2"
       >
         {codes.map((code) => (
-          <code key={code} className="font-mono text-[10px] text-navy">
+          <code key={code} className="font-mono text-[12px] text-navy">
             {code}
           </code>
         ))}
@@ -604,7 +604,7 @@ function SessionsPanel({ sessions }: { sessions: SecuritySession[] }) {
       <div className="flex flex-col gap-3 border-b border-navy/[0.055] p-5 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h2 className="text-sm font-bold text-navy">الأجهزة والجلسات</h2>
-          <p className="mt-1 text-[9px] text-slate">
+          <p className="mt-1 text-[12px] text-slate">
             أغلق أي جهاز لا تعرفه أو لم تعد تستخدمه.
           </p>
         </div>
@@ -621,7 +621,7 @@ function SessionsPanel({ sessions }: { sessions: SecuritySession[] }) {
         </Button>
       </div>
       {error ? (
-        <div className="mx-5 mt-4 rounded-xl bg-rose-50 p-3 text-[9px] text-rose-700">
+        <div className="mx-5 mt-4 rounded-xl bg-rose-50 p-3 text-[12px] text-rose-700">
           {error}
         </div>
       ) : null}
@@ -640,20 +640,20 @@ function SessionsPanel({ sessions }: { sessions: SecuritySession[] }) {
             </div>
             <div className="min-w-0 flex-1">
               <div className="flex flex-wrap items-center gap-2">
-                <p className="text-[10px] font-semibold text-ink">
+                <p className="text-[12px] font-semibold text-ink">
                   {session.device}
                 </p>
                 {session.current ? (
-                  <span className="rounded-full bg-emerald-50 px-2 py-1 text-[7px] font-bold text-emerald-700">
+                  <span className="rounded-full bg-emerald-50 px-2 py-1 text-[11px] font-bold text-emerald-700">
                     الجلسة الحالية
                   </span>
                 ) : null}
               </div>
-              <p className="mt-1 text-[8px] text-slate">
+              <p className="mt-1 text-[11px] text-slate">
                 {session.ip_address ?? "IP غير متاح"} ·{" "}
                 {relativeTime(session.last_active_at)}
               </p>
-              <p className="mt-1 text-[7px] text-slate/60">
+              <p className="mt-1 text-[11px] text-slate/60">
                 {formatDateTime(session.last_active_at)}
               </p>
             </div>
@@ -693,7 +693,7 @@ function SecurityCard({
         </div>
         <div>
           <h2 className="text-sm font-bold text-navy">{title}</h2>
-          <p className="mt-1 text-[8px] leading-5 text-slate">{description}</p>
+          <p className="mt-1 text-[11px] leading-5 text-slate">{description}</p>
         </div>
       </div>
       {children}
@@ -718,8 +718,8 @@ function SecurityMetric({
         <Icon size={18} />
       </div>
       <div>
-        <p className="text-[8px] text-slate">{label}</p>
-        <p className="mt-1 text-[11px] font-bold text-navy">{value}</p>
+        <p className="text-[11px] text-slate">{label}</p>
+        <p className="mt-1 text-[13px] font-bold text-navy">{value}</p>
       </div>
     </article>
   );
@@ -734,10 +734,10 @@ function SecurityField({
 }) {
   return (
     <label>
-      <span className="mb-2 block text-[9px] font-semibold text-navy">
+      <span className="mb-2 block text-[12px] font-semibold text-navy">
         {label}
       </span>
-      <span className="[&>input]:min-h-11 [&>input]:w-full [&>input]:rounded-xl [&>input]:border [&>input]:border-navy/[0.09] [&>input]:bg-cloud/70 [&>input]:px-3.5 [&>input]:text-[10px] [&>input]:outline-none">
+      <span className="[&>input]:min-h-11 [&>input]:w-full [&>input]:rounded-xl [&>input]:border [&>input]:border-navy/[0.09] [&>input]:bg-cloud/70 [&>input]:px-3.5 [&>input]:text-[12px] [&>input]:outline-none">
         {children}
       </span>
     </label>
@@ -775,7 +775,7 @@ function Feedback({
 }) {
   if (error) {
     return (
-      <p role="alert" className="rounded-xl bg-rose-50 p-3 text-[9px] text-rose-700">
+      <p role="alert" className="rounded-xl bg-rose-50 p-3 text-[12px] text-rose-700">
         {error}
       </p>
     );
@@ -783,7 +783,7 @@ function Feedback({
 
   if (notice) {
     return (
-      <p className="rounded-xl bg-emerald-50 p-3 text-[9px] text-emerald-700">
+      <p className="rounded-xl bg-emerald-50 p-3 text-[12px] text-emerald-700">
         {notice}
       </p>
     );

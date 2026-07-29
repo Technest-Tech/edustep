@@ -108,7 +108,7 @@ export function TeacherToday() {
             <div className="flex items-center justify-between border-b border-navy/[0.055] p-5 sm:p-6">
               <div>
                 <h2 className="text-sm font-bold text-navy">حصص اليوم</h2>
-                <p className="mt-1 text-[9px] text-slate">
+                <p className="mt-1 text-[12px] text-slate">
                   الحضور والتقرير الدراسي من نفس مسار الحصة
                 </p>
               </div>
@@ -136,11 +136,11 @@ export function TeacherToday() {
             <div className="flex items-center justify-between">
               <div>
                 <h2 className="text-sm font-bold text-navy">القادم خلال 7 أيام</h2>
-                <p className="mt-1 text-[9px] text-slate">نظرة سريعة على أسبوعك</p>
+                <p className="mt-1 text-[12px] text-slate">نظرة سريعة على أسبوعك</p>
               </div>
               <Link
                 href="/calendar"
-                className="inline-flex items-center gap-1 text-[9px] font-semibold text-teal"
+                className="inline-flex items-center gap-1 text-[12px] font-semibold text-teal"
               >
                 الجدول الكامل
                 <ArrowLeft size={13} />
@@ -155,18 +155,18 @@ export function TeacherToday() {
                 >
                   <div className="flex items-start justify-between gap-3">
                     <div>
-                      <p className="text-[10px] font-bold text-navy">{session.title}</p>
-                      <p className="mt-1 text-[8px] text-slate">{session.cohort?.name}</p>
+                      <p className="text-[12px] font-bold text-navy">{session.title}</p>
+                      <p className="mt-1 text-[11px] text-slate">{session.cohort?.name}</p>
                     </div>
                     <Clock3 size={16} className="shrink-0 text-teal" />
                   </div>
-                  <p className="mt-4 text-[9px] font-semibold text-navy">
+                  <p className="mt-4 text-[12px] font-semibold text-navy">
                     {formatDateTime(session.starts_at)}
                   </p>
                 </Link>
               ))}
               {!data.upcoming_sessions.length ? (
-                <p className="col-span-full py-8 text-center text-[10px] text-slate">
+                <p className="col-span-full py-8 text-center text-[12px] text-slate">
                   لا توجد حصص قادمة خلال هذا الأسبوع.
                 </p>
               ) : null}
@@ -182,7 +182,7 @@ export function TeacherToday() {
               </span>
               <div>
                 <h2 className="text-sm font-bold">جروباتي</h2>
-                <p className="mt-1 text-[8px] text-white/50">الوصول السريع للطلاب والحصص</p>
+                <p className="mt-1 text-[11px] text-white/50">الوصول السريع للطلاب والحصص</p>
               </div>
             </div>
             <div className="mt-5 space-y-2">
@@ -192,12 +192,12 @@ export function TeacherToday() {
                   href={`/groups/${cohort.id}`}
                   className="flex items-center gap-3 rounded-2xl border border-white/8 bg-white/[0.055] p-3.5 transition hover:bg-white/10"
                 >
-                  <span className="grid size-10 place-items-center rounded-xl bg-teal text-[9px] font-bold text-navy">
+                  <span className="grid size-10 place-items-center rounded-xl bg-teal text-[12px] font-bold text-navy">
                     {cohort.code}
                   </span>
                   <span className="min-w-0 flex-1">
-                    <span className="block truncate text-[10px] font-semibold">{cohort.name}</span>
-                    <span className="mt-1 block text-[8px] text-white/50">
+                    <span className="block truncate text-[12px] font-semibold">{cohort.name}</span>
+                    <span className="mt-1 block text-[11px] text-white/50">
                       {cohort.students_count} طلاب
                     </span>
                   </span>
@@ -211,7 +211,7 @@ export function TeacherToday() {
             <div className="flex items-start justify-between gap-3">
               <div>
                 <h2 className="text-xs font-bold text-amber-950">تقارير تحتاج إكمالًا</h2>
-                <p className="mt-1 text-[8px] leading-5 text-amber-800">
+                <p className="mt-1 text-[11px] leading-5 text-amber-800">
                   أضف ملخص الحصة ليكتمل سجل الطالب واحتساب التشغيل.
                 </p>
               </div>
@@ -226,14 +226,14 @@ export function TeacherToday() {
                   href={`/groups/${session.cohort?.id}`}
                   className="block rounded-xl bg-white/75 p-3"
                 >
-                  <p className="text-[9px] font-semibold text-navy">{session.cohort?.name}</p>
-                  <p className="mt-1 text-[8px] text-slate">
+                  <p className="text-[12px] font-semibold text-navy">{session.cohort?.name}</p>
+                  <p className="mt-1 text-[11px] text-slate">
                     {formatDateTime(session.starts_at)}
                   </p>
                 </Link>
               ))}
               {!data.missing_reports.length ? (
-                <p className="rounded-xl bg-white/70 p-4 text-center text-[9px] font-semibold text-emerald-700">
+                <p className="rounded-xl bg-white/70 p-4 text-center text-[12px] font-semibold text-emerald-700">
                   ممتاز، كل التقارير مكتملة.
                 </p>
               ) : null}
@@ -256,7 +256,7 @@ function TodaySession({ session }: { session: ClassSession }) {
               minute: "2-digit",
             })}
           </p>
-          <p className="mt-1 text-[8px] text-slate">موعد البداية</p>
+          <p className="mt-1 text-[11px] text-slate">موعد البداية</p>
         </div>
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center gap-2">
@@ -266,8 +266,8 @@ function TodaySession({ session }: { session: ClassSession }) {
               label={statusLabels[session.status] ?? session.status}
             />
           </div>
-          <p className="mt-2 text-[9px] text-slate">{session.title}</p>
-          <div className="mt-3 flex flex-wrap gap-3 text-[8px] text-slate">
+          <p className="mt-2 text-[12px] text-slate">{session.title}</p>
+          <div className="mt-3 flex flex-wrap gap-3 text-[11px] text-slate">
             <span className="inline-flex items-center gap-1.5">
               <Clock3 size={13} className="text-teal" />
               {Math.round(
@@ -289,7 +289,7 @@ function TodaySession({ session }: { session: ClassSession }) {
               href={session.meeting_url}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex min-h-10 items-center justify-center gap-2 rounded-xl bg-teal px-4 text-[10px] font-semibold text-navy"
+              className="inline-flex min-h-10 items-center justify-center gap-2 rounded-xl bg-teal px-4 text-[12px] font-semibold text-navy"
             >
               دخول الحصة
               <ExternalLink size={14} />
@@ -297,7 +297,7 @@ function TodaySession({ session }: { session: ClassSession }) {
           ) : null}
           <Link
             href={`/groups/${session.cohort?.id}`}
-            className="inline-flex min-h-10 items-center justify-center gap-2 rounded-xl bg-navy px-4 text-[10px] font-semibold text-white"
+            className="inline-flex min-h-10 items-center justify-center gap-2 rounded-xl bg-navy px-4 text-[12px] font-semibold text-white"
           >
             الحضور والتقرير
             <ArrowLeft size={14} />
@@ -333,8 +333,8 @@ function TeacherMetric({
         <Icon size={17} />
       </span>
       <p className="mt-4 text-lg font-bold text-navy">{value}</p>
-      <p className="mt-1 text-[9px] font-semibold text-slate">{label}</p>
-      <p className="mt-1 text-[8px] text-slate/70">{hint}</p>
+      <p className="mt-1 text-[12px] font-semibold text-slate">{label}</p>
+      <p className="mt-1 text-[11px] text-slate/70">{hint}</p>
     </article>
   );
 }
@@ -354,7 +354,7 @@ function EmptyState({
         <Icon size={21} />
       </span>
       <p className="mt-4 text-xs font-bold text-navy">{title}</p>
-      <p className="mt-2 text-[9px] text-slate">{description}</p>
+      <p className="mt-2 text-[12px] text-slate">{description}</p>
     </div>
   );
 }

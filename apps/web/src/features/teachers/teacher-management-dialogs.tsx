@@ -168,7 +168,7 @@ export function TeacherEditorDialog({
                 <Dialog.Title className="text-lg font-bold text-navy">
                   {editing ? `إدارة ${teacher?.name}` : "إضافة معلم جديد"}
                 </Dialog.Title>
-                <Dialog.Description className="mt-1 max-w-lg text-[11px] leading-5 text-slate">
+                <Dialog.Description className="mt-1 max-w-lg text-[13px] leading-5 text-slate">
                   {editing
                     ? "حدّث الملف المهني، التوفر، قاعدة المستحقات وحساب الدخول من مكان واحد."
                     : "أنشئ ملف المعلم وحساب دخوله وحدد التوفر وطريقة احتساب المستحقات."}
@@ -276,7 +276,7 @@ export function TeacherEditorDialog({
                       type="button"
                       onClick={() => toggleDay(value)}
                       aria-pressed={selected}
-                      className={`flex min-h-11 items-center justify-between rounded-xl border px-3 text-[11px] font-semibold transition ${
+                      className={`flex min-h-11 items-center justify-between rounded-xl border px-3 text-[13px] font-semibold transition ${
                         selected
                           ? "border-teal/35 bg-mist text-navy"
                           : "border-navy/[0.08] bg-cloud/50 text-slate hover:border-teal/25"
@@ -362,7 +362,7 @@ export function TeacherEditorDialog({
                   />
                 </TeacherField>
               </div>
-              <div className="flex items-start gap-2 rounded-xl bg-amber-50 px-3 py-2.5 text-[10px] leading-5 text-amber-900">
+              <div className="flex items-start gap-2 rounded-xl bg-amber-50 px-3 py-2.5 text-[12px] leading-5 text-amber-900">
                 <KeyRound className="mt-0.5 shrink-0" size={14} />
                 10 أحرف على الأقل وتحتوي على حرف كبير وصغير ورقم. لن تظهر كلمة
                 المرور في سجل النظام.
@@ -372,7 +372,7 @@ export function TeacherEditorDialog({
             {error ? (
               <p
                 role="alert"
-                className="flex items-start gap-2 rounded-xl bg-rose-50 px-3 py-2.5 text-[11px] leading-5 text-rose-700"
+                className="flex items-start gap-2 rounded-xl bg-rose-50 px-3 py-2.5 text-[13px] leading-5 text-rose-700"
               >
                 <CircleAlert className="mt-0.5 shrink-0" size={15} />
                 {error}
@@ -503,7 +503,7 @@ export function TeacherCohortAssignmentDialog({
                 <Dialog.Title className="text-lg font-bold text-navy">
                   إسناد جروبات {teacher.name}
                 </Dialog.Title>
-                <Dialog.Description className="mt-1 text-[11px] leading-5 text-slate">
+                <Dialog.Description className="mt-1 text-[13px] leading-5 text-slate">
                   حدد الجروبات الحالية. اختيار جروب مسند لمعلم آخر سينقله إلى هذا
                   المعلم بعد التحقق من تعارض الحصص.
                 </Dialog.Description>
@@ -525,7 +525,7 @@ export function TeacherCohortAssignmentDialog({
               value={search}
               onChange={(event) => setSearch(event.target.value)}
               placeholder="ابحث باسم الجروب أو البرنامج أو المستوى..."
-              className="min-h-11 w-full rounded-xl border border-navy/[0.09] bg-cloud/70 pr-10 pl-3.5 text-[11px] outline-none transition focus:border-teal"
+              className="min-h-11 w-full rounded-xl border border-navy/[0.09] bg-cloud/70 pr-10 pl-3.5 text-[13px] outline-none transition focus:border-teal"
             />
           </div>
 
@@ -535,7 +535,7 @@ export function TeacherCohortAssignmentDialog({
                 <LoaderCircle className="animate-spin text-teal" size={24} />
               </div>
             ) : cohortsQuery.isError ? (
-              <p className="rounded-xl bg-rose-50 p-4 text-center text-[11px] text-rose-700">
+              <p className="rounded-xl bg-rose-50 p-4 text-center text-[13px] text-rose-700">
                 تعذر تحميل الجروبات الحالية.
               </p>
             ) : cohorts.length ? (
@@ -569,7 +569,7 @@ export function TeacherCohortAssignmentDialog({
                         <span className="block truncate text-xs font-bold text-navy">
                           {cohort.name}
                         </span>
-                        <span className="mt-1 block truncate text-[10px] text-slate">
+                        <span className="mt-1 block truncate text-[12px] text-slate">
                           {cohort.code} · {cohort.program.name_ar} ·{" "}
                           {cohort.level.name_ar} · {cohort.enrolled_count} طلاب
                         </span>
@@ -577,19 +577,19 @@ export function TeacherCohortAssignmentDialog({
                       <span className="shrink-0 text-left">
                         {transferred ? (
                           <>
-                            <span className="block text-[9px] font-semibold text-amber-700">
+                            <span className="block text-[12px] font-semibold text-amber-700">
                               مسند حاليًا
                             </span>
-                            <span className="mt-1 block max-w-24 truncate text-[9px] text-slate">
+                            <span className="mt-1 block max-w-24 truncate text-[12px] text-slate">
                               {cohort.teacher?.name}
                             </span>
                           </>
                         ) : cohort.teacher?.id === teacher.id ? (
-                          <span className="rounded-lg bg-teal/10 px-2 py-1 text-[9px] font-semibold text-teal">
+                          <span className="rounded-lg bg-teal/10 px-2 py-1 text-[12px] font-semibold text-teal">
                             مسند له
                           </span>
                         ) : (
-                          <span className="text-[9px] text-slate">غير معيّن</span>
+                          <span className="text-[12px] text-slate">غير معيّن</span>
                         )}
                       </span>
                     </button>
@@ -597,7 +597,7 @@ export function TeacherCohortAssignmentDialog({
                 })}
               </div>
             ) : (
-              <p className="rounded-xl bg-cloud p-5 text-center text-[11px] text-slate">
+              <p className="rounded-xl bg-cloud p-5 text-center text-[13px] text-slate">
                 لا توجد جروبات مطابقة وجاهزة للإسناد.
               </p>
             )}
@@ -611,11 +611,11 @@ export function TeacherCohortAssignmentDialog({
               className="mt-1 size-4 accent-violet-600"
             />
             <span>
-              <span className="flex items-center gap-1.5 text-[11px] font-bold text-violet-900">
+              <span className="flex items-center gap-1.5 text-[13px] font-bold text-violet-900">
                 <CalendarDays size={14} />
                 تحديث الحصص القادمة
               </span>
-              <span className="mt-1 block text-[10px] leading-5 text-violet-800">
+              <span className="mt-1 block text-[12px] leading-5 text-violet-800">
                 يغيّر المعلم في الحصص المجدولة مستقبلًا، مع منع أي تعارض تلقائي.
                 الحصص المكتملة وتاريخها لن يتغيرا.
               </span>
@@ -625,7 +625,7 @@ export function TeacherCohortAssignmentDialog({
           {error ? (
             <p
               role="alert"
-              className="mt-3 flex items-start gap-2 rounded-xl bg-rose-50 px-3 py-2.5 text-[11px] leading-5 text-rose-700"
+              className="mt-3 flex items-start gap-2 rounded-xl bg-rose-50 px-3 py-2.5 text-[13px] leading-5 text-rose-700"
             >
               <CircleAlert className="mt-0.5 shrink-0" size={15} />
               {error}
@@ -633,7 +633,7 @@ export function TeacherCohortAssignmentDialog({
           ) : null}
 
           <div className="-mx-5 mt-4 flex items-center justify-between border-t border-navy/[0.06] bg-white px-5 pt-4 sm:-mx-7 sm:px-7">
-            <span className="text-[10px] text-slate">
+            <span className="text-[12px] text-slate">
               {selectedIds.size} جروبات محددة
             </span>
             <div className="flex gap-2">
@@ -681,7 +681,7 @@ function FormSection({
         </span>
         <div>
           <h2 className="text-xs font-bold text-navy">{title}</h2>
-          <p className="mt-1 text-[10px] leading-5 text-slate">{description}</p>
+          <p className="mt-1 text-[12px] leading-5 text-slate">{description}</p>
         </div>
       </div>
       <div className="mt-4 space-y-4">{children}</div>
@@ -698,8 +698,8 @@ function TeacherField({
 }) {
   return (
     <label className="block">
-      <span className="mb-2 block text-[10px] font-semibold text-slate">{label}</span>
-      <span className="[&>input]:min-h-11 [&>input]:w-full [&>input]:rounded-xl [&>input]:border [&>input]:border-navy/[0.09] [&>input]:bg-cloud/70 [&>input]:px-3.5 [&>input]:text-[11px] [&>input]:outline-none [&>input]:transition [&>input]:focus:border-teal [&>select]:min-h-11 [&>select]:w-full [&>select]:rounded-xl [&>select]:border [&>select]:border-navy/[0.09] [&>select]:bg-cloud/70 [&>select]:px-3.5 [&>select]:text-[11px] [&>select]:outline-none [&>select]:transition [&>select]:focus:border-teal [&>textarea]:w-full [&>textarea]:resize-none [&>textarea]:rounded-xl [&>textarea]:border [&>textarea]:border-navy/[0.09] [&>textarea]:bg-cloud/70 [&>textarea]:px-3.5 [&>textarea]:py-3 [&>textarea]:text-[11px] [&>textarea]:leading-5 [&>textarea]:outline-none [&>textarea]:transition [&>textarea]:focus:border-teal">
+      <span className="mb-2 block text-[12px] font-semibold text-slate">{label}</span>
+      <span className="[&>input]:min-h-11 [&>input]:w-full [&>input]:rounded-xl [&>input]:border [&>input]:border-navy/[0.09] [&>input]:bg-cloud/70 [&>input]:px-3.5 [&>input]:text-[13px] [&>input]:outline-none [&>input]:transition [&>input]:focus:border-teal [&>select]:min-h-11 [&>select]:w-full [&>select]:rounded-xl [&>select]:border [&>select]:border-navy/[0.09] [&>select]:bg-cloud/70 [&>select]:px-3.5 [&>select]:text-[13px] [&>select]:outline-none [&>select]:transition [&>select]:focus:border-teal [&>textarea]:w-full [&>textarea]:resize-none [&>textarea]:rounded-xl [&>textarea]:border [&>textarea]:border-navy/[0.09] [&>textarea]:bg-cloud/70 [&>textarea]:px-3.5 [&>textarea]:py-3 [&>textarea]:text-[13px] [&>textarea]:leading-5 [&>textarea]:outline-none [&>textarea]:transition [&>textarea]:focus:border-teal">
         {children}
       </span>
     </label>

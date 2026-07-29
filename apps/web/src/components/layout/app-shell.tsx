@@ -219,7 +219,7 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
       </div>
 
       <div className="thin-scrollbar mt-9 flex-1 overflow-y-auto px-3">
-        <p className="mb-2 px-3 text-[10px] font-semibold tracking-wide text-white/40">
+        <p className="mb-2 px-3 text-[12px] font-semibold tracking-wide text-white/40">
           مساحة العمل
         </p>
         <nav className="space-y-1" aria-label="مساحة العمل">
@@ -238,7 +238,7 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
                 onClick={onNavigate}
                 aria-current={active ? "page" : undefined}
                 className={cn(
-                  "group flex min-h-11 items-center gap-3 rounded-xl px-3.5 text-[12px] font-medium transition",
+                  "group flex min-h-11 items-center gap-3 rounded-xl px-3.5 text-sm font-medium transition",
                   active
                     ? "bg-white text-navy shadow-[0_10px_28px_rgba(0,0,0,.13)]"
                     : "text-white/65 hover:bg-white/8 hover:text-white",
@@ -251,7 +251,7 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
                 />
                 <span className="flex-1">{item.label}</span>
                 {item.href === "/leads" ? (
-                  <span className="grid size-6 place-items-center rounded-full bg-sun text-[9px] font-bold text-navy">
+                  <span className="grid size-6 place-items-center rounded-full bg-sun text-[12px] font-bold text-navy">
                     CRM
                   </span>
                 ) : active ? (
@@ -270,10 +270,10 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
             {user?.name.charAt(0)}
           </div>
           <div className="min-w-0 flex-1">
-            <p className="truncate text-[11px] font-semibold text-white">
+            <p className="truncate text-[13px] font-semibold text-white">
               {user?.name}
             </p>
-            <p className="mt-1 truncate text-[9px] text-white/45">
+            <p className="mt-1 truncate text-[12px] text-white/45">
               {roleLabels[user?.role ?? ""] ?? user?.role}
             </p>
           </div>
@@ -364,7 +364,7 @@ export function AppShell({ children }: { children: ReactNode }) {
 
           <div className="min-w-0 lg:hidden">
             <p className="truncate text-sm font-bold text-navy">EduStep</p>
-            <p className="truncate text-[9px] text-slate">{title}</p>
+            <p className="truncate text-[12px] text-slate">{title}</p>
           </div>
 
           <form
@@ -384,7 +384,7 @@ export function AppShell({ children }: { children: ReactNode }) {
               className="min-w-0 flex-1 bg-transparent text-xs text-ink outline-none placeholder:text-slate/60"
               placeholder="ابحث باسم عميل، رقم هاتف، أو طالب..."
             />
-            <kbd className="rounded-md border border-navy/10 bg-white px-1.5 py-0.5 text-[8px] text-slate">
+            <kbd className="rounded-md border border-navy/10 bg-white px-1.5 py-0.5 text-[11px] text-slate">
               Enter
             </kbd>
           </form>

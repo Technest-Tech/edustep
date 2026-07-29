@@ -202,7 +202,7 @@ export function LeadsContent({
                   setPage(1);
                 }}
                 placeholder="ابحث بالاسم أو الهاتف أو البريد..."
-                className="min-w-0 flex-1 bg-transparent text-[11px] text-ink outline-none"
+                className="min-w-0 flex-1 bg-transparent text-[13px] text-ink outline-none"
               />
             </label>
 
@@ -219,7 +219,7 @@ export function LeadsContent({
                     setActiveView("pipeline");
                     setActionError(null);
                   }}
-                  className={`inline-flex min-h-9 items-center gap-1.5 rounded-lg px-3 text-[9px] font-semibold transition ${
+                  className={`inline-flex min-h-9 items-center gap-1.5 rounded-lg px-3 text-[12px] font-semibold transition ${
                     activeView === "pipeline"
                       ? "bg-navy text-white shadow-sm"
                       : "text-slate hover:bg-white hover:text-navy"
@@ -235,7 +235,7 @@ export function LeadsContent({
                     setActiveView("list");
                     setActionError(null);
                   }}
-                  className={`inline-flex min-h-9 items-center gap-1.5 rounded-lg px-3 text-[9px] font-semibold transition ${
+                  className={`inline-flex min-h-9 items-center gap-1.5 rounded-lg px-3 text-[12px] font-semibold transition ${
                     activeView === "list"
                       ? "bg-navy text-white shadow-sm"
                       : "text-slate hover:bg-white hover:text-navy"
@@ -269,7 +269,7 @@ export function LeadsContent({
                     setStage(value);
                     setPage(1);
                   }}
-                  className={`shrink-0 rounded-full px-3 py-2 text-[9px] font-semibold transition ${
+                  className={`shrink-0 rounded-full px-3 py-2 text-[12px] font-semibold transition ${
                     stage === value
                       ? "bg-navy text-white shadow-sm"
                       : "border border-navy/[0.07] bg-white text-slate hover:bg-cloud"
@@ -281,10 +281,10 @@ export function LeadsContent({
             </div>
           ) : (
             <div className="mt-4 flex flex-wrap items-center justify-between gap-2 rounded-xl border border-teal/10 bg-mist/45 px-3.5 py-2.5">
-              <p className="text-[8px] leading-5 text-slate">
+              <p className="text-[11px] leading-5 text-slate">
                 عرض المسار هو العرض الافتراضي؛ كل عمود يمثل مرحلة من رحلة التسجيل.
               </p>
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-white px-2.5 py-1.5 text-[8px] font-semibold text-teal shadow-sm">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-white px-2.5 py-1.5 text-[11px] font-semibold text-teal shadow-sm">
                 <span className="size-1.5 rounded-full bg-teal" />
                 تحديث حي
               </span>
@@ -296,7 +296,7 @@ export function LeadsContent({
           <div className="flex items-start justify-between gap-3 border-b border-rose-100 bg-rose-50 px-4 py-3 text-rose-700 sm:px-5">
             <div className="flex items-start gap-2">
               <CircleAlert className="mt-0.5 shrink-0" size={15} />
-              <p className="text-[9px] leading-5">{actionError}</p>
+              <p className="text-[12px] leading-5">{actionError}</p>
             </div>
             <button
               type="button"
@@ -332,7 +332,7 @@ export function LeadsContent({
             <div className="hidden overflow-x-auto md:block">
               <table className="w-full min-w-[980px] border-collapse">
                 <thead>
-                  <tr className="bg-cloud/55 text-right text-[9px] font-semibold text-slate">
+                  <tr className="bg-cloud/55 text-right text-[12px] font-semibold text-slate">
                     <th className="px-5 py-3.5">العميل</th>
                     <th className="px-4 py-3.5">المرحلة</th>
                     <th className="px-4 py-3.5">المصدر والبرنامج</th>
@@ -359,7 +359,7 @@ export function LeadsContent({
             <div>
               <Filter className="mx-auto text-teal" size={28} />
               <p className="mt-3 text-xs font-semibold text-navy">لا توجد نتائج مطابقة</p>
-              <p className="mt-1 text-[9px] text-slate">جرّب تغيير البحث أو المرحلة.</p>
+              <p className="mt-1 text-[12px] text-slate">جرّب تغيير البحث أو المرحلة.</p>
             </div>
           </div>
         )}
@@ -368,7 +368,7 @@ export function LeadsContent({
         listQuery.data?.meta &&
         listQuery.data.meta.last_page > 1 ? (
           <div className="flex items-center justify-between border-t border-navy/[0.055] px-5 py-4">
-            <p className="text-[9px] text-slate">
+            <p className="text-[12px] text-slate">
               عرض {listQuery.data.meta.from}–{listQuery.data.meta.to} من{" "}
               {listQuery.data.meta.total}
             </p>
@@ -406,14 +406,14 @@ function LeadRow({ lead }: { lead: Lead }) {
     <tr className="group transition hover:bg-cloud/60">
       <td className="px-5 py-4">
         <Link href={`/leads/${lead.id}`} className="flex items-center gap-3">
-          <div className="grid size-10 shrink-0 place-items-center rounded-xl bg-mist text-[11px] font-bold text-navy">
+          <div className="grid size-10 shrink-0 place-items-center rounded-xl bg-mist text-[13px] font-bold text-navy">
             {lead.full_name.charAt(0)}
           </div>
           <div className="min-w-0">
-            <p className="max-w-48 truncate text-[11px] font-semibold text-ink">
+            <p className="max-w-48 truncate text-[13px] font-semibold text-ink">
               {lead.full_name}
             </p>
-            <p dir="ltr" className="mt-1 text-right text-[9px] text-slate">
+            <p dir="ltr" className="mt-1 text-right text-[12px] text-slate">
               {lead.phone}
             </p>
           </div>
@@ -423,34 +423,34 @@ function LeadRow({ lead }: { lead: Lead }) {
         <StatusBadge value={lead.status.value} label={lead.status.label} />
       </td>
       <td className="px-4 py-4">
-        <p className="text-[10px] font-medium text-ink">{lead.source.label}</p>
-        <p className="mt-1 text-[8px] text-slate">{lead.program?.name_ar ?? "غير محدد"}</p>
+        <p className="text-[12px] font-medium text-ink">{lead.source.label}</p>
+        <p className="mt-1 text-[11px] text-slate">{lead.program?.name_ar ?? "غير محدد"}</p>
       </td>
       <td className="px-4 py-4">
         {lead.next_follow_up ? (
           <div>
             <p
-              className={`max-w-44 truncate text-[9px] font-medium ${
+              className={`max-w-44 truncate text-[12px] font-medium ${
                 lead.next_follow_up.is_overdue ? "text-rose-600" : "text-ink"
               }`}
             >
               {lead.next_follow_up.subject}
             </p>
-            <p className="mt-1 text-[8px] text-slate">
+            <p className="mt-1 text-[11px] text-slate">
               {relativeTime(lead.next_follow_up.due_at)}
             </p>
           </div>
         ) : (
-          <span className="text-[9px] text-slate/60">لا توجد متابعة</span>
+          <span className="text-[12px] text-slate/60">لا توجد متابعة</span>
         )}
       </td>
-      <td className="px-4 py-4 text-[9px] text-slate">
+      <td className="px-4 py-4 text-[12px] text-slate">
         {lead.owner?.name ?? "غير معيّن"}
       </td>
       <td className="px-5 py-4 text-left">
         <Link
           href={`/leads/${lead.id}`}
-          className="inline-flex min-h-8 items-center gap-1 rounded-lg px-2.5 text-[9px] font-semibold text-teal transition hover:bg-mist hover:text-navy"
+          className="inline-flex min-h-8 items-center gap-1 rounded-lg px-2.5 text-[12px] font-semibold text-teal transition hover:bg-mist hover:text-navy"
         >
           فتح الملف
           <ChevronLeft size={13} />
@@ -464,20 +464,20 @@ function LeadCard({ lead }: { lead: Lead }) {
   return (
     <Link href={`/leads/${lead.id}`} className="block p-4 transition hover:bg-cloud/60">
       <div className="flex items-start gap-3">
-        <div className="grid size-10 shrink-0 place-items-center rounded-xl bg-mist text-[11px] font-bold text-navy">
+        <div className="grid size-10 shrink-0 place-items-center rounded-xl bg-mist text-[13px] font-bold text-navy">
           {lead.full_name.charAt(0)}
         </div>
         <div className="min-w-0 flex-1">
           <div className="flex items-start justify-between gap-3">
             <div>
-              <p className="text-[11px] font-semibold text-ink">{lead.full_name}</p>
-              <p dir="ltr" className="mt-1 text-right text-[9px] text-slate">
+              <p className="text-[13px] font-semibold text-ink">{lead.full_name}</p>
+              <p dir="ltr" className="mt-1 text-right text-[12px] text-slate">
                 {lead.phone}
               </p>
             </div>
             <StatusBadge value={lead.status.value} label={lead.status.label} />
           </div>
-          <div className="mt-3 flex items-center justify-between text-[8px] text-slate">
+          <div className="mt-3 flex items-center justify-between text-[11px] text-slate">
             <span>{lead.program?.name_ar ?? "البرنامج غير محدد"}</span>
             <span>
               {lead.next_follow_up
@@ -509,7 +509,7 @@ function MiniMetric({
       </div>
       <div>
         <p className="text-lg font-bold text-navy">{value}</p>
-        <p className="text-[9px] text-slate">{label}</p>
+        <p className="text-[12px] text-slate">{label}</p>
       </div>
     </div>
   );

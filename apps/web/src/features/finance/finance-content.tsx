@@ -158,7 +158,7 @@ export function FinanceContent() {
                   setPage(1);
                 }}
                 placeholder="ابحث باسم الطالب، الكود، الهاتف، أو رقم الفاتورة..."
-                className="min-w-0 flex-1 bg-transparent text-[11px] text-ink outline-none"
+                className="min-w-0 flex-1 bg-transparent text-[13px] text-ink outline-none"
               />
             </label>
             <div className="thin-scrollbar flex gap-2 overflow-x-auto pb-1">
@@ -170,7 +170,7 @@ export function FinanceContent() {
                     setStatus(value);
                     setPage(1);
                   }}
-                  className={`shrink-0 rounded-full px-3 py-2 text-[9px] font-semibold transition ${
+                  className={`shrink-0 rounded-full px-3 py-2 text-[12px] font-semibold transition ${
                     status === value
                       ? "bg-navy text-white shadow-sm"
                       : "border border-navy/[0.07] bg-white text-slate hover:bg-cloud"
@@ -208,7 +208,7 @@ export function FinanceContent() {
             <div className="hidden overflow-x-auto md:block">
               <table className="w-full min-w-[1050px] border-collapse">
                 <thead>
-                  <tr className="bg-cloud/55 text-right text-[9px] font-semibold text-slate">
+                  <tr className="bg-cloud/55 text-right text-[12px] font-semibold text-slate">
                     <th className="px-5 py-3.5">الفاتورة والطالب</th>
                     <th className="px-4 py-3.5">الحالة</th>
                     <th className="px-4 py-3.5">الاستحقاق</th>
@@ -250,7 +250,7 @@ export function FinanceContent() {
 
         {invoicesQuery.data?.meta && invoicesQuery.data.meta.last_page > 1 ? (
           <div className="flex items-center justify-between border-t border-navy/[0.055] px-5 py-4">
-            <p className="text-[9px] text-slate">
+            <p className="text-[12px] text-slate">
               عرض {invoicesQuery.data.meta.from}–{invoicesQuery.data.meta.to} من{" "}
               {invoicesQuery.data.meta.total}
             </p>
@@ -304,8 +304,8 @@ function InvoiceRow({
             <ReceiptText size={18} />
           </div>
           <div className="min-w-0">
-            <p className="font-mono text-[9px] font-bold text-navy">{invoice.invoice_number}</p>
-            <p className="mt-1 truncate text-[10px] font-medium text-ink">
+            <p className="font-mono text-[12px] font-bold text-navy">{invoice.invoice_number}</p>
+            <p className="mt-1 truncate text-[12px] font-medium text-ink">
               {invoice.student.full_name}
             </p>
           </div>
@@ -317,16 +317,16 @@ function InvoiceRow({
           label={invoiceStatusLabels[invoice.status] ?? invoice.status}
         />
       </td>
-      <td className={`px-4 py-4 text-[9px] ${invoice.is_overdue ? "font-semibold text-rose-600" : "text-slate"}`}>
+      <td className={`px-4 py-4 text-[12px] ${invoice.is_overdue ? "font-semibold text-rose-600" : "text-slate"}`}>
         {formatDate(invoice.due_on)}
       </td>
-      <td className="px-4 py-4 text-[10px] font-medium text-ink">
+      <td className="px-4 py-4 text-[12px] font-medium text-ink">
         {formatCurrency(invoice.total_amount)}
       </td>
-      <td className="px-4 py-4 text-[10px] font-medium text-emerald-700">
+      <td className="px-4 py-4 text-[12px] font-medium text-emerald-700">
         {formatCurrency(invoice.paid_amount)}
       </td>
-      <td className="px-4 py-4 text-[10px] font-bold text-navy">
+      <td className="px-4 py-4 text-[12px] font-bold text-navy">
         {formatCurrency(invoice.balance)}
       </td>
       <td className="px-5 py-4 text-left">
@@ -355,9 +355,9 @@ function InvoiceCard({
     <article className="p-4">
       <div className="flex items-start justify-between gap-3">
         <div>
-          <p className="font-mono text-[9px] font-bold text-navy">{invoice.invoice_number}</p>
-          <p className="mt-1 text-[11px] font-semibold text-ink">{invoice.student.full_name}</p>
-          <p className="mt-1 text-[8px] text-slate">{invoice.enrollment?.cohort?.name}</p>
+          <p className="font-mono text-[12px] font-bold text-navy">{invoice.invoice_number}</p>
+          <p className="mt-1 text-[13px] font-semibold text-ink">{invoice.student.full_name}</p>
+          <p className="mt-1 text-[11px] text-slate">{invoice.enrollment?.cohort?.name}</p>
         </div>
         <StatusBadge
           value={invoice.status}
@@ -370,7 +370,7 @@ function InvoiceCard({
         <MoneyItem label="المتبقي" value={invoice.balance} highlight />
       </div>
       <div className="mt-3 flex items-center justify-between">
-        <p className={`text-[8px] ${invoice.is_overdue ? "text-rose-600" : "text-slate"}`}>
+        <p className={`text-[11px] ${invoice.is_overdue ? "text-rose-600" : "text-slate"}`}>
           الاستحقاق: {formatDate(invoice.due_on)}
         </p>
         <Button
@@ -438,7 +438,7 @@ function PaymentDialog({
           <div className="flex items-start justify-between gap-4">
             <div>
               <Dialog.Title className="text-lg font-bold text-navy">تسجيل دفعة</Dialog.Title>
-              <Dialog.Description className="mt-1 text-[9px] leading-5 text-slate">
+              <Dialog.Description className="mt-1 text-[12px] leading-5 text-slate">
                 ستضاف الدفعة إلى سجل الطالب وتُحدث حالة الفاتورة تلقائيًا.
               </Dialog.Description>
             </div>
@@ -452,11 +452,11 @@ function PaymentDialog({
           <div className="mt-5 rounded-2xl bg-navy p-4 text-white">
             <div className="flex items-start justify-between gap-3">
               <div>
-                <p className="text-[8px] text-white/45">{invoice.invoice_number}</p>
+                <p className="text-[11px] text-white/45">{invoice.invoice_number}</p>
                 <p className="mt-1 text-xs font-semibold">{invoice.student.full_name}</p>
               </div>
               <div className="text-left">
-                <p className="text-[8px] text-white/45">الرصيد المتبقي</p>
+                <p className="text-[11px] text-white/45">الرصيد المتبقي</p>
                 <p className="mt-1 text-sm font-bold text-sun">
                   {formatCurrency(invoice.balance)}
                 </p>
@@ -484,7 +484,7 @@ function PaymentDialog({
               />
             </PaymentField>
             <div>
-              <span className="mb-2 block text-[10px] font-semibold text-navy">
+              <span className="mb-2 block text-[12px] font-semibold text-navy">
                 طريقة الدفع
               </span>
               <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
@@ -501,7 +501,7 @@ function PaymentDialog({
                       key={value as string}
                       type="button"
                       onClick={() => setMethod(value as string)}
-                      className={`flex min-h-16 flex-col items-center justify-center gap-1.5 rounded-xl border text-[8px] font-medium transition ${
+                      className={`flex min-h-16 flex-col items-center justify-center gap-1.5 rounded-xl border text-[11px] font-medium transition ${
                         method === value
                           ? "border-teal bg-mist text-navy"
                           : "border-navy/[0.07] bg-white text-slate hover:bg-cloud"
@@ -532,8 +532,8 @@ function PaymentDialog({
 
             {invoice.payments.length ? (
               <div className="rounded-xl border border-navy/[0.06] bg-cloud p-3">
-                <p className="text-[8px] font-semibold text-navy">آخر دفعة مسجلة</p>
-                <p className="mt-1 text-[8px] text-slate">
+                <p className="text-[11px] font-semibold text-navy">آخر دفعة مسجلة</p>
+                <p className="mt-1 text-[11px] text-slate">
                   {formatCurrency(invoice.payments.at(-1)?.amount ?? 0)} ·{" "}
                   {formatDateTime(invoice.payments.at(-1)?.paid_at ?? null)}
                 </p>
@@ -541,7 +541,7 @@ function PaymentDialog({
             ) : null}
 
             {error ? (
-              <p role="alert" className="rounded-xl bg-rose-50 px-3 py-2 text-[9px] text-rose-700">
+              <p role="alert" className="rounded-xl bg-rose-50 px-3 py-2 text-[12px] text-rose-700">
                 {error}
               </p>
             ) : null}
@@ -564,8 +564,8 @@ function PaymentDialog({
 function PaymentField({ label, children }: { label: string; children: ReactElement }) {
   return (
     <label>
-      <span className="mb-2 block text-[10px] font-semibold text-navy">{label}</span>
-      <span className="[&>input]:min-h-11 [&>input]:w-full [&>input]:rounded-xl [&>input]:border [&>input]:border-navy/[0.09] [&>input]:bg-cloud/70 [&>input]:px-3.5 [&>input]:text-[11px] [&>input]:outline-none [&>textarea]:w-full [&>textarea]:resize-none [&>textarea]:rounded-xl [&>textarea]:border [&>textarea]:border-navy/[0.09] [&>textarea]:bg-cloud/70 [&>textarea]:p-3.5 [&>textarea]:text-[11px] [&>textarea]:outline-none">
+      <span className="mb-2 block text-[12px] font-semibold text-navy">{label}</span>
+      <span className="[&>input]:min-h-11 [&>input]:w-full [&>input]:rounded-xl [&>input]:border [&>input]:border-navy/[0.09] [&>input]:bg-cloud/70 [&>input]:px-3.5 [&>input]:text-[13px] [&>input]:outline-none [&>textarea]:w-full [&>textarea]:resize-none [&>textarea]:rounded-xl [&>textarea]:border [&>textarea]:border-navy/[0.09] [&>textarea]:bg-cloud/70 [&>textarea]:p-3.5 [&>textarea]:text-[13px] [&>textarea]:outline-none">
         {children}
       </span>
     </label>
@@ -589,14 +589,14 @@ function FinanceMetric({
     <article className="rounded-2xl border border-navy/[0.065] bg-white p-5 shadow-[0_8px_28px_rgba(11,36,84,.035)]">
       <div className="flex items-start justify-between gap-3">
         <div>
-          <p className="text-[9px] text-slate">{label}</p>
+          <p className="text-[12px] text-slate">{label}</p>
           <p className="mt-2 text-lg font-bold tracking-tight text-navy">{value}</p>
         </div>
         <div className={`grid size-11 place-items-center rounded-2xl ${tone}`}>
           <Icon size={20} />
         </div>
       </div>
-      <p className="mt-4 border-t border-navy/[0.055] pt-3 text-[8px] text-slate">{hint}</p>
+      <p className="mt-4 border-t border-navy/[0.055] pt-3 text-[11px] text-slate">{hint}</p>
     </article>
   );
 }
@@ -612,8 +612,8 @@ function MoneyItem({
 }) {
   return (
     <div>
-      <p className="text-[8px] text-slate">{label}</p>
-      <p className={`mt-1 text-[9px] font-bold ${highlight ? "text-navy" : "text-ink"}`}>
+      <p className="text-[11px] text-slate">{label}</p>
+      <p className={`mt-1 text-[12px] font-bold ${highlight ? "text-navy" : "text-ink"}`}>
         {formatCurrency(value)}
       </p>
     </div>

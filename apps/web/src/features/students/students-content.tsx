@@ -122,7 +122,7 @@ export function StudentsContent({ initialSearch = "" }: { initialSearch?: string
                   setPage(1);
                 }}
                 placeholder="ابحث بالاسم، كود الطالب، أو رقم الهاتف..."
-                className="min-w-0 flex-1 bg-transparent text-[11px] text-ink outline-none"
+                className="min-w-0 flex-1 bg-transparent text-[13px] text-ink outline-none"
               />
             </label>
             <div className="thin-scrollbar flex gap-2 overflow-x-auto pb-1">
@@ -134,7 +134,7 @@ export function StudentsContent({ initialSearch = "" }: { initialSearch?: string
                     setStatus(value);
                     setPage(1);
                   }}
-                  className={`shrink-0 rounded-full px-3 py-2 text-[9px] font-semibold transition ${
+                  className={`shrink-0 rounded-full px-3 py-2 text-[12px] font-semibold transition ${
                     status === value
                       ? "bg-navy text-white shadow-sm"
                       : "border border-navy/[0.07] bg-white text-slate hover:bg-cloud"
@@ -156,7 +156,7 @@ export function StudentsContent({ initialSearch = "" }: { initialSearch?: string
             <div className="hidden overflow-x-auto md:block">
               <table className="w-full min-w-[980px] border-collapse">
                 <thead>
-                  <tr className="bg-cloud/55 text-right text-[9px] font-semibold text-slate">
+                  <tr className="bg-cloud/55 text-right text-[12px] font-semibold text-slate">
                     <th className="px-5 py-3.5">الطالب</th>
                     <th className="px-4 py-3.5">الحالة</th>
                     <th className="px-4 py-3.5">الجروب الحالي</th>
@@ -191,14 +191,14 @@ export function StudentsContent({ initialSearch = "" }: { initialSearch?: string
             <div>
               <GraduationCap className="mx-auto text-teal" size={30} />
               <p className="mt-3 text-xs font-semibold text-navy">لا توجد نتائج مطابقة</p>
-              <p className="mt-1 text-[9px] text-slate">غيّر عبارة البحث أو حالة الطالب.</p>
+              <p className="mt-1 text-[12px] text-slate">غيّر عبارة البحث أو حالة الطالب.</p>
             </div>
           </div>
         )}
 
         {query.data?.meta && query.data.meta.last_page > 1 ? (
           <div className="flex items-center justify-between border-t border-navy/[0.055] px-5 py-4">
-            <p className="text-[9px] text-slate">
+            <p className="text-[12px] text-slate">
               عرض {query.data.meta.from}–{query.data.meta.to} من {query.data.meta.total}
             </p>
             <div className="flex gap-2">
@@ -251,10 +251,10 @@ function StudentRow({
         <button type="button" onClick={onSelect} className="flex items-center gap-3 text-right">
           <Avatar name={student.full_name} />
           <div className="min-w-0">
-            <p className="max-w-48 truncate text-[11px] font-semibold text-ink">
+            <p className="max-w-48 truncate text-[13px] font-semibold text-ink">
               {student.full_name}
             </p>
-            <p className="mt-1 font-mono text-[9px] text-slate">{student.student_code}</p>
+            <p className="mt-1 font-mono text-[12px] text-slate">{student.student_code}</p>
           </div>
         </button>
       </td>
@@ -264,13 +264,13 @@ function StudentRow({
           label={studentStatusLabels[student.status] ?? student.status}
         />
       </td>
-      <td className="px-4 py-4 text-[10px] font-medium text-ink">
+      <td className="px-4 py-4 text-[12px] font-medium text-ink">
         {enrollment?.cohort?.name ?? "غير مسجل"}
       </td>
-      <td className="px-4 py-4 text-[9px] text-slate">
+      <td className="px-4 py-4 text-[12px] text-slate">
         {enrollment?.cohort?.level?.name_ar ?? "—"}
       </td>
-      <td className="px-4 py-4 text-[9px] text-slate">{formatDate(student.joined_on)}</td>
+      <td className="px-4 py-4 text-[12px] text-slate">{formatDate(student.joined_on)}</td>
       <td className="px-5 py-4 text-left">
         <Button variant="ghost" size="sm" onClick={onSelect}>
           عرض الملف
@@ -291,8 +291,8 @@ function StudentCard({ student, onSelect }: { student: Student; onSelect: () => 
         <div className="min-w-0 flex-1">
           <div className="flex items-start justify-between gap-3">
             <div>
-              <p className="truncate text-[11px] font-semibold text-ink">{student.full_name}</p>
-              <p className="mt-1 font-mono text-[9px] text-slate">{student.student_code}</p>
+              <p className="truncate text-[13px] font-semibold text-ink">{student.full_name}</p>
+              <p className="mt-1 font-mono text-[12px] text-slate">{student.student_code}</p>
             </div>
             <StatusBadge
               value={student.status}
@@ -301,14 +301,14 @@ function StudentCard({ student, onSelect }: { student: Student; onSelect: () => 
           </div>
           <div className="mt-3 grid grid-cols-2 gap-2 rounded-xl bg-cloud/80 p-3">
             <div>
-              <p className="text-[8px] text-slate">الجروب</p>
-              <p className="mt-1 truncate text-[9px] font-medium text-navy">
+              <p className="text-[11px] text-slate">الجروب</p>
+              <p className="mt-1 truncate text-[12px] font-medium text-navy">
                 {enrollment?.cohort?.name ?? "غير مسجل"}
               </p>
             </div>
             <div>
-              <p className="text-[8px] text-slate">المستوى</p>
-              <p className="mt-1 truncate text-[9px] font-medium text-navy">
+              <p className="text-[11px] text-slate">المستوى</p>
+              <p className="mt-1 truncate text-[12px] font-medium text-navy">
                 {enrollment?.cohort?.level?.name_ar ?? "—"}
               </p>
             </div>
@@ -358,7 +358,7 @@ function StudentProfile({
                 <Dialog.Title className="truncate text-lg font-bold text-navy">
                   {profile.full_name}
                 </Dialog.Title>
-                <Dialog.Description className="mt-1 font-mono text-[10px] text-slate">
+                <Dialog.Description className="mt-1 font-mono text-[12px] text-slate">
                   {profile.student_code}
                 </Dialog.Description>
               </div>
@@ -371,7 +371,7 @@ function StudentProfile({
           </div>
 
           <div className="mt-6 flex items-center justify-between rounded-2xl bg-cloud p-4">
-            <span className="text-[10px] font-medium text-slate">حالة الطالب</span>
+            <span className="text-[12px] font-medium text-slate">حالة الطالب</span>
             <StatusBadge
               value={profile.status}
               label={studentStatusLabels[profile.status] ?? profile.status}
@@ -394,7 +394,7 @@ function StudentProfile({
           <section className="mt-5 overflow-hidden rounded-2xl bg-navy p-5 text-white">
             <div className="flex items-start justify-between">
               <div>
-                <p className="text-[9px] text-white/50">التسجيل الحالي</p>
+                <p className="text-[12px] text-white/50">التسجيل الحالي</p>
                 <h2 className="mt-1 text-sm font-bold">
                   {enrollment?.cohort?.name ?? "لا يوجد تسجيل نشط"}
                 </h2>
@@ -418,7 +418,7 @@ function StudentProfile({
                   />
                 </div>
                 <div className="mt-4 flex items-center justify-between rounded-xl bg-white/[0.07] p-3">
-                  <span className="text-[9px] text-white/55">صافي الرسوم</span>
+                  <span className="text-[12px] text-white/55">صافي الرسوم</span>
                   <span className="text-xs font-bold text-sun">
                     {formatCurrency(enrollment.net_amount)}
                   </span>
@@ -452,11 +452,11 @@ function StudentProfile({
               </div>
               <div className="mt-4 grid grid-cols-2 gap-3">
                 <div className="rounded-xl bg-cloud p-3">
-                  <p className="text-[8px] text-slate">الحصص المسجلة</p>
+                  <p className="text-[11px] text-slate">الحصص المسجلة</p>
                   <p className="mt-1 text-sm font-bold text-navy">{attendance.records}</p>
                 </div>
                 <div className="rounded-xl bg-rose-50 p-3">
-                  <p className="text-[8px] text-rose-600">مرات الغياب</p>
+                  <p className="text-[11px] text-rose-600">مرات الغياب</p>
                   <p className="mt-1 text-sm font-bold text-rose-700">{attendance.absences}</p>
                 </div>
               </div>
@@ -470,7 +470,7 @@ function StudentProfile({
                   <TrendingUp size={16} className="text-teal" />
                   سجل التقدم والتقييمات
                 </h2>
-                <span className="rounded-full bg-cloud px-2.5 py-1 text-[9px] font-bold text-navy">
+                <span className="rounded-full bg-cloud px-2.5 py-1 text-[12px] font-bold text-navy">
                   {progress.length}
                 </span>
               </div>
@@ -483,10 +483,10 @@ function StudentProfile({
                     >
                       <div className="flex items-start justify-between gap-3">
                         <div className="min-w-0">
-                          <p className="truncate text-[10px] font-bold text-navy">
+                          <p className="truncate text-[12px] font-bold text-navy">
                             {entry.title}
                           </p>
-                          <p className="mt-1 text-[8px] text-slate">
+                          <p className="mt-1 text-[11px] text-slate">
                             {formatDate(entry.occurred_on)}
                             {entry.evaluator ? ` · ${entry.evaluator.name}` : ""}
                           </p>
@@ -497,10 +497,10 @@ function StudentProfile({
                         />
                       </div>
                       {entry.feedback ? (
-                        <p className="mt-3 text-[9px] leading-5 text-slate">{entry.feedback}</p>
+                        <p className="mt-3 text-[12px] leading-5 text-slate">{entry.feedback}</p>
                       ) : null}
                       {entry.score ? (
-                        <span className="mt-3 inline-flex rounded-lg bg-white px-2 py-1 font-mono text-[9px] font-bold text-teal">
+                        <span className="mt-3 inline-flex rounded-lg bg-white px-2 py-1 font-mono text-[12px] font-bold text-teal">
                           {Number(entry.score)} / 100
                         </span>
                       ) : null}
@@ -509,8 +509,8 @@ function StudentProfile({
                 </div>
               ) : (
                 <div className="mt-4 rounded-xl bg-cloud p-5 text-center">
-                  <p className="text-[10px] font-semibold text-navy">لا توجد تقييمات بعد</p>
-                  <p className="mt-1 text-[8px] text-slate">
+                  <p className="text-[12px] font-semibold text-navy">لا توجد تقييمات بعد</p>
+                  <p className="mt-1 text-[11px] text-slate">
                     يمكن إضافة التقييم من لوحة الجروب.
                   </p>
                 </div>
@@ -563,7 +563,7 @@ function StudentMetric({
       </div>
       <div>
         <p className="text-xl font-bold text-navy">{value}</p>
-        <p className="mt-1 text-[9px] text-slate">{label}</p>
+        <p className="mt-1 text-[12px] text-slate">{label}</p>
       </div>
     </article>
   );
@@ -571,7 +571,7 @@ function StudentMetric({
 
 function Avatar({ name }: { name: string }) {
   return (
-    <div className="grid size-10 shrink-0 place-items-center rounded-xl bg-mist text-[11px] font-bold text-navy">
+    <div className="grid size-10 shrink-0 place-items-center rounded-xl bg-mist text-[13px] font-bold text-navy">
       {name.charAt(0)}
     </div>
   );
@@ -590,10 +590,10 @@ function ProfileItem({
 }) {
   return (
     <div>
-      <dt className={`text-[8px] ${light ? "text-white/45" : "text-slate"}`}>{label}</dt>
+      <dt className={`text-[11px] ${light ? "text-white/45" : "text-slate"}`}>{label}</dt>
       <dd
         dir={dir}
-        className={`mt-1 truncate text-[10px] font-medium ${
+        className={`mt-1 truncate text-[12px] font-medium ${
           light ? "text-white" : "text-ink"
         } ${dir === "ltr" ? "text-right" : ""}`}
       >

@@ -159,9 +159,9 @@ export function SubscriptionsContent() {
         <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
           <div>
             <h2 className="text-sm font-bold text-navy">الباقات المتاحة</h2>
-            <p className="mt-1 text-[9px] text-slate">السعر والمدة وعدد الحصص وخطة التقسيط الافتراضية</p>
+            <p className="mt-1 text-[12px] text-slate">السعر والمدة وعدد الحصص وخطة التقسيط الافتراضية</p>
           </div>
-          <span className="rounded-full bg-cloud px-3 py-1.5 text-[9px] font-semibold text-slate">
+          <span className="rounded-full bg-cloud px-3 py-1.5 text-[12px] font-semibold text-slate">
             {data?.packages.length ?? 0} باقات
           </span>
         </div>
@@ -176,7 +176,7 @@ export function SubscriptionsContent() {
         <div className="flex flex-col gap-4 border-b border-navy/[0.055] p-5 lg:flex-row lg:items-center lg:justify-between">
           <div>
             <h2 className="text-sm font-bold text-navy">اشتراكات الطلاب</h2>
-            <p className="mt-1 text-[9px] text-slate">المتابعة المالية والتشغيلية لكل اشتراك</p>
+            <p className="mt-1 text-[12px] text-slate">المتابعة المالية والتشغيلية لكل اشتراك</p>
           </div>
           <div className="flex flex-col gap-2 sm:flex-row">
             <label className="flex h-10 min-w-0 items-center gap-2 rounded-xl bg-cloud px-3 sm:w-64">
@@ -186,13 +186,13 @@ export function SubscriptionsContent() {
                 value={search}
                 onChange={(event) => setSearch(event.target.value)}
                 placeholder="الطالب، الكود أو الهاتف..."
-                className="min-w-0 flex-1 bg-transparent text-[9px] text-navy outline-none"
+                className="min-w-0 flex-1 bg-transparent text-[12px] text-navy outline-none"
               />
             </label>
             <select
               value={status}
               onChange={(event) => setStatus(event.target.value)}
-              className="h-10 rounded-xl border-0 bg-cloud px-3 text-[9px] font-semibold text-navy outline-none"
+              className="h-10 rounded-xl border-0 bg-cloud px-3 text-[12px] font-semibold text-navy outline-none"
             >
               <option value="">كل الحالات</option>
               <option value="active">نشط</option>
@@ -213,7 +213,7 @@ export function SubscriptionsContent() {
         ) : query.isError ? (
           <div className="p-12 text-center">
             <CircleAlert className="mx-auto text-rose-500" size={28} />
-            <p className="mt-3 text-[10px] font-semibold text-navy">
+            <p className="mt-3 text-[12px] font-semibold text-navy">
               تعذر تحميل الاشتراكات
             </p>
           </div>
@@ -282,11 +282,11 @@ function PackageCard({ studyPackage }: { studyPackage: StudyPackage }) {
     <article className="rounded-2xl border border-navy/[0.065] bg-cloud/45 p-4 transition hover:border-teal/25 hover:bg-white hover:shadow-lg">
       <div className="flex items-start justify-between gap-3">
         <div>
-          <p className="text-[8px] font-semibold text-teal">
+          <p className="text-[11px] font-semibold text-teal">
             {studyPackage.program.name_ar} · {studyPackage.level?.name_ar ?? "كل المستويات"}
           </p>
-          <h3 className="mt-2 text-[11px] font-bold text-navy">{studyPackage.name}</h3>
-          <p className="mt-1 font-mono text-[8px] text-slate">{studyPackage.code}</p>
+          <h3 className="mt-2 text-[13px] font-bold text-navy">{studyPackage.name}</h3>
+          <p className="mt-1 font-mono text-[11px] text-slate">{studyPackage.code}</p>
         </div>
         <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-white text-teal">
           <Layers3 size={17} />
@@ -299,22 +299,22 @@ function PackageCard({ studyPackage }: { studyPackage: StudyPackage }) {
       </div>
       <div className="mt-4 flex items-end justify-between">
         <div>
-          <p className="text-[8px] text-slate">سعر الإطلاق</p>
+          <p className="text-[11px] text-slate">سعر الإطلاق</p>
           <p className="mt-1 text-base font-bold text-navy">
             {formatCurrency(studyPackage.price)}
           </p>
           {studyPackage.standard_price ? (
-            <p className="mt-1 text-[8px] text-slate line-through">
+            <p className="mt-1 text-[11px] text-slate line-through">
               الأساسي {formatCurrency(studyPackage.standard_price)}
             </p>
           ) : null}
         </div>
         <div className="text-left">
-          <p className="text-[8px] text-slate">الدفع الكامل</p>
-          <p className="mt-1 text-[10px] font-bold text-emerald-700">
+          <p className="text-[11px] text-slate">الدفع الكامل</p>
+          <p className="mt-1 text-[12px] font-bold text-emerald-700">
             {formatCurrency(studyPackage.full_payment_price)}
           </p>
-          <p className="mt-1 text-[8px] text-slate">{studyPackage.subscriptions_count} اشتراكات</p>
+          <p className="mt-1 text-[11px] text-slate">{studyPackage.subscriptions_count} اشتراكات</p>
         </div>
       </div>
     </article>
@@ -351,7 +351,7 @@ function SubscriptionRow({
           </span>
           <div className="min-w-0">
             <div className="flex flex-wrap items-center gap-2">
-              <p className="truncate text-[11px] font-bold text-navy">
+              <p className="truncate text-[13px] font-bold text-navy">
                 {subscription.student.full_name}
               </p>
               <StatusBadge
@@ -359,21 +359,21 @@ function SubscriptionRow({
                 label={statusLabels[subscription.status] ?? subscription.status}
               />
             </div>
-            <p className="mt-1 text-[8px] text-slate">
+            <p className="mt-1 text-[11px] text-slate">
               {subscription.student.student_code} · {subscription.enrollment?.cohort?.name}
             </p>
-            <p className="mt-2 text-[9px] font-semibold text-teal">
+            <p className="mt-2 text-[12px] font-semibold text-teal">
               {subscription.package.name}
             </p>
           </div>
         </div>
 
         <div>
-          <p className="text-[8px] text-slate">الفترة</p>
-          <p className="mt-1 text-[9px] font-semibold text-navy">
+          <p className="text-[11px] text-slate">الفترة</p>
+          <p className="mt-1 text-[12px] font-semibold text-navy">
             {formatDate(subscription.starts_on)} — {formatDate(subscription.ends_on)}
           </p>
-          <p className="mt-2 text-[8px] text-slate">
+          <p className="mt-2 text-[11px] text-slate">
             {subscription.status === "frozen"
               ? `مجمّد حتى ${formatDate(subscription.frozen_until)}`
               : `${subscription.days_remaining} يوم متبقي`}
@@ -382,8 +382,8 @@ function SubscriptionRow({
 
         <div>
           <div className="flex items-center justify-between">
-            <p className="text-[8px] text-slate">التحصيل</p>
-            <p className="text-[9px] font-bold text-navy">{paidPercent}%</p>
+            <p className="text-[11px] text-slate">التحصيل</p>
+            <p className="text-[12px] font-bold text-navy">{paidPercent}%</p>
           </div>
           <div className="mt-2 h-2 overflow-hidden rounded-full bg-cloud">
             <div
@@ -391,7 +391,7 @@ function SubscriptionRow({
               style={{ width: `${paidPercent}%` }}
             />
           </div>
-          <p className="mt-2 text-[8px] text-slate">
+          <p className="mt-2 text-[11px] text-slate">
             {formatCurrency(subscription.paid_amount)} من{" "}
             {formatCurrency(subscription.net_amount)}
           </p>
@@ -399,7 +399,7 @@ function SubscriptionRow({
             {subscription.installments.map((installment) => (
               <span
                 key={installment.id}
-                className={`rounded-md px-2 py-1 text-[7px] font-semibold ${
+                className={`rounded-md px-2 py-1 text-[11px] font-semibold ${
                   installment.status === "paid"
                     ? "bg-emerald-50 text-emerald-700"
                     : installment.status === "overdue"
@@ -631,7 +631,7 @@ function NewSubscriptionDialog({
           </Field>
         </div>
         {selectedPackage && paymentPlan !== "custom" ? (
-          <div className="rounded-2xl border border-teal/15 bg-mist/55 p-4 text-[10px] leading-6 text-navy">
+          <div className="rounded-2xl border border-teal/15 bg-mist/55 p-4 text-[12px] leading-6 text-navy">
             {paymentPlan === "full" ? (
               <>
                 سيُنشأ قسط واحد بقيمة{" "}
@@ -814,7 +814,7 @@ function RenewDialog({
           </Field>
         </div>
         {selectedPackage && paymentPlan !== "custom" ? (
-          <div className="rounded-2xl border border-teal/15 bg-mist/55 p-4 text-[10px] leading-6 text-navy">
+          <div className="rounded-2xl border border-teal/15 bg-mist/55 p-4 text-[12px] leading-6 text-navy">
             {paymentPlan === "full" ? (
               <>
                 سيُنشأ قسط واحد بقيمة{" "}
@@ -1123,7 +1123,7 @@ function FormDialog({
           <div className="flex items-start justify-between gap-4">
             <div>
               <Dialog.Title className="text-lg font-bold text-navy">{title}</Dialog.Title>
-              <Dialog.Description className="mt-1 text-[9px] leading-5 text-slate">
+              <Dialog.Description className="mt-1 text-[12px] leading-5 text-slate">
                 {description}
               </Dialog.Description>
             </div>
@@ -1169,7 +1169,7 @@ function DialogActions({
 function Field({ label, children }: { label: string; children: ReactNode }) {
   return (
     <label className="block">
-      <span className="mb-2 block text-[9px] font-semibold text-navy">{label}</span>
+      <span className="mb-2 block text-[12px] font-semibold text-navy">{label}</span>
       {children}
     </label>
   );
@@ -1177,7 +1177,7 @@ function Field({ label, children }: { label: string; children: ReactNode }) {
 
 function DialogError({ value }: { value: string | null }) {
   return value ? (
-    <div className="rounded-xl border border-rose-200 bg-rose-50 p-3 text-[9px] text-rose-700">
+    <div className="rounded-xl border border-rose-200 bg-rose-50 p-3 text-[12px] text-rose-700">
       {value}
     </div>
   ) : null;
@@ -1208,8 +1208,8 @@ function SubscriptionMetric({
         <Icon size={17} />
       </span>
       <p className="mt-4 text-lg font-bold text-navy">{value}</p>
-      <p className="mt-1 text-[9px] font-semibold text-slate">{label}</p>
-      <p className="mt-1 text-[8px] text-slate/70">{hint}</p>
+      <p className="mt-1 text-[12px] font-semibold text-slate">{label}</p>
+      <p className="mt-1 text-[11px] text-slate/70">{hint}</p>
     </article>
   );
 }
@@ -1217,8 +1217,8 @@ function SubscriptionMetric({
 function PackageStat({ label, value }: { label: string; value: string | number }) {
   return (
     <div className="rounded-xl bg-white p-2.5 text-center">
-      <p className="text-[9px] font-bold text-navy">{value}</p>
-      <p className="mt-1 text-[7px] text-slate">{label}</p>
+      <p className="text-[12px] font-bold text-navy">{value}</p>
+      <p className="mt-1 text-[11px] text-slate">{label}</p>
     </div>
   );
 }

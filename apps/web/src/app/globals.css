@@ -28,6 +28,8 @@
   --color-mist: var(--edustep-mist);
   --color-cloud: var(--edustep-cloud);
   --font-sans: var(--font-tajawal);
+  --text-xs: 0.8125rem;
+  --text-xs--line-height: 1.25rem;
 }
 
 * {
@@ -81,7 +83,8 @@ textarea {
   background: var(--edustep-cloud);
   padding: 0.75rem 0.875rem;
   color: var(--edustep-ink);
-  font-size: 0.625rem;
+  font-size: 0.8125rem;
+  line-height: 1.25rem;
   outline: none;
   transition:
     border-color 160ms ease,

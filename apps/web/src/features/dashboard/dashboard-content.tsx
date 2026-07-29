@@ -116,7 +116,7 @@ export function DashboardContent() {
             >
               <div className="flex items-start justify-between gap-4">
                 <div>
-                  <p className="text-[11px] font-medium text-slate">{metric.label}</p>
+                  <p className="text-[13px] font-medium text-slate">{metric.label}</p>
                   <p className="mt-2 text-3xl font-bold tracking-tight text-navy">
                     {value}
                   </p>
@@ -126,13 +126,13 @@ export function DashboardContent() {
                 </div>
               </div>
               <div className="mt-5 flex items-center justify-between border-t border-navy/[0.055] pt-3">
-                <span className="text-[9px] text-slate">{metric.hint}</span>
+                <span className="text-[12px] text-slate">{metric.hint}</span>
                 {metric.key === "pending_follow_ups" ? (
-                  <span className="rounded-full bg-rose-50 px-2 py-1 text-[8px] font-bold text-rose-600">
+                  <span className="rounded-full bg-rose-50 px-2 py-1 text-[11px] font-bold text-rose-600">
                     {dashboard.metrics.overdue_follow_ups} متأخرة
                   </span>
                 ) : metric.key === "open_leads" ? (
-                  <span className="rounded-full bg-teal/10 px-2 py-1 text-[8px] font-bold text-navy">
+                  <span className="rounded-full bg-teal/10 px-2 py-1 text-[11px] font-bold text-navy">
                     {dashboard.metrics.new_leads} جديدة
                   </span>
                 ) : null}
@@ -147,11 +147,11 @@ export function DashboardContent() {
           <div className="flex items-center justify-between border-b border-navy/[0.055] px-5 py-4">
             <div>
               <h2 className="text-sm font-bold text-navy">متابعات تحتاج إجراء</h2>
-              <p className="mt-1 text-[9px] text-slate">مرتبة حسب الموعد والأولوية</p>
+              <p className="mt-1 text-[12px] text-slate">مرتبة حسب الموعد والأولوية</p>
             </div>
             <Link
               href="/leads?overdue=1"
-              className="flex items-center gap-1 text-[9px] font-semibold text-teal"
+              className="flex items-center gap-1 text-[12px] font-semibold text-teal"
             >
               عرض CRM
               <ArrowLeft size={13} />
@@ -167,21 +167,21 @@ export function DashboardContent() {
                   className="grid gap-3 px-5 py-4 transition hover:bg-cloud/75 sm:grid-cols-[minmax(0,1fr)_130px_100px] sm:items-center"
                 >
                   <div className="min-w-0">
-                    <p className="truncate text-[11px] font-semibold text-ink">
+                    <p className="truncate text-[13px] font-semibold text-ink">
                       {followUp.lead?.full_name}
                     </p>
-                    <p className="mt-1 truncate text-[9px] text-slate">
+                    <p className="mt-1 truncate text-[12px] text-slate">
                       {followUp.subject}
                     </p>
                   </div>
                   <p
-                    className={`text-[9px] font-medium ${
+                    className={`text-[12px] font-medium ${
                       followUp.is_overdue ? "text-rose-600" : "text-slate"
                     }`}
                   >
                     {relativeTime(followUp.due_at)}
                   </p>
-                  <span className="text-left text-[9px] text-slate">
+                  <span className="text-left text-[12px] text-slate">
                     {followUp.assignee?.name ?? "غير معيّن"}
                   </span>
                 </Link>
@@ -203,7 +203,7 @@ export function DashboardContent() {
           <div className="flex items-start justify-between">
             <div>
               <h2 className="text-sm font-bold text-navy">مسار التحويل</h2>
-              <p className="mt-1 text-[9px] text-slate">توزيع العملاء على المراحل</p>
+              <p className="mt-1 text-[12px] text-slate">توزيع العملاء على المراحل</p>
             </div>
             <div className="grid size-9 place-items-center rounded-xl bg-mist text-teal">
               <TrendingUp size={18} />
@@ -214,8 +214,8 @@ export function DashboardContent() {
             {dashboard.funnel.map((stage) => (
               <div key={stage.status}>
                 <div className="mb-1.5 flex items-center justify-between">
-                  <span className="text-[9px] font-medium text-slate">{stage.label}</span>
-                  <span className="text-[10px] font-bold text-navy">{stage.count}</span>
+                  <span className="text-[12px] font-medium text-slate">{stage.label}</span>
+                  <span className="text-[12px] font-bold text-navy">{stage.count}</span>
                 </div>
                 <div className="h-2 overflow-hidden rounded-full bg-cloud">
                   <div
@@ -228,7 +228,7 @@ export function DashboardContent() {
           </div>
 
           <div className="mt-6 rounded-xl bg-navy p-4 text-white">
-            <p className="text-[9px] text-white/55">نسبة التحويل الكلية</p>
+            <p className="text-[12px] text-white/55">نسبة التحويل الكلية</p>
             <div className="mt-1 flex items-end justify-between">
               <p className="text-2xl font-bold">{dashboard.metrics.conversion_rate}%</p>
               <Sparkles className="text-sun" size={19} />
@@ -242,9 +242,9 @@ export function DashboardContent() {
           <div className="mb-4 flex items-center justify-between">
             <div>
               <h2 className="text-sm font-bold text-navy">أحدث العملاء</h2>
-              <p className="mt-1 text-[9px] text-slate">آخر فرص دخلت للنظام</p>
+              <p className="mt-1 text-[12px] text-slate">آخر فرص دخلت للنظام</p>
             </div>
-            <Link href="/leads" className="text-[9px] font-semibold text-teal">
+            <Link href="/leads" className="text-[12px] font-semibold text-teal">
               عرض الكل
             </Link>
           </div>
@@ -255,14 +255,14 @@ export function DashboardContent() {
                 href={`/leads/${lead.id}`}
                 className="flex items-center gap-3 rounded-xl border border-navy/[0.05] px-3 py-3 transition hover:border-teal/20 hover:bg-cloud/60"
               >
-                <div className="grid size-9 shrink-0 place-items-center rounded-xl bg-mist text-[10px] font-bold text-navy">
+                <div className="grid size-9 shrink-0 place-items-center rounded-xl bg-mist text-[12px] font-bold text-navy">
                   {lead.full_name.charAt(0)}
                 </div>
                 <div className="min-w-0 flex-1">
-                  <p className="truncate text-[10px] font-semibold text-ink">
+                  <p className="truncate text-[12px] font-semibold text-ink">
                     {lead.full_name}
                   </p>
-                  <p className="mt-1 truncate text-[8px] text-slate">
+                  <p className="mt-1 truncate text-[11px] text-slate">
                     {lead.program?.name_ar ?? "البرنامج غير محدد"} · {lead.source.label}
                   </p>
                 </div>
@@ -276,9 +276,9 @@ export function DashboardContent() {
           <div className="mb-4 flex items-center justify-between">
             <div>
               <h2 className="text-sm font-bold text-navy">الجروبات الحالية</h2>
-              <p className="mt-1 text-[9px] text-slate">السعة والبداية والمعلم</p>
+              <p className="mt-1 text-[12px] text-slate">السعة والبداية والمعلم</p>
             </div>
-            <Link href="/groups" className="text-[9px] font-semibold text-teal">
+            <Link href="/groups" className="text-[12px] font-semibold text-teal">
               إدارة الجروبات
             </Link>
           </div>
@@ -293,12 +293,12 @@ export function DashboardContent() {
                   <CalendarDays size={17} />
                 </div>
                 <div className="min-w-0 flex-1">
-                  <p className="truncate text-[10px] font-semibold text-ink">{cohort.name}</p>
-                  <p className="mt-1 truncate text-[8px] text-slate">
+                  <p className="truncate text-[12px] font-semibold text-ink">{cohort.name}</p>
+                  <p className="mt-1 truncate text-[11px] text-slate">
                     {cohort.teacher?.name ?? "لم يُعيّن معلم"} · يبدأ {formatDate(cohort.starts_on)}
                   </p>
                 </div>
-                <span className="text-[9px] font-bold text-navy">
+                <span className="text-[12px] font-bold text-navy">
                   {cohort.enrolled_count}/{cohort.capacity}
                 </span>
               </Link>
