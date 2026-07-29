@@ -1,18 +1,12 @@
 import type { Metadata } from "next";
-import { Alexandria, Almarai } from "next/font/google";
+import { Tajawal } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
 
-const alexandria = Alexandria({
-  variable: "--font-alexandria",
+const tajawal = Tajawal({
+  variable: "--font-tajawal",
   subsets: ["arabic", "latin"],
-  display: "swap",
-});
-
-const almarai = Almarai({
-  variable: "--font-almarai",
-  subsets: ["arabic"],
-  weight: ["300", "400", "700", "800"],
+  weight: ["400", "500", "700", "800", "900"],
   display: "swap",
 });
 
@@ -33,7 +27,7 @@ export default function RootLayout({
     <html
       lang="ar"
       dir="rtl"
-      className={`${alexandria.variable} ${almarai.variable} h-full antialiased`}
+      className={`${tajawal.variable} h-full antialiased`}
     >
       <body className="min-h-full">
         <Providers>{children}</Providers>

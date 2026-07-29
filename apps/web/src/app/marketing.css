@@ -24,7 +24,7 @@
   overflow-x: hidden;
   background: var(--white);
   color: var(--ink);
-  font-family: var(--font-almarai), "Almarai", Tahoma, sans-serif;
+  font-family: var(--font-tajawal), Tahoma, sans-serif;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
 }

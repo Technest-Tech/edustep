@@ -27,7 +27,7 @@
   --color-slate: var(--edustep-slate);
   --color-mist: var(--edustep-mist);
   --color-cloud: var(--edustep-cloud);
-  --font-sans: var(--font-alexandria);
+  --font-sans: var(--font-tajawal);
 }
 
 * {
@@ -42,7 +42,7 @@ body {
   min-width: 320px;
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-alexandria), "Cairo", Tahoma, sans-serif;
+  font-family: var(--font-tajawal), Tahoma, sans-serif;
 }
 
 button,
